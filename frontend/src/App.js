@@ -7,6 +7,8 @@ import userJob from './users/users_job';
 // import userAcess from './users/users_access';
 // import userProduct from './users/users_products_buyed';
 
+import ModalCar from './components/ModalCar';
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +61,7 @@ export default class App extends Component {
               <td>{ userJobAddress }</td>
 
               <td>
-                <button style={{ cursor: 'pointer' }}>
+                <button style={{ cursor: 'pointer', padding: '3px 5px 3px 5px' }}>
                   ^
                 </button>
               </td>
@@ -76,13 +78,15 @@ export default class App extends Component {
     return(
       <div>
 
-        <table style={{ width: '100%', textAlign: 'center'}}>
+        <ModalCar />
+
+        <table style={{ width: '100%', textAlign: 'center', position: 'relative'}}>
 
           <thead style={{ backgroundColor: '#1a6b96db', color: '#fff' }}>
             
             <tr>
 
-              <td>
+              <td style={{ padding: '10px' }}>
                 <h1>Nome</h1>
               </td>
 
@@ -115,7 +119,7 @@ export default class App extends Component {
           </thead>
 
           { this.renderRows() }
-
+          
         </table>
 
       </div>
