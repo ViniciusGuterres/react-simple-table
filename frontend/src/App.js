@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import userData from './users/users';
-// import userCar from './users/users_cars';
+import userCar from './users/users_cars';
 import userJob from './users/users_job';
 // import userAdress from './users/users_address';
 // import userAcess from './users/users_access';
@@ -19,6 +19,10 @@ export default class App extends Component {
       if (userJob[userId]) {
         user.currentJob = userJob[userId];
       };
+
+      if (userCar[userId]) {
+        user.currentCar = userCar[userId]
+      }
 
       return user;
     });
@@ -61,7 +65,9 @@ export default class App extends Component {
               <td>{ userJobAddress }</td>
 
               <td>
-                <button style={{ cursor: 'pointer', padding: '3px 5px 3px 5px' }}>
+                <button style={{ cursor: 'pointer', padding: '3px 5px 3px 5px' }}
+                  onClick={ this.showModalCar() }
+                >
                   ^
                 </button>
               </td>
@@ -74,11 +80,15 @@ export default class App extends Component {
     );
   };
 
+  showModalCar() {
+    
+  };
+
   render() {
     return(
       <div>
 
-        <ModalCar />
+        { console.log(userData) }
 
         <table style={{ width: '100%', textAlign: 'center', position: 'relative'}}>
 
