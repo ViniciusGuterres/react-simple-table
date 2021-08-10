@@ -14,20 +14,18 @@ export default function ModalCar(props) {
         <div style={ styles.overlay }>
 
             <div style={ styles.card }>
-
                 <h1 style={ styles.title } >Carro: { userCars.car_name }</h1>
                 <p>Modelo: { userCars.car_model }</p>
                 <p>Marca: { userCars.car_manufacturer }</p>
                 <p>Gasolina: { userCars.car_fuel }</p>
                 <p>Tipo: { userCars.car_type }</p>
-
                 <button style={ styles.exit }>X</button>
 
             </div>
 
         </div>
 
-    )
+    );
 };
 
 const styles = {
@@ -71,7 +69,4 @@ const styles = {
         border: 'none',
         color: '#fff'   
     },
-    
-
-
 };

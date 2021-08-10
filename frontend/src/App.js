@@ -3,16 +3,17 @@ import React, { Component } from 'react';
 import userData from './users/users';
 import userCar from './users/users_cars';
 import userJob from './users/users_job';
-// import userAdress from './users/users_address';
-// import userAcess from './users/users_access';
-// import userProduct from './users/users_products_buyed';
+import userAddress from './users/users_address';
+import userAccess from './users/users_access';
+import userProduct from './users/users_products_buyed';
 
-import ModalCar from './components/ModalCar';
+// import ModalCar from './components/ModalCar';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
+    // appending the others user data to the userList object
     this.userList = userData.map(user => {
       const userId = user.user_id;
 
@@ -21,8 +22,20 @@ export default class App extends Component {
       };
 
       if (userCar[userId]) {
-        user.currentCar = userCar[userId]
-      }
+        user.currentCar = userCar[userId];
+      };
+
+      if (userAddress[userId]) {
+        user.currentaddress = userAddress[userId];
+      };
+
+      if (userAccess[userId]) {
+        user.currentAccess = userAccess[userId];
+      };
+
+      if (userProduct[userId]) {
+        user.currentProduct = userProduct[userId];
+      };  
 
       return user;
     });
@@ -34,41 +47,41 @@ export default class App extends Component {
   };
 
   renderRows() {
-    return(
+    return (
       userData.map((user, index) => {
         const userName = user.user_first_name ? user.user_first_name : '';
         const userBirth = user.user_birth_date ? user.user_birth_date : '';
         const userGender = user.user_gender ? user.user_gender : '';
         const userJobTitle = user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '';
         const userJobSalary = user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
-        const userJobAddress = user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : ''; 
+        const userJobAddress = user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '';
         const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
 
         // toggle table rows background color
         const toggleRowsColor = (index % 2) ? '#ccc' : '';
-        
-        return(
-          <tbody key={ index }>
+
+        return (
+          <tbody key={index}>
 
             <tr style={{ backgroundColor: toggleRowsColor }}>
 
-              <td>{ userName }</td>
+              <td>{userName}</td>
 
-              <td>{ userBirth }</td>
+              <td>{userBirth}</td>
 
-              <td>{ userGender }</td>
+              <td>{userGender}</td>
 
-              <td>{ userJobTitle }</td>
+              <td>{userJobTitle}</td>
 
-              <td>{ `${userSalarySymbol}: ${userJobSalary.replace('.', ',')}` }</td>
+              <td>{`${userSalarySymbol}: ${userJobSalary.replace('.', ',')}`}</td>
 
-              <td>{ userJobAddress }</td>
+              <td>{userJobAddress}</td>
 
               <td>
                 <button style={{ cursor: 'pointer', padding: '3px 5px 3px 5px' }}
-                  onClick={ this.showModalCar() }
+                  onClick={this.showModalCar()}
                 >
-                  ^
+                  Visualizar
                 </button>
               </td>
 
@@ -81,19 +94,19 @@ export default class App extends Component {
   };
 
   showModalCar() {
-    
+
   };
 
   render() {
-    return(
+    return (
       <div>
 
-        { console.log(userData) }
+        {console.log(this.userList)}
 
-        <table style={{ width: '100%', textAlign: 'center', position: 'relative'}}>
+        <table style={{ width: '100%', textAlign: 'center', position: 'relative' }}>
 
           <thead style={{ backgroundColor: '#1a6b96db', color: '#fff' }}>
-            
+
             <tr>
 
               <td style={{ padding: '10px' }}>
@@ -123,13 +136,13 @@ export default class App extends Component {
               <td>
                 <h1>Carro</h1>
               </td>
-              
+
             </tr>
 
           </thead>
 
-          { this.renderRows() }
-          
+          {this.renderRows()}
+
         </table>
 
       </div>
