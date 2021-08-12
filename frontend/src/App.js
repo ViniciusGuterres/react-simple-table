@@ -99,7 +99,10 @@ export default class UsersTable extends Component {
                         <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
                         <td>{userJobAddress}</td>
                         <td>
-                            <button onClick={() => this.showCar(carObj)}>
+                            <button onClick={(event) => {
+                                event.stopPropagation();
+                                this.showCar(carObj);
+                            }}>
                                 Visualizar
                             </button>
                         </td>
@@ -207,7 +210,6 @@ export default class UsersTable extends Component {
                         </tr>
 
                     </thead>
-
 
                     <tbody>
 
