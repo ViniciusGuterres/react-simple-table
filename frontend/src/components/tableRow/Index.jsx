@@ -16,12 +16,27 @@ export default function TableRow(props) {
     return (
         <>
             <tr
-                style={{ background: bgToggle, cursor: 'pointer' }}
+                style={{...styles.row, background: bgToggle}}
                 onClick={toggleExtend}
             >
                 {props.children}
             </tr>
-            {isExtended ? <ExtendedRowBody isExtended={isExtended}/> : ''}
+
+            {
+                isExtended ?
+                    <tr>
+                        <td colSpan='100%'>{<ExtendedRowBody isExtended={isExtended} />}</td>
+                    </tr>
+                    :
+                    null
+            }
+
         </>
     );
 };
+
+const styles = {
+    row: {
+        cursor: 'pointer',
+    }
+}

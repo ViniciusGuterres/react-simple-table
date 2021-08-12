@@ -91,7 +91,7 @@ export default class UsersTable extends Component {
                     <TableRow
                         index={index}
                         key={`Row ${index}`}
-                    >
+                    >   
                         <td>{userFirstName}</td>
                         <td>{userBirth}</td>
                         <td>{userGender}</td>
@@ -205,7 +205,6 @@ export default class UsersTable extends Component {
                             </th>
 
                         </tr>
-
 
                     </thead>
 
