@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import CustomInput from '../customInput/Index';
 import CustomButton from '../customButton';
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
+
 export default function ModalCar(props) {
 
     const initialCarObj = {
