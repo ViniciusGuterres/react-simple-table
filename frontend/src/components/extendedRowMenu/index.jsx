@@ -5,18 +5,15 @@ export default function ExtendedRowMenu(props) {
     console.log('renderizando o Menu coponent');
     return (
         <div style={styles.bodyHeader}>
-            {/* {
-                props.titles.map((title, index) => {
-                    return (
-                        <h1 
-                            key={index}
-                            onClick={props.clickTest}
-                        >
-                            {title}
-                        </h1>
+
+            {
+                props.content.map(tit => {
+                    return(
+                        <h1>{tit}</h1>
                     )
                 })
-            } */}
+            }
+
         </div>
     )
 };

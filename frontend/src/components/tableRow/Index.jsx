@@ -29,6 +29,7 @@ export default function TableRow(props) {
                                 <ExtendedRowBody 
                                     isExtended={isExtended}
                                     data={props.data}
+                                    title={props.title}
                                 />
                             }
                         </td>

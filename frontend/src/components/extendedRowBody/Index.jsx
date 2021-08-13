@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import ExtendedRowData from '../extendedRowData';
 import ExtendedRowMenu from '../extendedRowMenu'
 
 export default function ExtendedRowBody(props) {
 
-    console.log(props.data);
+    const usersDataContent = 
+
+    console.log(props.data && props.data[1]);
+
     return (
         <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
             {
                 <ExtendedRowMenu
-                    menus={["Acesso", "dataos", "Emprego"]}
+                    content={
+                        [
+                            
+                                props.title
+                            
+                        ]
+                    }
+            
+                    data={props.data}
                 />
             }
 
             {
-                <ExtendedRowData>
-
-                </ExtendedRowData>
+                // props.data.map(test => {
+                //     return <span>{test[selectMenu]}</span>
+                // })
             }
 
         </div>

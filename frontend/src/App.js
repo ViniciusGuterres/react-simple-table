@@ -61,7 +61,7 @@ export default class UsersTable extends Component {
     renderRows() {
         return (
             this.state.allUsersData.map((user, index) => {
-                
+
                 // maping all users data
                 const userId = user.user_id ? user.user_id : '';
                 const userFirstName = user.user_first_name ? user.user_first_name : '';
@@ -169,6 +169,7 @@ export default class UsersTable extends Component {
                         index={index}
                         key={`Row ${index}`}
                         data={[accessObj, carObj, jobObj, productObj, addressObj, userObj]}
+                        title={["acessos", "anything"]}
                     >
                         <td>{userFirstName}</td>
                         <td>{userBirth}</td>
