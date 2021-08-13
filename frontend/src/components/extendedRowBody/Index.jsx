@@ -5,12 +5,13 @@ import ExtendedRowMenu from '../extendedRowMenu'
 
 export default function ExtendedRowBody(props) {
 
+    console.log(props.data);
     return (
         <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
             {
                 <ExtendedRowMenu
-                    titles={["Acesso", "dataos", "Emprego"]}
+                    menus={["Acesso", "dataos", "Emprego"]}
                 />
             }
 

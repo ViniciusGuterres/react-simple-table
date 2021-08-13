@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 
 export default function ExtendedRowMenu(props) {
 
-    const [isMouseOver, setMouseOver] = useState(false);
-
     console.log('renderizando o Menu coponent');
     return (
         <div style={styles.bodyHeader}>
-            {
-                props.titles.map(title => {
+            {/* {
+                props.titles.map((title, index) => {
                     return (
                         <h1 
-                            onMouseOver={() => setMouseOver(true)}
-                            style={isMouseOver ? styles.bgTes : null}
+                            key={index}
+                            onClick={props.clickTest}
                         >
                             {title}
                         </h1>
                     )
                 })
-            }
+            } */}
         </div>
     )
 };
@@ -34,7 +32,5 @@ const styles = {
         backgroundColor: '#ccc',
     },
 
-    bgTes: {
-        backgroundColor: 'red'
-    }
+
 }

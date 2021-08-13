@@ -11,12 +11,11 @@ export default function TableRow(props) {
 
     // row toggle background logic
     const bgToggle = (props.index % 2) ? 'white' : '#ccc';
-
-    console.log('renderRow');
+    
     return (
         <>
             <tr
-                style={{...styles.row, background: bgToggle}}
+                style={{ cursor: 'pointer', background: bgToggle }}
                 onClick={toggleExtend}
             >
                 {props.children}
@@ -25,18 +24,18 @@ export default function TableRow(props) {
             {
                 isExtended ?
                     <tr>
-                        <td colSpan='100%'>{<ExtendedRowBody isExtended={isExtended} />}</td>
+                        <td colSpan='100%'>
+                            {
+                                <ExtendedRowBody 
+                                    isExtended={isExtended}
+                                    data={props.data}
+                                />
+                            }
+                        </td>
                     </tr>
                     :
                     null
             }
-
         </>
     );
 };
-
-const styles = {
-    row: {
-        cursor: 'pointer',
-    }
-}
