@@ -25,6 +25,7 @@ export default class UsersTable extends Component {
 
             if (jobData[jobId]) {
                 userData.currentJob = jobData[jobId];
+                userData.title = "emprego";
             };
 
             if (carsData[carId]) {
@@ -80,13 +81,6 @@ export default class UsersTable extends Component {
                 const userBrand = user.currentCar && user.currentCar.car_manufacturer ? user.currentCar.car_manufacturer : '';
                 const userFuel = user.currentCar && user.currentCar.car_fuel ? user.currentCar.car_fuel : '';
 
-                const userAccessId = user.currentAccess && user.currentAccess.user_access_id ? user.currentAccess.user_access_id : '';
-                const userBusinessTechnoloy = user.currentAccess && user.currentAccess.user_access_business_technoloy ? user.currentAccess.user_access_business_technoloy : '';
-                const userIpAddress = user.currentAccess && user.currentAccess.user_access_ip_address ? user.currentAccess.user_access_ip_address : '';
-                const userMacAddress = user.currentAccess && user.currentAccess.user_access_mac_address ? user.currentAccess.user_access_mac_address : '';
-                const userAccessAgent = user.currentAccess && user.currentAccess.user_access_user_agent ? user.currentAccess.user_access_user_agent : '';
-                const userAccessLogin = user.currentAccess && user.currentAccess.user_access_login ? user.currentAccess.user_access_login : '';
-
                 const userProductAppliance = user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '';
                 const userProductIndusty = user.currentProduct && user.currentProduct.user_product_buyed_business_industy ? user.currentProduct.user_product_buyed_business_industy : '';
                 const userProductTechnology = user.currentProduct && user.currentProduct.user_product_buyed_business_technology ? user.currentProduct.user_product_buyed_business_technology : '';
@@ -111,8 +105,8 @@ export default class UsersTable extends Component {
                 const userObj = {
                     userFirstName,
                     userBirth,
-                    userGender
-                }
+                    userGender,
+                };
 
                 const addressObj = {
                     userAddressStreet,
@@ -149,12 +143,24 @@ export default class UsersTable extends Component {
                 };
 
                 const accessObj = {
-                    userAccessId,
-                    userBusinessTechnoloy,
-                    userIpAddress,
-                    userMacAddress,
-                    userAccessAgent,
-                    userAccessLogin
+                    userAccessId:
+                        user.currentAccess && user.currentAccess.user_access_id ?
+                            user.currentAccess.user_access_id : '',
+                    userBusinessTechnoloy:
+                        user.currentAccess && user.currentAccess.user_access_business_technoloy ?
+                            user.currentAccess.user_access_business_technoloy : '',
+                    userIpAddress:
+                        user.currentAccess && user.currentAccess.user_access_ip_address ?
+                            user.currentAccess.user_access_ip_address : '',
+                    userMacAddress:
+                        user.currentAccess && user.currentAccess.user_access_mac_address ?
+                            user.currentAccess.user_access_mac_address : '',
+                    userAccessAgent:
+                        user.currentAccess && user.currentAccess.user_access_user_agent ?
+                            user.currentAccess.user_access_user_agent : '',
+                    userAccessLogin:
+                        user.currentAccess && user.currentAccess.user_access_login ?
+                            user.currentAccess.user_access_login : ''
                 };
 
                 const jobObj = {
@@ -164,11 +170,55 @@ export default class UsersTable extends Component {
                     userSalarySymbol
                 };
 
+                // obj content config
+                // config to verify the menu and content
+                const extendedContentConfig = [
+                    {
+                        title: 'emprego',
+
+                        fieldsNames: [
+                            {
+                                label: 'Emprego',
+                                key: 'job'
+                            },
+                            {
+                                label: 'Endereço',
+                                key: 'address'
+                            },
+                            {
+                                label: 'Salário',
+                                key: 'salary'
+                            }
+                        ],
+
+                        fieldsValues : [
+                            {
+                                value: 'emprego Test',
+                                key: 'job'
+                            },
+                            {
+                                value: 'Emprego Ende',
+                                key: 'address'
+                            },
+                            {
+                                value: 'Emprego salário',
+                                key: 'salary'
+                            }
+                        ]
+                    },
+                    { title: 'usuário' },
+                    { title: 'acessos' },
+                    { title: 'produtos' },
+                    { title: 'endereço' },
+                    { title: 'carro' }
+                ];
+
                 return (
                     <TableRow
                         index={index}
                         key={`Row ${index}`}
                         data={[accessObj, carObj, jobObj, productObj, addressObj, userObj]}
+                        extendedContentConfig={extendedContentConfig}
                     >
                         <td>{userFirstName}</td>
                         <td>{userBirth}</td>

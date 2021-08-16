@@ -4,17 +4,17 @@ export default function NavMenu(props) {
 
     function renderMenu() {
         return (
-            props.titles.map((title, index) => {
+            props.titles.map((menuTitle, index) => {
                 return (
-                    <h1 
+                    <h1
                         key={index}
-                        onClick={() => props.selectMenu(title)}
+                        onClick={event => props.selectMenu(event.target.innerText)}
                     >
-                        {title}
+                        {menuTitle.title}
                     </h1>
                 )
             })
-        )
+        );
     };
 
     return (
@@ -35,6 +35,4 @@ const styles = {
         width: '20%',
         backgroundColor: '#ccc',
     },
-
-
-}
+};

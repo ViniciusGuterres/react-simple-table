@@ -29,6 +29,7 @@ export default function TableRow(props) {
                         <td colSpan='100%'>
                             {
                                 <ExtendedRowBody 
+                                    extendedContentConfig={props.extendedContentConfig}
                                     isExtended={isExtended}
                                     data={props.data}
                                     titles={props.titles}

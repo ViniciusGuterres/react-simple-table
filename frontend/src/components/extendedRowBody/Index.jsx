@@ -1,50 +1,40 @@
 import React, { useState } from 'react';
 
 import NavMenu from '../navMenu';
-import ContentCard from '../contentCard/Index';
+import ContentCard from '../contentCard';
 
 export default function ExtendedRowBody(props) {
 
-    const [menuContent, setMenuContent] = useState(null);
+    const [selectedMenu, setSelectedMenu] = useState(null);
 
+    const [selectedContent, setSelectedContent] = useState(null);
+
+    // just set the menu clicked
     function selectMenuContent(menuTitle) {
-        switch(menuTitle) {
-            case "acessos":
-                setMenuContent(props.data[0]);
-                break;
+        setSelectedMenu(menuTitle);
+        
+        props.extendedContentConfig.map(content => {
+            if (content.title == selectedMenu) {
+                selectedContent(content)
+            }
+        })
+    };
 
-            case "usuário":
-                setMenuContent(props.data[1]);
-                break;
-
-            case "emprego":
-                setMenuContent(props.data[2]);
-                break;
-
-            case "carro":
-                setMenuContent(props.data[3]);
-                break;
-            
-            default:
-                setMenuContent(null);
-                break;
-        }
-    }
 
     return (
         <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
             {
                 <NavMenu
-                    titles={["acessos", "usuário", "emprego", "carro", "Marico"]}
+                    titles={props.extendedContentConfig}
                     selectMenu={selectMenuContent}
                 />
             }
 
             {
-                menuContent ?
+                selectedMenu ?
                     <ContentCard
-                        content={menuContent}
+                        content={selectedContent}
                     />
                     :
                     null
@@ -63,7 +53,6 @@ const styles = {
         boxShadow: '10px 9px 5px 1px rgba(0,0,0,0.13)',
         transition: 'width 0.35s 0.35s, height 0.25s 0.25s, opacity 0.50s',
     },
-
     headerData: {
         backgroundColor: '#696363c4',
         padding: '10px',
@@ -71,4 +60,4 @@ const styles = {
         cursor: 'pointer',
         width: '90%'
     }
-}
+};
