@@ -169,7 +169,6 @@ export default class UsersTable extends Component {
                         index={index}
                         key={`Row ${index}`}
                         data={[accessObj, carObj, jobObj, productObj, addressObj, userObj]}
-                        title={["acessos", "anything"]}
                     >
                         <td>{userFirstName}</td>
                         <td>{userBirth}</td>

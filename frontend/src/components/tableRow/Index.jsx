@@ -3,6 +3,7 @@ import ExtendedRowBody from '../extendedRowBody/Index';
 
 export default function TableRow(props) {
 
+    // toggle the row body 
     const [isExtended, setExtend] = useState(false);
 
     function toggleExtend() {
@@ -15,8 +16,9 @@ export default function TableRow(props) {
     return (
         <>
             <tr
-                style={{ cursor: 'pointer', background: bgToggle }}
+                style={{ cursor: 'pointer', background: bgToggle, border: '1px solid black' }}
                 onClick={toggleExtend}
+                
             >
                 {props.children}
             </tr>
@@ -29,7 +31,7 @@ export default function TableRow(props) {
                                 <ExtendedRowBody 
                                     isExtended={isExtended}
                                     data={props.data}
-                                    title={props.title}
+                                    titles={props.titles}
                                 />
                             }
                         </td>

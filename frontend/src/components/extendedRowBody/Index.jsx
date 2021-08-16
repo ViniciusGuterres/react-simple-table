@@ -1,35 +1,53 @@
 import React, { useState } from 'react';
 
-import ExtendedRowData from '../extendedRowData';
-import ExtendedRowMenu from '../extendedRowMenu'
+import NavMenu from '../navMenu';
+import ContentCard from '../contentCard/Index';
 
 export default function ExtendedRowBody(props) {
 
-    const usersDataContent = 
+    const [menuContent, setMenuContent] = useState(null);
 
-    console.log(props.data && props.data[1]);
+    function selectMenuContent(menuTitle) {
+        switch(menuTitle) {
+            case "acessos":
+                setMenuContent(props.data[0]);
+                break;
+
+            case "usuário":
+                setMenuContent(props.data[1]);
+                break;
+
+            case "emprego":
+                setMenuContent(props.data[2]);
+                break;
+
+            case "carro":
+                setMenuContent(props.data[3]);
+                break;
+            
+            default:
+                setMenuContent(null);
+                break;
+        }
+    }
 
     return (
         <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
             {
-                <ExtendedRowMenu
-                    content={
-                        [
-                            
-                                props.title
-                            
-                        ]
-                    }
-            
-                    data={props.data}
+                <NavMenu
+                    titles={["acessos", "usuário", "emprego", "carro", "Marico"]}
+                    selectMenu={selectMenuContent}
                 />
             }
 
             {
-                // props.data.map(test => {
-                //     return <span>{test[selectMenu]}</span>
-                // })
+                menuContent ?
+                    <ContentCard
+                        content={menuContent}
+                    />
+                    :
+                    null
             }
 
         </div>
