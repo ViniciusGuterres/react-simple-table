@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import useToggle from "../../hooks/useToggle";
+
 import ExtendedRowBody from '../extendedRowBody/index';
 
 export default function TableRow(props) {
 
-    // toggle the row body 
-    const [isExtended, setExtend] = useState(false);
+    const [isExtended, setExtend] = useToggle();
 
-    function toggleExtend() {
-        setExtend(prevState => !prevState)
-    }
+    const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
     // row toggle background logic
     const bgToggle = (props.index % 2) ? 'white' : '#ccc';
-    
+
     return (
         <>
             <tr
-                style={{ cursor: 'pointer', background: bgToggle, border: '1px solid black' }}
-                onClick={toggleExtend}
-                
+                // toggle background color between on mouse over and on mouse leave
+                onMouseOver={() => setBgRowOnMouseOver('#fdc705a8')}
+                onMouseLeave={() => setBgRowOnMouseOver(bgToggle)}
+
+                style={{ 
+                    cursor: 'pointer', 
+                    background: bgRowOnMouseOver ? bgRowOnMouseOver : bgToggle, 
+                    border: '1px solid black' }
+                }
+
+                // toggle the body on click when click at the row
+                onClick={setExtend}
             >
                 {props.children}
             </tr>
@@ -28,11 +36,9 @@ export default function TableRow(props) {
                     <tr>
                         <td colSpan='100%'>
                             {
-                                <ExtendedRowBody 
+                                <ExtendedRowBody
                                     extendedContentConfig={props.extendedContentConfig}
                                     isExtended={isExtended}
-                                    data={props.data}
-                                    titles={props.titles}
                                 />
                             }
                         </td>

@@ -338,13 +338,13 @@ export default class UsersTable extends Component {
                     }
                 ];
 
+                // toggle between online and offline
                 let iconName = userId % 2 == 0 ? faUser : faUserAltSlash;
 
                 return (
                     <TableRow
                         index={index}
                         key={`Row ${index}`}
-                        data={[accessObj, carObj, jobObj, productObj, addressObj, userObj]}
                         extendedContentConfig={extendedContentConfig}
                     >
                         <td>{userFirstName}</td>
