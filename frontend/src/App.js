@@ -170,8 +170,7 @@ export default class UsersTable extends Component {
                     userSalarySymbol
                 };
 
-                // obj content config
-                // config to verify the menu and content
+                // config to show all users content in each row body
                 const extendedContentConfig = [
                     {
                         title: 'emprego',
@@ -179,38 +178,166 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'Emprego',
-                                key: 'job'
+                                values: userJobTitle
                             },
                             {
                                 label: 'Endereço',
-                                key: 'address'
+                                values: userJobAddress
                             },
                             {
                                 label: 'Salário',
-                                key: 'salary'
-                            }
-                        ],
-
-                        fieldsValues : [
-                            {
-                                value: 'emprego Test',
-                                key: 'job'
-                            },
-                            {
-                                value: 'Emprego Ende',
-                                key: 'address'
-                            },
-                            {
-                                value: 'Emprego salário',
-                                key: 'salary'
+                                values: `${userSalarySymbol} ${userSalary.replace('.', ',')}`
                             }
                         ]
                     },
-                    { title: 'usuário' },
-                    { title: 'acessos' },
-                    { title: 'produtos' },
-                    { title: 'endereço' },
-                    { title: 'carro' }
+
+                    {
+                        title: 'usuário',
+
+                        fieldsNames: [
+                            {
+                                label: 'Nome',
+                                values: userFirstName
+                            },
+                            {
+                                label: 'Nascimento',
+                                values: userBirth
+                            },
+                            {
+                                label: 'Gênero',
+                                values: userGender
+                            }
+                        ]
+                    },
+
+                    {
+                        title: 'acessos',
+
+                        fieldsNames: [
+                            {
+                                label: 'Tecnologia',
+                                values: accessObj.userBusinessTechnoloy
+                            },
+                            {
+                                label: 'Endereço de Ip',
+                                values: accessObj.userIpAddress
+                            },
+                            {
+                                label: 'Endereço mac',
+                                values: accessObj.userMacAddress
+                            },
+                            {
+                                label: 'Agente',
+                                values: accessObj.userAccessAgent
+                            },
+                            {
+                                label: 'login',
+                                values: accessObj.userAccessLogin
+                            }
+                        ]
+                    },
+                    {
+                        title: 'produtos',
+
+                        fieldsNames: [
+                            {
+                                label: 'nome',
+                                values: userProductName
+                            },
+                            {
+                                label: 'Empresa',
+                                values: userProductCompanyName
+                            },
+                            {
+                                label: 'Departamento',
+                                values: userProductDepartmente
+                            },
+                            {
+                                label: 'Indústria',
+                                values: userProductIndusty
+                            },
+                            {
+                                label: 'Descrição',
+                                values: userProductDescription
+                            },
+                            {
+                                label: 'Preço',
+                                values: `${userSalarySymbol} ${userProductPrice}`
+                            },
+                            {
+                                label: 'tecnologia utilizada',
+                                values: userProductTechnology
+                            },
+                            {
+                                label: 'Material',
+                                values: userProductMaterial
+                            },
+                            {
+                                label: 'Utensílio',
+                                values: userProductAppliance
+                            },
+                        ]
+                    },
+                    { 
+                        title: 'endereço',
+
+                        fieldsNames: [
+                            {
+                                label: 'Rua',
+                                values: userAddressStreet
+                            },
+                            {
+                                label: 'Nome',
+                                values: userAddressName
+                            },
+                            {
+                                label: 'Sufixo',
+                                values: userAddressSufix
+                            },
+                            {
+                                label: 'Cidade',
+                                values: `${userAddressCityPrefix} ${userAddressCity}`
+                            },
+                            {
+                                label: 'Endereço secundário',
+                                values: userAddressSecondary
+                            },
+                            {
+                                label: 'Direção',
+                                values: userAddressDirection
+                            },
+                            {
+                                label: 'Estado',
+                                values: `${userState} - ${userCountry}`
+                            }
+                        ]
+                    },
+                    { 
+                        title: 'carro',
+
+                        fieldsNames: [
+                            {
+                                label: 'Nome do carro',
+                                values: userCar
+                            },
+                            {
+                                label: 'Modelo',
+                                values: userModel
+                            },
+                            {
+                                label: 'Fabricante',
+                                values: userBrand
+                            },
+                            {
+                                label: 'Tipo',
+                                values: userType
+                            },
+                            {
+                                label: 'Gasolina',
+                                values: userFuel
+                            }
+                        ]
+                    }
                 ];
 
                 return (

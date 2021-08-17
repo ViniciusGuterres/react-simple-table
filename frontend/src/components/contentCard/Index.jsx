@@ -1,23 +1,36 @@
 import React from 'react';
 
 export default function ContentCard(props) {
-    console.log(props.content);
+
+    function renderFields() {
+        return (
+            props.content.fieldsNames.map((itens, index) => {
+                console.log(itens);
+                return (
+                    <>
+                        <label>{itens.label}: </label>
+                        <span>{itens.values}</span><br></br>
+                    </>
+                )
+            })
+        )
+    }
 
     return (
         <div style={styles.container}>
-
-            <h1 style={styles.usersTitle}></h1>
-
-            <div style={styles.usersInfo}>
-                <span style={styles.usersInfoSpan}>Carro:</span>
-                <span style={styles.usersInfoSpan}>Fabricante: </span>
-                <span style={styles.usersInfoSpan}>Model</span>
-                <span style={styles.usersInfoSpan}>Tipo</span>
-                <span style={styles.usersInfoSpan}>Gasolina</span>
-            </div>
+            <h1>
+                {
+                    props.content && props.content.title 
+                    ?
+                    props.content.title
+                    :
+                    ''
+                }
+            </h1>
+            {renderFields()}
         </div>
     )
-}
+};
 
 const styles = {
     container: {

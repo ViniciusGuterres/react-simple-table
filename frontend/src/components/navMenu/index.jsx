@@ -5,25 +5,25 @@ export default function NavMenu(props) {
     function renderMenu() {
         return (
             props.titles.map((menuTitle, index) => {
+                const allMenuTitle = menuTitle && menuTitle.title ? menuTitle.title : '';
+
                 return (
                     <h1
                         key={index}
                         onClick={event => props.selectMenu(event.target.innerText)}
                     >
-                        {menuTitle.title}
+                        {allMenuTitle}
                     </h1>
-                )
+                );
             })
         );
     };
 
     return (
         <div style={styles.bodyHeader}>
-
             {renderMenu()}
-
         </div>
-    )
+    );
 };
 
 const styles = {
