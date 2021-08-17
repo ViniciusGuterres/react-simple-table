@@ -11,6 +11,7 @@ export default function NavMenu(props) {
                     <h1
                         key={index}
                         onClick={event => props.selectMenu(event.target.innerText)}
+                        style={styles.singleTitle}
                     >
                         {allMenuTitle}
                     </h1>
@@ -28,11 +29,16 @@ export default function NavMenu(props) {
 
 const styles = {
     bodyHeader: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        fontSize: '10px',
+        fontSize: '13px',
         width: '20%',
-        backgroundColor: '#ccc',
+        backgroundColor: '#2d485fc2',
+        color: '#fff'
     },
+    singleTitle: {
+        width: '100%',
+        // backgroundColor: '#ccc',
+        cursor: 'pointer',
+        borderBottom: '1px solid #ffffff59',
+        top: '-20px'
+    }
 };

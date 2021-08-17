@@ -41,7 +41,7 @@ return (
 
 const styles = {
     rowExtended: {
-        backgroundColor: '#a2a2a229',
+        backgroundColor: '#f9f9f9',
         display: 'flex',
         height: '400px',
         opacity: '1',

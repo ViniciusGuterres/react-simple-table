@@ -16,7 +16,7 @@ export default function TableRow(props) {
         <>
             <tr
                 // toggle background color between on mouse over and on mouse leave
-                onMouseOver={() => setBgRowOnMouseOver('#fdc705a8')}
+                onMouseOver={() => setBgRowOnMouseOver('#2d485fc2')}
                 onMouseLeave={() => setBgRowOnMouseOver(bgToggle)}
 
                 style={{ 

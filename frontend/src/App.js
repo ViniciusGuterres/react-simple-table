@@ -437,7 +437,7 @@ export default class UsersTable extends Component {
 
                     <thead>
 
-                        <tr style={{ background: '#47aaffcf' }}>
+                        <tr style={{ background: '#2d485fc2', color: '#fff' }}>
 
                             <th>
                                 <h1>Nome</h1>
