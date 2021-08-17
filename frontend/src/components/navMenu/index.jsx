@@ -8,10 +8,12 @@ export default function NavMenu(props) {
                 const allMenuTitle = menuTitle && menuTitle.title ? menuTitle.title : '';
 
                 return (
-                    <h1 
+                    <h1
                         // return the clicked menu to the extended row body component
-                        onClick={event => props.selectMenu(event.target.innerText)} 
-                        style={styles.singleTitle}
+                        onClick={
+                            event => props.selectMenu(event.target.innerText)
+                        }
+                        style={...styles.singleTitle}
                         key={index}
                     >
                         {allMenuTitle}

@@ -50,6 +50,5 @@ const styles = {
     },
     contentContainer: {
         fontSize: '20px',
-
     }
 };
