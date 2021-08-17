@@ -10,7 +10,7 @@ export default function TableRow(props) {
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
     // row toggle background logic
-    const bgToggle = (props.index % 2) ? '#fff' : '#ccc';
+    const bgToggle = (props.index % 2) ? '#fff' : '#ededed';
 
     return (
         <>

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
+import { UAParser } from 'ua-parser-js';
+
+// fontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
+// database imports
 import data from './users/users';
 import jobData from './users/users_job';
 import carsData from './users/users_cars';
@@ -12,6 +16,7 @@ import addressData from './users/users_address';
 import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
+// components imports
 import ModalCar from './components/modalCar';
 import CustomMessage from './components/customMenssage/CustomMenssage';
 import TableRow from './components/tableRow';
@@ -21,6 +26,7 @@ export default class UsersTable extends Component {
         super(props);
 
         this.userList = data.map(user => {
+
             const userData = user;
             const jobId = userData.user_job_id;
             const carId = userData.user_car_id;
@@ -66,9 +72,9 @@ export default class UsersTable extends Component {
 
     renderRows() {
         return (
+            // maping all users data
             this.state.allUsersData.map((user, index) => {
 
-                // maping all users data
                 const userId = user.user_id ? user.user_id : '';
                 const userFirstName = user.user_first_name ? user.user_first_name : '';
                 const userBirth = user.user_birth_date ? user.user_birth_date : '';
@@ -106,8 +112,31 @@ export default class UsersTable extends Component {
                 const userState = user.currentAddress && user.currentAddress.user_address_state ? user.currentAddress.user_address_state : '';
                 const userCountry = user.currentAddress && user.currentAddress.user_address_country ? user.currentAddress.user_address_country : '';
 
+                const userAccessId = user.currentAccess && user.currentAccess.user_access_id ?
+                    user.currentAccess.user_access_id : '';
+                const userBusinessTechnoloy = user.currentAccess && user.currentAccess.user_access_business_technoloy ?
+                    user.currentAccess.user_access_business_technoloy : '';
+                const userIpAddress = user.currentAccess && user.currentAccess.user_access_ip_address ?
+                    user.currentAccess.user_access_ip_address : '';
+                const userMacAddress = user.currentAccess && user.currentAccess.user_access_mac_address ?
+                    user.currentAccess.user_access_mac_address : '';
+                const userAccessAgent = user.currentAccess && user.currentAccess.user_access_user_agent ?
+                    user.currentAccess.user_access_user_agent : '';
+                const userAccessLogin = user.currentAccess && user.currentAccess.user_access_login ?
+                    user.currentAccess.user_access_login : '';
+
+                // handle with access agent, using the UAParser Object
+                let uaParser = new UAParser();
+                uaParser.setUA(userAccessAgent);
+
+                // get the OS name and current version
+                let uaParserResult = uaParser.getResult();
+                let osName = uaParserResult.os.name;
+                let osVersion = uaParserResult.os.version;
+
                 // adding all datas in a object to pass as a props
                 const userObj = {
+                    title: 'Usuário',
                     userFirstName,
                     userBirth,
                     userGender,
@@ -147,27 +176,6 @@ export default class UsersTable extends Component {
                     userFuel
                 };
 
-                const accessObj = {
-                    userAccessId:
-                        user.currentAccess && user.currentAccess.user_access_id ?
-                            user.currentAccess.user_access_id : '',
-                    userBusinessTechnoloy:
-                        user.currentAccess && user.currentAccess.user_access_business_technoloy ?
-                            user.currentAccess.user_access_business_technoloy : '',
-                    userIpAddress:
-                        user.currentAccess && user.currentAccess.user_access_ip_address ?
-                            user.currentAccess.user_access_ip_address : '',
-                    userMacAddress:
-                        user.currentAccess && user.currentAccess.user_access_mac_address ?
-                            user.currentAccess.user_access_mac_address : '',
-                    userAccessAgent:
-                        user.currentAccess && user.currentAccess.user_access_user_agent ?
-                            user.currentAccess.user_access_user_agent : '',
-                    userAccessLogin:
-                        user.currentAccess && user.currentAccess.user_access_login ?
-                            user.currentAccess.user_access_login : ''
-                };
-
                 const jobObj = {
                     userJobTitle,
                     userJobAddress,
@@ -195,7 +203,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: 'usuário',
+                        title: userObj.title,
                         fieldsNames: [
                             {
                                 label: 'Nome',
@@ -216,24 +224,24 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'Tecnologia',
-                                values: accessObj.userBusinessTechnoloy
+                                values: userBusinessTechnoloy
                             },
                             {
                                 label: 'Endereço de Ip',
-                                values: accessObj.userIpAddress
+                                values: userIpAddress
                             },
                             {
                                 label: 'Endereço mac',
-                                values: accessObj.userMacAddress
-                            },
-                            {
-                                label: 'Agente',
-                                values: accessObj.userAccessAgent
+                                values: userMacAddress
                             },
                             {
                                 label: 'login',
-                                values: accessObj.userAccessLogin
-                            }
+                                values: userAccessLogin
+                            },
+                            {
+                                label: 'OS',
+                                values: `${osName} ${osVersion}`
+                            },
                         ]
                     },
                     {
@@ -474,7 +482,7 @@ export default class UsersTable extends Component {
                             </th>
 
                             <th>
-                                <h1>Online</h1>
+                                <h1>Status</h1>
                             </th>
 
                         </tr>

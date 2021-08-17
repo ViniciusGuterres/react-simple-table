@@ -226,12 +226,13 @@ const styles = {
     exit: {
         cursor: 'pointer',
         position: 'absolute',
-        top: '0px',
+        top: '-10px',
         right: '0px',
         padding: '13px',
         color: '#ff6347',
-        fontSize: '15px',
+        fontSize: '25px',
         border: 'none',
+        background: 'none'
     },
     save: {
         backgroundColor: '#19c145d1',

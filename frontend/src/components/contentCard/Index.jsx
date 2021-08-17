@@ -6,12 +6,12 @@ export default function ContentCard(props) {
         return (
             props.content.fieldsNames.map((itens, index) => {
                 return (
-                    <>
+                    <div key={`key ${index++}`}>
                         <label style={styles.label}>{itens.label}: </label>
                         <span style={styles.value}>
                             {itens.values}
                         </span><br></br>
-                    </>
+                    </div>
                 );
             })
         );
