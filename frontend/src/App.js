@@ -75,55 +75,105 @@ export default class UsersTable extends Component {
             // maping all users data
             this.state.allUsersData.map((user, index) => {
 
+                // verify if exist each single data
                 const userId = user.user_id ? user.user_id : '';
                 const userFirstName = user.user_first_name ? user.user_first_name : '';
                 const userBirth = user.user_birth_date ? user.user_birth_date : '';
                 const userGender = user.user_gender ? user.user_gender : '';
 
-                const userJobTitle = user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '';
-                const userJobAddress = user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '';
-                const userSalary = user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
-                const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
+                const userJobTitle = user.currentJob && user.currentJob.user_job_title ?
+                    user.currentJob.user_job_title : '';
+                const userJobAddress = user.currentJob && user.currentJob.user_job_address ?
+                    user.currentJob.user_job_address : '';
+                const userSalary = user.currentJob && user.currentJob.user_job_salary ?
+                    user.currentJob.user_job_salary : '';
+                const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ?
+                    user.currentJob.user_job_salary_currency_symbol : '';
 
-                const userCarId = user.currentCar && user.currentCar.car_id ? user.currentCar.car_id : '';
-                const userCar = user.currentCar && user.currentCar.car_name ? user.currentCar.car_name : '';
-                const userModel = user.currentCar && user.currentCar.car_model ? user.currentCar.car_model : '';
-                const userType = user.currentCar && user.currentCar.car_type ? user.currentCar.car_type : '';
-                const userBrand = user.currentCar && user.currentCar.car_manufacturer ? user.currentCar.car_manufacturer : '';
-                const userFuel = user.currentCar && user.currentCar.car_fuel ? user.currentCar.car_fuel : '';
+                const userCarId = user.currentCar && user.currentCar.car_id ?
+                    user.currentCar.car_id : '';
+                const userCar = user.currentCar && user.currentCar.car_name ?
+                    user.currentCar.car_name : '';
+                const userModel = user.currentCar && user.currentCar.car_model ?
+                    user.currentCar.car_model : '';
+                const userType = user.currentCar && user.currentCar.car_type ?
+                    user.currentCar.car_type : '';
+                const userBrand = user.currentCar && user.currentCar.car_manufacturer ?
+                    user.currentCar.car_manufacturer : '';
+                const userFuel = user.currentCar && user.currentCar.car_fuel ?
+                    user.currentCar.car_fuel : '';
 
-                const userProductAppliance = user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '';
-                const userProductIndusty = user.currentProduct && user.currentProduct.user_product_buyed_business_industy ? user.currentProduct.user_product_buyed_business_industy : '';
-                const userProductTechnology = user.currentProduct && user.currentProduct.user_product_buyed_business_technology ? user.currentProduct.user_product_buyed_business_technology : '';
-                const userProductDepartmente = user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ? user.currentProduct.user_product_buyed_commerce_department : '';
-                const userProductCompanyName = user.currentProduct && user.currentProduct.user_product_buyed_company_name ? user.currentProduct.user_product_buyed_company_name : '';
-                const userProductName = user.currentProduct && user.currentProduct.user_product_buyed_product_name ? user.currentProduct.user_product_buyed_product_name : '';
-                const userProductDescription = user.currentProduct && user.currentProduct.user_product_buyed_product_description ? user.currentProduct.user_product_buyed_product_description : '';
-                const userProductMaterial = user.currentProduct && user.currentProduct.user_product_buyed_product_material ? user.currentProduct.user_product_buyed_product_material : '';
-                const userProductPrice = user.currentProduct && user.currentProduct.user_product_buyed_product_price ? user.currentProduct.user_product_buyed_product_price : '';
+                const userProductAppliance =
+                    user.currentProduct && user.currentProduct.user_product_buyed_appliance ?
+                        user.currentProduct.user_product_buyed_appliance : '';
+                const userProductIndusty =
+                    user.currentProduct && user.currentProduct.user_product_buyed_business_industy ?
+                        user.currentProduct.user_product_buyed_business_industy : '';
+                const userProductTechnology =
+                    user.currentProduct && user.currentProduct.user_product_buyed_business_technology ?
+                        user.currentProduct.user_product_buyed_business_technology : '';
+                const userProductDepartmente =
+                    user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ?
+                        user.currentProduct.user_product_buyed_commerce_department : '';
+                const userProductCompanyName =
+                    user.currentProduct && user.currentProduct.user_product_buyed_company_name ?
+                        user.currentProduct.user_product_buyed_company_name : '';
+                const userProductName =
+                    user.currentProduct && user.currentProduct.user_product_buyed_product_name ?
+                        user.currentProduct.user_product_buyed_product_name : '';
+                const userProductDescription =
+                    user.currentProduct && user.currentProduct.user_product_buyed_product_description ?
+                        user.currentProduct.user_product_buyed_product_description : '';
+                const userProductMaterial =
+                    user.currentProduct && user.currentProduct.user_product_buyed_product_material ?
+                        user.currentProduct.user_product_buyed_product_material : '';
+                const userProductPrice =
+                    user.currentProduct && user.currentProduct.user_product_buyed_product_price ?
+                        user.currentProduct.user_product_buyed_product_price : '';
 
-                const userAddressStreet = user.currentAddress && user.currentAddress.user_address_street_address ? user.currentAddress.user_address_street_address : '';
-                const userAddressName = user.currentAddress && user.currentAddress.user_address_street_name ? user.currentAddress.user_address_street_name : '';
-                const userAddressSufix = user.currentAddress && user.currentAddress.user_address_street_sufix ? user.currentAddress.user_address_street_sufix : '';
-                const userAddressCity = user.currentAddress && user.currentAddress.user_address_city ? user.currentAddress.user_address_city : '';
-                const userAddressCityPrefix = user.currentAddress && user.currentAddress.user_address_city_prefix ? user.currentAddress.user_address_city_prefix : '';
-                const userAddressSecondary = user.currentAddress && user.currentAddress.user_address_secondary_address ? user.currentAddress.user_address_secondary_address : '';
-                const userAddressDirection = user.currentAddress && user.currentAddress.user_address_address_direction ? user.currentAddress.user_address_address_direction : '';
-                const userState = user.currentAddress && user.currentAddress.user_address_state ? user.currentAddress.user_address_state : '';
-                const userCountry = user.currentAddress && user.currentAddress.user_address_country ? user.currentAddress.user_address_country : '';
+                const userAddressStreet =
+                    user.currentAddress && user.currentAddress.user_address_street_address ?
+                        user.currentAddress.user_address_street_address : '';
+                const userAddressName =
+                    user.currentAddress && user.currentAddress.user_address_street_name ?
+                        user.currentAddress.user_address_street_name : '';
+                const userAddressSufix =
+                    user.currentAddress && user.currentAddress.user_address_street_sufix ?
+                        user.currentAddress.user_address_street_sufix : '';
+                const userAddressCity =
+                    user.currentAddress && user.currentAddress.user_address_city ?
+                        user.currentAddress.user_address_city : '';
+                const userAddressCityPrefix =
+                    user.currentAddress && user.currentAddress.user_address_city_prefix ?
+                        user.currentAddress.user_address_city_prefix : '';
+                const userAddressSecondary =
+                    user.currentAddress && user.currentAddress.user_address_secondary_address ?
+                        user.currentAddress.user_address_secondary_address : '';
+                const userAddressDirection =
+                    user.currentAddress && user.currentAddress.user_address_address_direction ?
+                        user.currentAddress.user_address_address_direction : '';
+                const userState =
+                    user.currentAddress && user.currentAddress.user_address_state ?
+                        user.currentAddress.user_address_state : '';
+                const userCountry =
+                    user.currentAddress && user.currentAddress.user_address_country ?
+                        user.currentAddress.user_address_country : '';
 
-                const userAccessId = user.currentAccess && user.currentAccess.user_access_id ?
-                    user.currentAccess.user_access_id : '';
-                const userBusinessTechnoloy = user.currentAccess && user.currentAccess.user_access_business_technoloy ?
-                    user.currentAccess.user_access_business_technoloy : '';
-                const userIpAddress = user.currentAccess && user.currentAccess.user_access_ip_address ?
-                    user.currentAccess.user_access_ip_address : '';
-                const userMacAddress = user.currentAccess && user.currentAccess.user_access_mac_address ?
-                    user.currentAccess.user_access_mac_address : '';
-                const userAccessAgent = user.currentAccess && user.currentAccess.user_access_user_agent ?
-                    user.currentAccess.user_access_user_agent : '';
-                const userAccessLogin = user.currentAccess && user.currentAccess.user_access_login ?
-                    user.currentAccess.user_access_login : '';
+                const userBusinessTechnoloy =
+                    user.currentAccess && user.currentAccess.user_access_business_technoloy ?
+                        user.currentAccess.user_access_business_technoloy : '';
+                const userIpAddress =
+                    user.currentAccess && user.currentAccess.user_access_ip_address ?
+                        user.currentAccess.user_access_ip_address : '';
+                const userMacAddress =
+                    user.currentAccess && user.currentAccess.user_access_mac_address ?
+                        user.currentAccess.user_access_mac_address : '';
+                const userAccessAgent =
+                    user.currentAccess && user.currentAccess.user_access_user_agent ?
+                        user.currentAccess.user_access_user_agent : '';
+                const userAccessLogin =
+                    user.currentAccess && user.currentAccess.user_access_login ?
+                        user.currentAccess.user_access_login : '';
 
                 // handle with access agent, using the UAParser Object
                 let uaParser = new UAParser();
@@ -134,38 +184,7 @@ export default class UsersTable extends Component {
                 let osName = uaParserResult.os.name;
                 let osVersion = uaParserResult.os.version;
 
-                // adding all datas in a object to pass as a props
-                const userObj = {
-                    title: 'Usuário',
-                    userFirstName,
-                    userBirth,
-                    userGender,
-                };
-
-                const addressObj = {
-                    userAddressStreet,
-                    userAddressName,
-                    userAddressSufix,
-                    userAddressCity,
-                    userAddressCityPrefix,
-                    userAddressSecondary,
-                    userAddressDirection,
-                    userState,
-                    userCountry
-                };
-
-                const productObj = {
-                    userProductAppliance,
-                    userProductIndusty,
-                    userProductTechnology,
-                    userProductDepartmente,
-                    userProductCompanyName,
-                    userProductName,
-                    userProductDescription,
-                    userProductMaterial,
-                    userProductPrice
-                };
-
+                // refactor later
                 const carObj = {
                     userId,
                     userCarId,
@@ -176,17 +195,10 @@ export default class UsersTable extends Component {
                     userFuel
                 };
 
-                const jobObj = {
-                    userJobTitle,
-                    userJobAddress,
-                    userSalary,
-                    userSalarySymbol
-                };
-
                 // config to show all users content in each row body
                 const extendedContentConfig = [
                     {
-                        title: 'emprego',
+                        title: 'Emprego',
                         fieldsNames: [
                             {
                                 label: 'Emprego',
@@ -203,7 +215,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: userObj.title,
+                        title: 'Usuário',
                         fieldsNames: [
                             {
                                 label: 'Nome',
@@ -220,7 +232,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: 'acessos',
+                        title: 'Acessos',
                         fieldsNames: [
                             {
                                 label: 'Tecnologia',
@@ -245,7 +257,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: 'produtos',
+                        title: 'Produtos',
                         fieldsNames: [
                             {
                                 label: 'nome',
@@ -286,7 +298,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: 'endereço',
+                        title: 'Endereço',
                         fieldsNames: [
                             {
                                 label: 'Rua',
@@ -319,8 +331,7 @@ export default class UsersTable extends Component {
                         ]
                     },
                     {
-                        title: 'carro',
-
+                        title: 'Carro',
                         fieldsNames: [
                             {
                                 label: 'Nome do carro',
@@ -347,8 +358,8 @@ export default class UsersTable extends Component {
                 ];
 
                 // toggle between online, offline and anonymous
-                let iconName = userId % 2 == 0 ? faUser : faUserAltSlash;
-                let iconBg = iconName == faUser ? '#3ade3a' : '#ff4a4a'
+                let iconName = userId % 2 === 0 ? faUser : faUserAltSlash;
+                let iconBg = iconName === faUser ? '#3ade3a' : '#ff4a4a'
 
                 if (userId % 5 === 0) {
                     iconName = faUserSecret;
