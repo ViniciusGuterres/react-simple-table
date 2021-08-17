@@ -8,8 +8,12 @@ export default function ContentCard(props) {
                 console.log(itens);
                 return (
                     <>
-                        <label>{itens.label}: </label>
-                        <span>{itens.values}</span><br></br>
+                        <label>
+                            {itens.label}: 
+                        </label>
+                        <span>
+                            {itens.values}
+                        </span><br></br>
                     </>
                 )
             })

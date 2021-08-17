@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
+
 import data from './users/users';
 import jobData from './users/users_job';
 import carsData from './users/users_cars';
@@ -9,7 +14,7 @@ import productsData from './users/users_products_buyed';
 
 import ModalCar from './components/modalCar';
 import CustomMessage from './components/customMenssage/CustomMenssage';
-import TableRow from './components/tableRow/Index';
+import TableRow from './components/tableRow';
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -174,7 +179,6 @@ export default class UsersTable extends Component {
                 const extendedContentConfig = [
                     {
                         title: 'emprego',
-
                         fieldsNames: [
                             {
                                 label: 'Emprego',
@@ -190,10 +194,8 @@ export default class UsersTable extends Component {
                             }
                         ]
                     },
-
                     {
                         title: 'usuário',
-
                         fieldsNames: [
                             {
                                 label: 'Nome',
@@ -209,10 +211,8 @@ export default class UsersTable extends Component {
                             }
                         ]
                     },
-
                     {
                         title: 'acessos',
-
                         fieldsNames: [
                             {
                                 label: 'Tecnologia',
@@ -238,7 +238,6 @@ export default class UsersTable extends Component {
                     },
                     {
                         title: 'produtos',
-
                         fieldsNames: [
                             {
                                 label: 'nome',
@@ -278,9 +277,8 @@ export default class UsersTable extends Component {
                             },
                         ]
                     },
-                    { 
+                    {
                         title: 'endereço',
-
                         fieldsNames: [
                             {
                                 label: 'Rua',
@@ -312,7 +310,7 @@ export default class UsersTable extends Component {
                             }
                         ]
                     },
-                    { 
+                    {
                         title: 'carro',
 
                         fieldsNames: [
@@ -340,6 +338,8 @@ export default class UsersTable extends Component {
                     }
                 ];
 
+                let iconName = userId % 2 == 0 ? faUser : faUserAltSlash;
+
                 return (
                     <TableRow
                         index={index}
@@ -360,6 +360,17 @@ export default class UsersTable extends Component {
                             }}>
                                 Visualizar
                             </button>
+                        </td>
+
+                        {/* Online Icons Logic */}
+                        <td>
+                            <FontAwesomeIcon
+                                style={{
+                                    fontSize: '25px',
+                                    color: iconName === faUser ? '#3ade3a' : '#ff4a4a'
+                                }}
+                                icon={iconName}
+                            />
                         </td>
                     </TableRow>
                 );
@@ -413,7 +424,6 @@ export default class UsersTable extends Component {
     render() {
         return (
             <div style={{ width: '100%', height: '100%' }}>
-
                 <CustomMessage
                     name='Salvo com sucesso'
                     message={this.closeMessage}
@@ -455,6 +465,10 @@ export default class UsersTable extends Component {
 
                             <th>
                                 <h1>Carro</h1>
+                            </th>
+
+                            <th>
+                                <h1>Online</h1>
                             </th>
 
                         </tr>

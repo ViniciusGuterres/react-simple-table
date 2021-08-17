@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import CustomInput from '../customInput/Index';
+import CustomInput from '../customInput';
 import CustomButton from '../customButton';
 
 /**

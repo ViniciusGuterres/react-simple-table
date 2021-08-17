@@ -5,7 +5,7 @@ import ContentCard from '../contentCard';
 
 export default function ExtendedRowBody(props) {
 
-    const [selectedMenu, setSelectedMenu] = useState(null);
+    const [selectedMenu, setSelectedMenu] = useState(props.extendedContentConfig[0]);
 
     // just set the menu clicked returned by NavMenu component
     function selectMenuContent(menuTitle) {

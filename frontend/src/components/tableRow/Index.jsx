@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ExtendedRowBody from '../extendedRowBody/Index';
+import ExtendedRowBody from '../extendedRowBody/index';
 
 export default function TableRow(props) {
 
