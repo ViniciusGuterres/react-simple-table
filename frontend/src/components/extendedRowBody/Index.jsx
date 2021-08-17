@@ -9,34 +9,35 @@ export default function ExtendedRowBody(props) {
 
     // just set the menu clicked returned by NavMenu component
     function selectMenuContent(menuTitle) {
+
         props.extendedContentConfig.map(item => {
-            if( menuTitle === item.title) {
+            if (menuTitle === item.title) {
                 setSelectedMenu(item);
-            }
-        })
+            };
+        });
     };
 
-return (
-    <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+    return (
+        <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
-        {
-            <NavMenu
-                titles={props.extendedContentConfig}
-                selectMenu={selectMenuContent}
-            />
-        }
-
-        {
-            selectedMenu ?
-                <ContentCard
-                    content={selectedMenu}
+            {
+                <NavMenu
+                    titles={props.extendedContentConfig}
+                    selectMenu={selectMenuContent}
                 />
-                :
-                null
-        }
+            }
 
-    </div>
-)
+            {
+                selectedMenu ?
+                    <ContentCard
+                        content={selectedMenu}
+                    />
+                    :
+                    null
+            }
+
+        </div>
+    )
 };
 
 const styles = {

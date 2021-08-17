@@ -10,18 +10,25 @@ export default function TableRow(props) {
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
     // row toggle background logic
-    const bgToggle = (props.index % 2) ? 'white' : '#ccc';
+    const bgToggle = (props.index % 2) ? '#fff' : '#ccc';
 
     return (
         <>
             <tr
                 // toggle background color between on mouse over and on mouse leave
-                onMouseOver={() => setBgRowOnMouseOver('#2d485fc2')}
-                onMouseLeave={() => setBgRowOnMouseOver(bgToggle)}
+                onMouseOver={() => setBgRowOnMouseOver({
+                    bg: '#2d485fc2',
+                    color: '#fff'
+                })}
+                onMouseLeave={() => setBgRowOnMouseOver({
+                    bg: bgToggle,
+                    color: 'black'
+                })}
 
                 style={{ 
+                    background: bgRowOnMouseOver ? bgRowOnMouseOver.bg : bgToggle,
+                    color: bgRowOnMouseOver.color, 
                     cursor: 'pointer', 
-                    background: bgRowOnMouseOver ? bgRowOnMouseOver : bgToggle, 
                     border: '1px solid black' }
                 }
 

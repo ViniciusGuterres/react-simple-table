@@ -256,10 +256,6 @@ export default class UsersTable extends Component {
                                 values: userProductIndusty
                             },
                             {
-                                label: 'Descrição',
-                                values: userProductDescription
-                            },
-                            {
                                 label: 'Preço',
                                 values: `${userSalarySymbol} ${userProductPrice}`
                             },
@@ -274,6 +270,10 @@ export default class UsersTable extends Component {
                             {
                                 label: 'Utensílio',
                                 values: userProductAppliance
+                            },
+                            {
+                                label: 'Descrição',
+                                values: userProductDescription
                             },
                         ]
                     },
@@ -338,8 +338,14 @@ export default class UsersTable extends Component {
                     }
                 ];
 
-                // toggle between online and offline
+                // toggle between online, offline and anonymous
                 let iconName = userId % 2 == 0 ? faUser : faUserAltSlash;
+                let iconBg = iconName == faUser ? '#3ade3a' : '#ff4a4a'
+
+                if (userId % 5 === 0) {
+                    iconName = faUserSecret;
+                    iconBg = '#272222d9'
+                };
 
                 return (
                     <TableRow
@@ -367,7 +373,7 @@ export default class UsersTable extends Component {
                             <FontAwesomeIcon
                                 style={{
                                     fontSize: '25px',
-                                    color: iconName === faUser ? '#3ade3a' : '#ff4a4a'
+                                    color: iconBg
                                 }}
                                 icon={iconName}
                             />
