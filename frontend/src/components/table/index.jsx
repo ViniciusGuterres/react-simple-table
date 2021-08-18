@@ -12,20 +12,18 @@ export default class Table extends Component {
     renderHeaders() {
       
         return(
-            this.props.columnsConfig.map(headers => {
+            this.props.dataColumnsConfig.map(headers => {
                 
                 return (
                     <th>
                         <h1>{headers.header}</h1>
                     </th>
-                )
+                );
             })
         );
     };
 
-
     render() {
-        console.log(this.props);
         return (
             <table 
                 style={{width: '100%'}}
@@ -38,16 +36,26 @@ export default class Table extends Component {
 
                 <tbody>
 
-                    {/* <TableRow>
+                     <TableRow
+                        rowData={
+                            this.props.tableData
+                        }
+                     >
 
-                        <td>Vinicius</td>
+                        <TableData
+                            tableData={
+                                this.props.tableData
+                            }
 
-                        <td>25/02/2000</td>
+                            dataKey={
+                                this.props.dataColumnsConfig
+                            }
+                        />
 
-                    </TableRow> */}
+                    </TableRow> 
                 </tbody>
                 
             </table>
-        )
+        );
     };
 };

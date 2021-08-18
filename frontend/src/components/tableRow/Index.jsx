@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useToggle from "../../hooks/useToggle";
 
 import ExtendedRowBody from '../extendedRowBody';
+import TableData from "../tableData";
 
 export default function TableRow(props) {
 
@@ -12,9 +13,33 @@ export default function TableRow(props) {
     // row toggle background logic
     let bgToggle = (props.index % 2) ? '#fff' : '#ededed';
 
+    let allData = props && props.rowData ? props.rowData : '';
+
+    function renderDatas() {
+
+        return (
+
+            allData.map(item => {
+                return (
+                    <TableData
+                        val={item}
+                    />
+                )
+            })
+        )
+    };
+
     return (
         <>
-            <tr
+
+            <tr>
+
+                {renderDatas()}
+
+            </tr>
+
+            {/* //////////////////////         ALREADY DONE   ////////////////////////// */}
+            {/* <tr
                 toggle background color between on mouse over and on mouse leave
                 onMouseOver={() => setBgRowOnMouseOver({
                     bg: '#2d485fc2',
@@ -32,13 +57,12 @@ export default function TableRow(props) {
                 }
                 }
 
-                // toggle the body on click when click at the row
                 onClick={setExtend}
             >
                 {props.children}
-            </tr>
+            </tr> */}
 
-            {
+            {/* {
                 isExtended ?
                     <tr>
                         <td colSpan='100%'>
@@ -52,7 +76,7 @@ export default function TableRow(props) {
                     </tr>
                     :
                     null
-            }
+            } */}
         </>
     );
 };

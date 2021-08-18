@@ -2,22 +2,27 @@ import React from 'react';
 
 export default function TableData(props) {
 
-    // function renderColuns() {
 
-    //     return (
-    //         props.cols.map(title => {
-    //             return (
-    //                 <th>
-    //                     <h1>{title.header}</h1>
-    //                 </th>
-    //             );
-    //         })
-    //     );
-    // };
+    function renderKey() {
+        
+        // return (
+        //     props.val.map(item => {
+        //         return(
+        //             <td>{item.userCar}</td>
+        //         )
+        //     })
+        // )
+        return (
+            <td>{props.val.userCar}</td>
+        )
+    };
 
+    console.log(props.val);
     return (
         <>
-            <h1>Table Data</h1>
+            
+            {renderKey()}
+
         </>
-    )
+    );
 };

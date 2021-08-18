@@ -71,7 +71,7 @@ export default class UsersTable extends Component {
         this.closeMessage = this.closeMessage.bind(this);
     };
 
-    renderRows() {
+    getAllUsersData() {
         return (
             // maping all users data
             this.state.allUsersData.map((user, index) => {
@@ -368,41 +368,41 @@ export default class UsersTable extends Component {
                 };
 
                 return (
-                    <>
-                        <TableRow
-                            index={index}
-                            key={`Row ${index}`}
-                            extendedContentConfig={extendedContentConfig}
-                        >
-                            <td>{userFirstName}</td>
-                            <td>{userBirth}</td>
-                            <td>{userGender}</td>
-                            <td>{userJobTitle}</td>
-                            <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
-                            <td>{userJobAddress}</td>
-                            <td>
-                                <button onClick={(event) => {
-                                    event.stopPropagation();
-                                    this.showCar(carObj);
-                                }}>
-                                    Visualizar
-                                </button>
-                            </td>
+                            carObj          
+            //         // <>
+            //         //     <TableRow
+            //         //         index={index}
+            //         //         key={`Row ${index}`}
+            //         //         extendedContentConfig={extendedContentConfig}
+            //         //     >
+            //         //         <td>{userFirstName}</td>
+            //         //         <td>{userBirth}</td>
+            //         //         <td>{userGender}</td>
+            //         //         <td>{userJobTitle}</td>
+            //         //         <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
+            //         //         <td>{userJobAddress}</td>
+            //         //         <td>
+            //         //             <button onClick={(event) => {
+            //         //                 event.stopPropagation();
+            //         //                 this.showCar(carObj);
+            //         //             }}>
+            //         //                 Visualizar
+            //         //             </button>
+            //         //         </td>
 
-                            {/* Online Icons Logic */}
-                            <td>
-                                <FontAwesomeIcon
-                                    style={{
-                                        fontSize: '25px',
-                                        color: iconBg
-                                    }}
-                                    icon={iconName}
-                                />
-                            </td>
-                        </TableRow>
-                    </>
-                );
-            })
+            //         //         <td>
+            //         //             <FontAwesomeIcon
+            //         //                 style={{
+            //         //                     fontSize: '25px',
+            //         //                     color: iconBg
+            //         //                 }}
+            //         //                 icon={iconName}
+            //         //             />
+            //         //         </td>
+            //         //     </TableRow>
+            //         // </>
+            //     );
+            // })
         );
     };
 
@@ -452,44 +452,37 @@ export default class UsersTable extends Component {
     render() {
         return (
             <>
+                {/* //////////////////////////////////////////       DEVELOPING FASE        /////////////////////////////////// */}
                 <Table
-                    columnsConfig={
+                    tableData={this.getAllUsersData()}
+
+                    dataColumnsConfig={
                         [
                             {
-                                header: 'Nome',
-                                dataKeyRow: 'name'
-                            },
-                            {
-                                header: 'Nascimento',
-                                dataKeyRow: 'birth'
-                            },
-                            {
-                                header: 'Gênero',
-                                dataKeyRow: 'gender'
-                            },
-                            {
-                                header: 'Emprego',
-                                dataKeyRow: 'job'
-                            },
-                            {
-                                header: 'Salário',
-                                dataKeyRow: 'salary'
-                            },
-                            {
-                                header: 'Endereço',
-                                dataKeyRow: 'address'
-                            },
-                            {
                                 header: 'Carro',
-                                dataKeyRow: 'car'
+                                dataKeyRow: 'userCar'
                             },
                             {
-                                header: 'Status',
-                                dataKeyRow: 'status'
+                                header: 'Model',
+                                dataKeyRow: 'userModel'
                             },
+                            {
+                                header: 'Fabricante',
+                                dataKeyRow: 'userBrand'
+                            },
+                            {
+                                header: 'Gasolina',
+                                dataKeyRow: 'userFuel'
+                            },
+                            {
+                                header: 'Tipo',
+                                dataKeyRow: 'userType'
+                            }
                         ]
                     }
                 />
+
+                {/* //////////////////////////////////       ALREADY WORKING      /////////////////////////////////////// */}
                 <div style={{ width: '100%', height: '100%' }}>
                     <CustomMessage
                         name='Salvo com sucesso'
@@ -500,7 +493,7 @@ export default class UsersTable extends Component {
                     {this.state.showModalCar ? this.renderModal() : null}
 
 
-                    <table style={{ width: '100%', textAlign: 'center' }}>
+                    {/* <table style={{ width: '100%', textAlign: 'center' }}>
                         <thead>
                             <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
 
@@ -542,10 +535,10 @@ export default class UsersTable extends Component {
 
                         <tbody>
 
-                            {this.renderRows()}
+                            {this.getAllUsersData()}
 
                         </tbody>
-                    </table>
+                    </table> */}
                 </div>
             </>
         )
