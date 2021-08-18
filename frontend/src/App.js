@@ -19,7 +19,8 @@ import productsData from './users/users_products_buyed';
 // components imports
 import ModalCar from './components/modalCar';
 import CustomMessage from './components/customMenssage/CustomMenssage';
-import TableRow from './components/tableRow';
+import TableRow from './components/tableRow/index';
+import Table from './components/table';
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -367,37 +368,39 @@ export default class UsersTable extends Component {
                 };
 
                 return (
-                    <TableRow
-                        index={index}
-                        key={`Row ${index}`}
-                        extendedContentConfig={extendedContentConfig}
-                    >
-                        <td>{userFirstName}</td>
-                        <td>{userBirth}</td>
-                        <td>{userGender}</td>
-                        <td>{userJobTitle}</td>
-                        <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
-                        <td>{userJobAddress}</td>
-                        <td>
-                            <button onClick={(event) => {
-                                event.stopPropagation();
-                                this.showCar(carObj);
-                            }}>
-                                Visualizar
-                            </button>
-                        </td>
+                    <>
+                        <TableRow
+                            index={index}
+                            key={`Row ${index}`}
+                            extendedContentConfig={extendedContentConfig}
+                        >
+                            <td>{userFirstName}</td>
+                            <td>{userBirth}</td>
+                            <td>{userGender}</td>
+                            <td>{userJobTitle}</td>
+                            <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
+                            <td>{userJobAddress}</td>
+                            <td>
+                                <button onClick={(event) => {
+                                    event.stopPropagation();
+                                    this.showCar(carObj);
+                                }}>
+                                    Visualizar
+                                </button>
+                            </td>
 
-                        {/* Online Icons Logic */}
-                        <td>
-                            <FontAwesomeIcon
-                                style={{
-                                    fontSize: '25px',
-                                    color: iconBg
-                                }}
-                                icon={iconName}
-                            />
-                        </td>
-                    </TableRow>
+                            {/* Online Icons Logic */}
+                            <td>
+                                <FontAwesomeIcon
+                                    style={{
+                                        fontSize: '25px',
+                                        color: iconBg
+                                    }}
+                                    icon={iconName}
+                                />
+                            </td>
+                        </TableRow>
+                    </>
                 );
             })
         );
@@ -448,68 +451,103 @@ export default class UsersTable extends Component {
 
     render() {
         return (
-            <div style={{ width: '100%', height: '100%' }}>
-                <CustomMessage
-                    name='Salvo com sucesso'
-                    message={this.closeMessage}
-                    toggleMessage={this.state.message}
+            <>
+                <Table
+                    columnsConfig={
+                        [
+                            {
+                                header: 'Nome',
+                                dataKeyRow: 'name'
+                            },
+                            {
+                                header: 'Nascimento',
+                                dataKeyRow: 'birth'
+                            },
+                            {
+                                header: 'Gênero',
+                                dataKeyRow: 'gender'
+                            },
+                            {
+                                header: 'Emprego',
+                                dataKeyRow: 'job'
+                            },
+                            {
+                                header: 'Salário',
+                                dataKeyRow: 'salary'
+                            },
+                            {
+                                header: 'Endereço',
+                                dataKeyRow: 'address'
+                            },
+                            {
+                                header: 'Carro',
+                                dataKeyRow: 'car'
+                            },
+                            {
+                                header: 'Status',
+                                dataKeyRow: 'status'
+                            },
+                        ]
+                    }
                 />
+                <div style={{ width: '100%', height: '100%' }}>
+                    <CustomMessage
+                        name='Salvo com sucesso'
+                        message={this.closeMessage}
+                        toggleMessage={this.state.message}
+                    />
 
-                {this.state.showModalCar ? this.renderModal() : null}
+                    {this.state.showModalCar ? this.renderModal() : null}
 
 
-                <table style={{ width: '100%', textAlign: 'center' }}>
+                    <table style={{ width: '100%', textAlign: 'center' }}>
+                        <thead>
+                            <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
 
-                    <thead>
+                                <th>
+                                    <h1>Nome</h1>
+                                </th>
 
-                        <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
+                                <th>
+                                    <h1>Nascimento</h1>
+                                </th>
 
-                            <th>
-                                <h1>Nome</h1>
-                            </th>
+                                <th>
+                                    <h1>Gênero</h1>
+                                </th>
 
-                            <th>
-                                <h1>Nascimento</h1>
-                            </th>
+                                <th>
+                                    <h1>Emprego</h1>
+                                </th>
 
-                            <th>
-                                <h1>Gênero</h1>
-                            </th>
+                                <th>
+                                    <h1>Salário</h1>
+                                </th>
 
-                            <th>
-                                <h1>Emprego</h1>
-                            </th>
+                                <th>
+                                    <h1>Endereço</h1>
+                                </th>
 
-                            <th>
-                                <h1>Salário</h1>
-                            </th>
+                                <th>
+                                    <h1>Carro</h1>
+                                </th>
 
-                            <th>
-                                <h1>Endereço</h1>
-                            </th>
+                                <th>
+                                    <h1>Status</h1>
+                                </th>
 
-                            <th>
-                                <h1>Carro</h1>
-                            </th>
+                            </tr>
 
-                            <th>
-                                <h1>Status</h1>
-                            </th>
+                        </thead>
 
-                        </tr>
+                        <tbody>
 
-                    </thead>
+                            {this.renderRows()}
 
-                    <tbody>
-
-                        {this.renderRows()}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
+                        </tbody>
+                    </table>
+                </div>
+            </>
         )
     };
 };

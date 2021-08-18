@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import useToggle from "../../hooks/useToggle";
 
-import ExtendedRowBody from '../extendedRowBody/';
+import ExtendedRowBody from '../extendedRowBody';
 
 export default function TableRow(props) {
 
-    console.log('render row');
     const [isExtended, setExtend] = useToggle(false);
 
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);

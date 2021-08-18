@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import NavMenu from '../navMenu';
-import ContentCard from '../contentCard/';
+import ContentCard from '../contentCard';
 
 export default function ExtendedRowBody(props) {
 
