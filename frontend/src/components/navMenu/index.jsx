@@ -13,7 +13,7 @@ export default function NavMenu(props) {
                         onClick={
                             event => props.selectMenu(event.target.innerText)
                         }
-                        style={...styles.singleTitle}
+                        style={{...styles.singleTitle}}
                         key={index}
                     >
                         {allMenuTitle}

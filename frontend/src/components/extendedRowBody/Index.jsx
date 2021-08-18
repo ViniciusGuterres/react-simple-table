@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import NavMenu from '../navMenu';
-import ContentCard from '../contentCard';
+import ContentCard from '../contentCard/';
 
 export default function ExtendedRowBody(props) {
 
@@ -10,7 +10,7 @@ export default function ExtendedRowBody(props) {
     // just set the menu clicked returned by NavMenu component
     function selectMenuContent(menuTitle) {
 
-        props.extendedContentConfig.map(item => {
+        props.extendedContentConfig.forEach(item => {
             if (menuTitle === item.title) {
                 setSelectedMenu(item);
             };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useToggle from "../../hooks/useToggle";
 
-import ExtendedRowBody from '../extendedRowBody/index';
+import ExtendedRowBody from '../extendedRowBody/';
 
 export default function TableRow(props) {
 
