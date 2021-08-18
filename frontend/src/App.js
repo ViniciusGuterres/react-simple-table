@@ -458,11 +458,11 @@ export default class UsersTable extends Component {
                 {this.state.showModalCar ? this.renderModal() : null}
 
 
-                <table style={{ border: '1px solid black', width: '100%', textAlign: 'center' }}>
+                <table style={{ width: '100%', textAlign: 'center' }}>
 
                     <thead>
 
-                        <tr style={{ background: '#2d485fc2', color: '#fff' }}>
+                        <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
 
                             <th>
                                 <h1>Nome</h1>

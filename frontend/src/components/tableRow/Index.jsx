@@ -5,17 +5,18 @@ import ExtendedRowBody from '../extendedRowBody/';
 
 export default function TableRow(props) {
 
-    const [isExtended, setExtend] = useToggle();
+    console.log('render row');
+    const [isExtended, setExtend] = useToggle(false);
 
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
     // row toggle background logic
-    const bgToggle = (props.index % 2) ? '#fff' : '#ededed';
+    let bgToggle = (props.index % 2) ? '#fff' : '#ededed';
 
     return (
         <>
             <tr
-                // toggle background color between on mouse over and on mouse leave
+                toggle background color between on mouse over and on mouse leave
                 onMouseOver={() => setBgRowOnMouseOver({
                     bg: '#2d485fc2',
                     color: '#fff'
@@ -25,11 +26,11 @@ export default function TableRow(props) {
                     color: 'black'
                 })}
 
-                style={{ 
+                style={{
                     background: bgRowOnMouseOver ? bgRowOnMouseOver.bg : bgToggle,
-                    color: bgRowOnMouseOver.color, 
-                    cursor: 'pointer', 
-                    border: '1px solid black' }
+                    color: 'black',
+                    cursor: 'pointer',
+                }
                 }
 
                 // toggle the body on click when click at the row
