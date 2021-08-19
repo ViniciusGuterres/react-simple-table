@@ -368,41 +368,44 @@ export default class UsersTable extends Component {
                 };
 
                 return (
-                            carObj          
-            //         // <>
-            //         //     <TableRow
-            //         //         index={index}
-            //         //         key={`Row ${index}`}
-            //         //         extendedContentConfig={extendedContentConfig}
-            //         //     >
-            //         //         <td>{userFirstName}</td>
-            //         //         <td>{userBirth}</td>
-            //         //         <td>{userGender}</td>
-            //         //         <td>{userJobTitle}</td>
-            //         //         <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
-            //         //         <td>{userJobAddress}</td>
-            //         //         <td>
-            //         //             <button onClick={(event) => {
-            //         //                 event.stopPropagation();
-            //         //                 this.showCar(carObj);
-            //         //             }}>
-            //         //                 Visualizar
-            //         //             </button>
-            //         //         </td>
+                    // testing car obj as parameters data
+                    carObj
 
-            //         //         <td>
-            //         //             <FontAwesomeIcon
-            //         //                 style={{
-            //         //                     fontSize: '25px',
-            //         //                     color: iconBg
-            //         //                 }}
-            //         //                 icon={iconName}
-            //         //             />
-            //         //         </td>
-            //         //     </TableRow>
-            //         // </>
-            //     );
-            // })
+
+                    // <>
+                    //     <TableRow
+                    //         index={index}
+                    //         key={`Row ${index}`}
+                    //         extendedContentConfig={extendedContentConfig}
+                    //     >
+                    //         <td>{userFirstName}</td>
+                    //         <td>{userBirth}</td>
+                    //         <td>{userGender}</td>
+                    //         <td>{userJobTitle}</td>
+                    //         <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
+                    //         <td>{userJobAddress}</td>
+                    //         <td>
+                    //             <button onClick={(event) => {
+                    //                 event.stopPropagation();
+                    //                 this.showCar(carObj);
+                    //             }}>
+                    //                 Visualizar
+                    //             </button>
+                    //         </td>
+
+                    //         <td>
+                    //             <FontAwesomeIcon
+                    //                 style={{
+                    //                     fontSize: '25px',
+                    //                     color: iconBg
+                    //                 }}
+                    //                 icon={iconName}
+                    //             />
+                    //         </td>
+                    //     </TableRow>
+                    // </>
+                );
+            })
         );
     };
 
@@ -459,7 +462,7 @@ export default class UsersTable extends Component {
                     dataColumnsConfig={
                         [
                             {
-                                header: 'Carro',
+                                header: 'Modelo',
                                 dataKeyRow: 'userCar'
                             },
                             {

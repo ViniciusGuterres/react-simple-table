@@ -13,29 +13,30 @@ export default function TableRow(props) {
     // row toggle background logic
     let bgToggle = (props.index % 2) ? '#fff' : '#ededed';
 
-    let allData = props && props.rowData ? props.rowData : '';
+    let allRowData = props && props.rowData ? props.rowData : '';
 
     function renderDatas() {
 
         return (
 
-            allData.map(item => {
+            props.columnKey.map(item => {
+                
                 return (
+
                     <TableData
-                        val={item}
+                        data={allRowData[item.dataKeyRow]}
                     />
+
                 )
             })
         )
+
     };
 
     return (
         <>
-
-            <tr>
-
+            <tr style={{background: bgToggle}}>
                 {renderDatas()}
-
             </tr>
 
             {/* //////////////////////         ALREADY DONE   ////////////////////////// */}
