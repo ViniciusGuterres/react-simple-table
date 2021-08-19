@@ -35,9 +35,28 @@ export default function TableRow(props) {
 
     return (
         <>
-            <tr style={{background: bgToggle}}>
+            <tr 
+                style={{background: bgToggle}}
+                onClick={setExtend}
+            >
                 {renderDatas()}
             </tr>
+
+            {
+                isExtended ?
+                    <tr>
+                        <td colSpan='100%'>
+                            {
+                                <ExtendedRowBody
+                                    extendedContentConfig={props.extendedContentConfig}
+                                    isExtended={isExtended}
+                                />
+                            }
+                        </td>
+                    </tr>
+                    :
+                    null
+            }
 
             {/* //////////////////////         ALREADY DONE   ////////////////////////// */}
             {/* <tr
@@ -58,26 +77,10 @@ export default function TableRow(props) {
                 }
                 }
 
-                onClick={setExtend}
             >
                 {props.children}
             </tr> */}
 
-            {/* {
-                isExtended ?
-                    <tr>
-                        <td colSpan='100%'>
-                            {
-                                <ExtendedRowBody
-                                    extendedContentConfig={props.extendedContentConfig}
-                                    isExtended={isExtended}
-                                />
-                            }
-                        </td>
-                    </tr>
-                    :
-                    null
-            } */}
         </>
     );
 };

@@ -23,7 +23,7 @@ import TableRow from './components/tableRow/index';
 import Table from './components/table';
 
 // templates
-import Header from './template/header'
+// import Header from './template/header'
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -75,6 +75,7 @@ export default class UsersTable extends Component {
     };
 
     getAllUsersData() {
+
         return (
             // maping all users data
             this.state.allUsersData.map((user, index) => {
@@ -207,7 +208,7 @@ export default class UsersTable extends Component {
                 };
 
                 // config to show all users content in each row body
-                const extendedContentConfig = [
+                const extendedContentConfigAllData = [
                     {
                         title: 'Emprego',
                         fieldsNames: [
@@ -360,15 +361,38 @@ export default class UsersTable extends Component {
                     }
                 ];
 
+                // body extend for car
+                const extendedContentConfigCurrentCarOwns = [
+                    {
+                        title: 'Dono',
+                        fieldsNames: [
+                            {
+                                label: 'Nome',
+                                values: userFirstName
+                            },
+                            {
+                                label: 'Nascimento',
+                                values: userBirth
+                            },
+                            {
+                                label: 'Salário',
+                                values: `${userSalarySymbol} ${userSalary.replace('.', ',')}`
+                            }
+                        ]
+                    },
+                ];
+
                 // tables content
                 const tableData = [
                     {
                         dataBaseName: 'users',
-                        allDataBaseValues: usersObj
+                        allDataBaseValues: usersObj,
+                        extendedContentConfig: extendedContentConfigAllData
                     },
                     {
                         dataBaseName: 'usersCars',
-                        allDataBaseValues: usersCarObj
+                        allDataBaseValues: usersCarObj,
+                        extendedContentConfig: extendedContentConfigCurrentCarOwns
                     }
                 ]
 
@@ -468,8 +492,8 @@ export default class UsersTable extends Component {
 
     render() {
         return (
-            <> 
-                <Header/>
+            <>
+                {/* <Header /> */}
                 {/* //////////////////////////////////////////       DEVELOPING FASE        /////////////////////////////////// */}
 
                 {/* Main Table */}
@@ -477,7 +501,7 @@ export default class UsersTable extends Component {
                     tableData={this.getAllUsersData()}
                     dataBaseName={'users'}
                     dataColumnsConfig={
-                        [   
+                        [
                             {
                                 header: 'Nome',
                                 dataKeyRow: 'userFirstName'
@@ -542,53 +566,6 @@ export default class UsersTable extends Component {
 
                     {this.state.showModalCar ? this.renderModal() : null}
 
-
-                    {/* <table style={{ width: '100%', textAlign: 'center' }}>
-                        <thead>
-                            <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
-
-                                <th>
-                                    <h1>Nome</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Nascimento</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Gênero</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Emprego</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Salário</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Endereço</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Carro</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Status</h1>
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            {this.getAllUsersData()}
-
-                        </tbody>
-                    </table> */}
                 </div>
             </>
         )

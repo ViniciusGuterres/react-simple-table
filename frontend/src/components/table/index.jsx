@@ -26,7 +26,6 @@ export default class Table extends Component {
     };
 
     renderRows() {
-
         const allTableData =
             this.props && this.props.tableData ?
                 this.props.tableData : '';
@@ -49,6 +48,7 @@ export default class Table extends Component {
                                 rowData={rowData[index].allDataBaseValues}
                                 columnKey={allColumnKey}
                                 index={index}
+                                extendedContentConfig={rowData[index].extendedContentConfig}
                             />
                         )
                     };
@@ -60,7 +60,7 @@ export default class Table extends Component {
     render() {
         return (
             <table
-                style={{ width: '100%' }}
+                style={styles.mainTable}
             >
                 <thead>
                     <tr style={styles.tableHeader}
@@ -84,5 +84,9 @@ const styles = {
         background: '#2d485fc2',
         color: '#fff',
         fontSize: '10px'
+    },
+    mainTable: {
+        width: '100%',
+        textAlign: 'center'
     }
 }
