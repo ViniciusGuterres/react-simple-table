@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import { UAParser } from 'ua-parser-js';
 
-// fontAwesome imports
+// fontAwesome 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
-// database imports
+// database 
 import data from './users/users';
 import jobData from './users/users_job';
 import carsData from './users/users_cars';
@@ -16,11 +16,14 @@ import addressData from './users/users_address';
 import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
-// components imports
+// components 
 import ModalCar from './components/modalCar';
 import CustomMessage from './components/customMenssage/CustomMenssage';
 import TableRow from './components/tableRow/index';
 import Table from './components/table';
+
+// templates
+import Header from './template/header'
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -80,7 +83,6 @@ export default class UsersTable extends Component {
                 const userId = user.user_id ? user.user_id : '';
                 const userFirstName = user.user_first_name ? user.user_first_name : '';
                 const userBirth = user.user_birth_date ? user.user_birth_date : '';
-                const userGender = user.user_gender ? user.user_gender : '';
 
                 const userJobTitle = user.currentJob && user.currentJob.user_job_title ?
                     user.currentJob.user_job_title : '';
@@ -186,7 +188,7 @@ export default class UsersTable extends Component {
                 let osVersion = uaParserResult.os.version;
 
                 // refactor later
-                const carObj = {
+                const usersCarObj = {
                     userId,
                     userCarId,
                     userCar,
@@ -194,6 +196,14 @@ export default class UsersTable extends Component {
                     userType,
                     userBrand,
                     userFuel
+                };
+
+                const usersObj = {
+                    userId,
+                    userFirstName,
+                    userBirth,
+                    userSalary,
+                    userCar
                 };
 
                 // config to show all users content in each row body
@@ -225,10 +235,6 @@ export default class UsersTable extends Component {
                             {
                                 label: 'Nascimento',
                                 values: userBirth
-                            },
-                            {
-                                label: 'Gênero',
-                                values: userGender
                             }
                         ]
                     },
@@ -310,10 +316,6 @@ export default class UsersTable extends Component {
                                 values: userAddressName
                             },
                             {
-                                label: 'Sufixo',
-                                values: userAddressSufix
-                            },
-                            {
                                 label: 'Cidade',
                                 values: `${userAddressCityPrefix} ${userAddressCity}`
                             },
@@ -335,7 +337,7 @@ export default class UsersTable extends Component {
                         title: 'Carro',
                         fieldsNames: [
                             {
-                                label: 'Nome do carro',
+                                label: 'Carro',
                                 values: userCar
                             },
                             {
@@ -358,6 +360,18 @@ export default class UsersTable extends Component {
                     }
                 ];
 
+                // tables content
+                const tableData = [
+                    {
+                        dataBaseName: 'users',
+                        allDataBaseValues: usersObj
+                    },
+                    {
+                        dataBaseName: 'usersCars',
+                        allDataBaseValues: usersCarObj
+                    }
+                ]
+
                 // toggle between online, offline and anonymous
                 let iconName = userId % 2 === 0 ? faUser : faUserAltSlash;
                 let iconBg = iconName === faUser ? '#3ade3a' : '#ff4a4a'
@@ -369,7 +383,7 @@ export default class UsersTable extends Component {
 
                 return (
                     // testing car obj as parameters data
-                    carObj
+                    tableData
 
 
                     // <>
@@ -380,7 +394,7 @@ export default class UsersTable extends Component {
                     //     >
                     //         <td>{userFirstName}</td>
                     //         <td>{userBirth}</td>
-                    //         <td>{userGender}</td>
+                    //         <td>{}</td>
                     //         <td>{userJobTitle}</td>
                     //         <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
                     //         <td>{userJobAddress}</td>
@@ -454,11 +468,44 @@ export default class UsersTable extends Component {
 
     render() {
         return (
-            <>
+            <> 
+                <Header/>
                 {/* //////////////////////////////////////////       DEVELOPING FASE        /////////////////////////////////// */}
+
+                {/* Main Table */}
                 <Table
                     tableData={this.getAllUsersData()}
+                    dataBaseName={'users'}
+                    dataColumnsConfig={
+                        [   
+                            {
+                                header: 'Nome',
+                                dataKeyRow: 'userFirstName'
+                            },
+                            {
+                                header: 'Nascimento',
+                                dataKeyRow: 'userBirth'
+                            },
+                            {
+                                header: 'Salário',
+                                dataKeyRow: 'userSalary'
+                            },
+                            {
+                                header: 'Carro',
+                                dataKeyRow: 'userCar'
+                            },
+                            {
+                                header: 'Status',
+                                dataKeyRow: 'none'
+                            }
+                        ]
+                    }
+                />
 
+                {/* cAR Table */}
+                <Table
+                    tableData={this.getAllUsersData()}
+                    dataBaseName={'usersCars'}
                     dataColumnsConfig={
                         [
                             {

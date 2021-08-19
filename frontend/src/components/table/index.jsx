@@ -6,7 +6,6 @@ import TableRow from '../tableRow';
 export default class Table extends Component {
     constructor(props) {
         super(props);
-
     };
 
     renderHeaders() {
@@ -27,24 +26,33 @@ export default class Table extends Component {
     };
 
     renderRows() {
+
         const allTableData =
             this.props && this.props.tableData ?
                 this.props.tableData : '';
 
         const allColumnKey =
             this.props && this.props.dataColumnsConfig ?
-                this.props.dataColumnsConfig : ''
+                this.props.dataColumnsConfig : '';
+
         return (
 
             allTableData.map((rowData, index) => {
 
-                return (
-                    <TableRow
-                        rowData={rowData}
-                        columnKey={allColumnKey}
-                        index={index}
-                    />
-                );
+                for (let index in rowData) {
+
+                    if (rowData[index].dataBaseName === this.props.dataBaseName) {
+
+                        return (
+
+                            <TableRow
+                                rowData={rowData[index].allDataBaseValues}
+                                columnKey={allColumnKey}
+                                index={index}
+                            />
+                        )
+                    };
+                };
             })
         );
     };
@@ -62,15 +70,6 @@ export default class Table extends Component {
                 </thead>
 
                 <tbody>
-
-                    {/* <TableRow
-                        tableData={
-                            this.props.tableData
-                        }
-                        dataColumnsConfig={
-                            this.props.dataColumnsConfig
-                        }
-                    /> */}
 
                     {this.renderRows()}
 
