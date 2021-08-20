@@ -40,7 +40,7 @@ export default class Table extends Component {
 
         return (
 
-            allTableData.map((rowData, index) => {
+            allTableData.map((rowData, idRow) => {
 
                 for (let index in rowData) {
 
@@ -51,7 +51,7 @@ export default class Table extends Component {
                             <TableRow
                                 rowData={rowData[index].allDataBaseValues}
                                 columnKey={allColumnKey}
-                                index={index}
+                                idRow={idRow}
                                 extendedContentConfig={rowData[index].extendedContentConfig}
                             />
                         )
@@ -77,7 +77,7 @@ export default class Table extends Component {
 
                 <tbody>
                     {this.renderRows()}
-
+                    
                     {this.state.showModalCar ? this.renderModal() : null}
                 </tbody>
             </table>

@@ -394,19 +394,9 @@ export default class UsersTable extends Component {
                     }
                 ]
 
-                // toggle between online, offline and anonymous
-                let iconName = userId % 2 === 0 ? faUser : faUserAltSlash;
-                let iconBg = iconName === faUser ? '#3ade3a' : '#ff4a4a'
-
-                if (userId % 5 === 0) {
-                    iconName = faUserSecret;
-                    iconBg = '#272222d9'
-                };
-
                 return (
                     // testing car obj as parameters data
                     tableData
-
 
                     // <>
                     //     <TableRow
@@ -443,6 +433,10 @@ export default class UsersTable extends Component {
                 );
             })
         );
+    };
+
+    updateTable() {
+        
     };
 
     renderModal() {
@@ -519,11 +513,12 @@ export default class UsersTable extends Component {
                                 header: 'Carro',
                                 dataKeyRow: 'none',
                                 dataRowType: 'button',
-                                value: 'Visualizar'                            },
+                                value: 'Visualizar'
+                            },
                             {
                                 header: 'Status',
                                 dataKeyRow: 'none',
-                                dataRowType: 'span'
+                                dataRowType: 'icon'
                             }
                         ]
                     }
