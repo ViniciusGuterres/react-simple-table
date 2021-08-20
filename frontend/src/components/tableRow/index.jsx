@@ -7,6 +7,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
+// generic components
 import ExtendedRowBody from '../extendedRowBody';
 import TableData from "../tableData";
 
@@ -62,7 +63,11 @@ export default function TableRow(props) {
             
             // return data of the current column key
             default:
-                return allRowData[rowType.dataKeyRow];
+                return (
+                    <span>
+                        {allRowData[rowType.dataKeyRow]}
+                    </span>
+                )
                 break;
         };
     };
@@ -109,9 +114,7 @@ export default function TableRow(props) {
             {/* Extend Body Component */}
             {
                 isExtended ?
-                    <tr
-               
-                    >
+                    <tr>
                         <td colSpan='100%'>
                             {
                                 <ExtendedRowBody

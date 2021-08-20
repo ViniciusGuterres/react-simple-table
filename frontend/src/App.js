@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 
 import { UAParser } from 'ua-parser-js';
 
-// fontAwesome 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
-
 // database 
 import data from './users/users';
 import jobData from './users/users_job';
@@ -21,13 +15,11 @@ import ModalCar from './components/modal';
 import CustomMessage from './components/customMenssage/CustomMenssage';
 import Table from './components/table';
 
-// templates
-// import Header from './template/header'
-
 export default class UsersTable extends Component {
     constructor(props) {
         super(props);
 
+        // map all my user datas and add the others dataBase with the corresponding id
         this.userList = data.map(user => {
 
             const userData = user;
@@ -37,13 +29,9 @@ export default class UsersTable extends Component {
             const productsId = userData.user_product_buyed_id;
             const addressId = userData.user_access_id;
 
+            //add the others dataBase with the corresponding id
             if (jobData[jobId]) {
                 userData.currentJob = jobData[jobId];
-                userData.title = "emprego";
-            };
-
-            if (carsData[carId]) {
-                userData.currentCar = carsData[carId];
             };
 
             if (addressData[addressId]) {
@@ -58,25 +46,45 @@ export default class UsersTable extends Component {
                 userData.currentProduct = productsData[productsId];
             };
 
+            if (carsData[carId]) {
+                userData.currentCar = carsData[carId];
+            };
+
             return userData;
         });
 
-        this.state = {
-            allUsersData: this.userList,
-            message: false
-        };
+        this.carList = Object.values(carsData).map(car => {
+            const carData = car;
+            let test = data;
+
+            test.forEach(item => {
+                
+                console.log(item);
+            })
+
+
+
+            return carData;
+        });
 
         this.showCar = this.showCar.bind(this);
         this.close = this.close.bind(this);
         this.saveCarForm = this.saveCarForm.bind(this);
         this.closeMessage = this.closeMessage.bind(this);
+
+        this.state = {
+            allUsersData: this.userList,
+            allCarsData: this.carList,
+            message: false
+        };
     };
 
     getAllUsersData() {
-
         return (
-            // maping all users data
+
             this.state.allUsersData.map((user, index) => {
+
+                // testing
 
                 // verify if exist each single data
                 const userId = user.user_id ? user.user_id : '';
@@ -204,6 +212,7 @@ export default class UsersTable extends Component {
                     userSalary,
                     userCar
                 };
+
 
                 // config to show all users content in each row body
                 const extendedContentConfigAllData = [
@@ -388,7 +397,7 @@ export default class UsersTable extends Component {
                         extendedContentConfig: extendedContentConfigAllData
                     },
                     {
-                        dataBaseName: 'usersCars',
+                        dataBaseName: 'cars',
                         allDataBaseValues: usersCarObj,
                         extendedContentConfig: extendedContentConfigCurrentCarOwns
                     }
@@ -435,8 +444,36 @@ export default class UsersTable extends Component {
         );
     };
 
-    updateTable() {
-        
+    getAllCarsData() {
+
+        return (
+
+            this.state.allCarsData.map(car => {
+    
+                // verify if exists
+                const carObj = {
+                    carName: car && car.car_name ? car.car_name : '',
+                    carModel: car && car.car_model ? car.car_model : '',
+                    carManufacturer: car && car.car_manufacturer ? car.car_manufacturer : '',
+                    carFuel: car && car.car_fuel ? car.car_fuel : '',
+                    carType: car && car.car_type ? car.car_type : ''
+                };
+    
+                // tables content
+                const tableData = [
+                    {
+                        dataBaseName: 'cars',
+                        allDataBaseValues: carObj,
+                    }
+                ];
+    
+                return (
+                    tableData
+                )
+    
+            })
+        );
+
     };
 
     renderModal() {
@@ -467,7 +504,6 @@ export default class UsersTable extends Component {
 
         let newList = this.state.allUsersData;
 
-
         const search = element => element.user_id === newCarValues.user_id;
 
         let index = newList.findIndex(search);
@@ -483,6 +519,8 @@ export default class UsersTable extends Component {
     };
 
     render() {
+        // test
+        this.getAllCarsData()
         return (
             <>
                 {/* <Header /> */}
@@ -524,31 +562,31 @@ export default class UsersTable extends Component {
                     }
                 />
 
-                {/* cAR Table */}
+                {/* car Table */}
                 <Table
-                    tableData={this.getAllUsersData()}
-                    dataBaseName={'usersCars'}
+                    tableData={this.getAllCarsData()}
+                    dataBaseName={'cars'}
                     dataColumnsConfig={
                         [
                             {
-                                header: 'Modelo',
-                                dataKeyRow: 'userCar'
+                                header: 'Carro',
+                                dataKeyRow: 'carName'
                             },
                             {
                                 header: 'Model',
-                                dataKeyRow: 'userModel'
+                                dataKeyRow: 'carModel'
                             },
                             {
                                 header: 'Fabricante',
-                                dataKeyRow: 'userBrand'
+                                dataKeyRow: 'carManufacturer'
                             },
                             {
                                 header: 'Gasolina',
-                                dataKeyRow: 'userFuel'
+                                dataKeyRow: 'carFuel'
                             },
                             {
                                 header: 'Tipo',
-                                dataKeyRow: 'userType'
+                                dataKeyRow: 'carType'
                             }
                         ]
                     }
@@ -561,8 +599,6 @@ export default class UsersTable extends Component {
                         message={this.closeMessage}
                         toggleMessage={this.state.message}
                     />
-
-                
                 </div>
             </>
         )
