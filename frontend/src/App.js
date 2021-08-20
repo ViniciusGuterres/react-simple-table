@@ -17,9 +17,8 @@ import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
 // components 
-import ModalCar from './components/modalCar';
+import ModalCar from './components/modal';
 import CustomMessage from './components/customMenssage/CustomMenssage';
-import TableRow from './components/tableRow/index';
 import Table from './components/table';
 
 // templates
@@ -63,7 +62,6 @@ export default class UsersTable extends Component {
         });
 
         this.state = {
-            showModalCar: null,
             allUsersData: this.userList,
             message: false
         };
@@ -504,23 +502,28 @@ export default class UsersTable extends Component {
                         [
                             {
                                 header: 'Nome',
-                                dataKeyRow: 'userFirstName'
+                                dataKeyRow: 'userFirstName',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Nascimento',
-                                dataKeyRow: 'userBirth'
+                                dataKeyRow: 'userBirth',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Salário',
-                                dataKeyRow: 'userSalary'
+                                dataKeyRow: 'userSalary',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Carro',
-                                dataKeyRow: 'userCar'
-                            },
+                                dataKeyRow: 'none',
+                                dataRowType: 'button',
+                                value: 'Visualizar'                            },
                             {
                                 header: 'Status',
-                                dataKeyRow: 'none'
+                                dataKeyRow: 'none',
+                                dataRowType: 'span'
                             }
                         ]
                     }
@@ -564,8 +567,7 @@ export default class UsersTable extends Component {
                         toggleMessage={this.state.message}
                     />
 
-                    {this.state.showModalCar ? this.renderModal() : null}
-
+                
                 </div>
             </>
         )

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
-import TableData from '../tableData';
 import TableRow from '../tableRow';
 
 export default class Table extends Component {
     constructor(props) {
         super(props);
+
+        this.state= {
+            showModal: null
+        };
     };
 
     renderHeaders() {
@@ -14,6 +17,7 @@ export default class Table extends Component {
                 this.props.dataColumnsConfig : '';
 
         return (
+
             dataConfig.map(headers => {
 
                 return (
@@ -58,7 +62,9 @@ export default class Table extends Component {
     };
 
     render() {
+
         return (
+
             <table
                 style={styles.mainTable}
             >
@@ -70,9 +76,9 @@ export default class Table extends Component {
                 </thead>
 
                 <tbody>
-
                     {this.renderRows()}
 
+                    {this.state.showModalCar ? this.renderModal() : null}
                 </tbody>
             </table>
         );

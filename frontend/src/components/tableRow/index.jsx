@@ -13,18 +13,35 @@ export default function TableRow(props) {
     // row toggle background logic
     let bgToggle = (props.index % 2) ? '#fff' : '#ededed';
 
-    let allRowData = props && props.rowData ? props.rowData : '';
+    // verify props
+    const allRowData = props && props.rowData ? props.rowData : '';
+    const columnKey = props && props.columnKey ? props.columnKey : '';
+
+    function verifyDataRowType(rowType) {
+
+        if (rowType.dataRowType && rowType.dataRowType === 'button' ) {
+            return (
+                <button>
+                    {rowType.value}
+                </button>
+            )
+        } else {
+            return allRowData[rowType.dataKeyRow]
+        }
+    };
 
     function renderDatas() {
 
         return (
 
-            props.columnKey.map(item => {
-                
+            columnKey.map(item => {
+                let result = verifyDataRowType(item);
+
                 return (
 
                     <TableData
-                        data={allRowData[item.dataKeyRow]}
+                        // data={allRowData[item.dataKeyRow]}
+                        data={result}
                     />
 
                 )
@@ -57,6 +74,7 @@ export default function TableRow(props) {
                     :
                     null
             }
+
 
             {/* //////////////////////         ALREADY DONE   ////////////////////////// */}
             {/* <tr
