@@ -6,22 +6,23 @@ export default class Table extends Component {
     constructor(props) {
         super(props);
 
-        this.state= {
+        this.state = {
             showModal: null
         };
     };
 
     renderHeaders() {
+        // verify if the props exits
         const dataConfig =
             this.props && this.props.dataColumnsConfig ?
                 this.props.dataColumnsConfig : '';
 
         return (
 
-            dataConfig.map(headers => {
+            dataConfig.map((headers, index) => {
 
                 return (
-                    <th>
+                    <th key={`headerKey ${index}`}>
                         <h1>{headers.header}</h1>
                     </th>
                 );
@@ -30,6 +31,7 @@ export default class Table extends Component {
     };
 
     renderRows() {
+        // verify if the props exits
         const allTableData =
             this.props && this.props.tableData ?
                 this.props.tableData : '';
@@ -39,24 +41,24 @@ export default class Table extends Component {
                 this.props.dataColumnsConfig : '';
 
         return (
-
             allTableData.map((rowData, idRow) => {
+                // pass the data with the current key to the TableRow component
 
                 for (let index in rowData) {
 
-                    if (rowData[index].dataBaseName === this.props.dataBaseName) {
+                    return (
 
-                        return (
+                        <TableRow
+                            key={`rowKey ${idRow}`}
+                            rowData={rowData[index].allDataBaseValues}
+                            columnKey={allColumnKey}
+                            idRow={idRow}
+                            extendedContentConfig={rowData[index].extendedContentConfig}
+                        />
+                    );
 
-                            <TableRow
-                                rowData={rowData[index].allDataBaseValues}
-                                columnKey={allColumnKey}
-                                idRow={idRow}
-                                extendedContentConfig={rowData[index].extendedContentConfig}
-                            />
-                        )
-                    };
                 };
+                return false;
             })
         );
     };
@@ -77,7 +79,7 @@ export default class Table extends Component {
 
                 <tbody>
                     {this.renderRows()}
-                    
+
                     {this.state.showModalCar ? this.renderModal() : null}
                 </tbody>
             </table>

@@ -47,7 +47,6 @@ export default function TableRow(props) {
                         {rowType.value}
                     </button>
                 );
-                break;
 
             case 'icon':
                 return (
@@ -59,7 +58,6 @@ export default function TableRow(props) {
                         }}
                     />
                 );
-                break;
             
             // return data of the current column key
             default:
@@ -68,7 +66,6 @@ export default function TableRow(props) {
                         {allRowData[rowType.dataKeyRow]}
                     </span>
                 )
-                break;
         };
     };
 
@@ -76,12 +73,13 @@ export default function TableRow(props) {
 
         return (
 
-            columnKey.map(item => {
+            columnKey.map((item, index) => {
                 let currentData = verifyDataRowType(item);
 
                 return (
 
                     <TableData
+                        key={`dataKey ${index}`}
                         data={currentData}
                     />
                 );
