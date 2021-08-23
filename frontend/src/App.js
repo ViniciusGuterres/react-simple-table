@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 
 import { UAParser } from 'ua-parser-js';
 
-// fontAwesome imports
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faUserAltSlash } from '@fortawesome/free-solid-svg-icons';
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
-
-// database imports
+// database 
 import data from './users/users';
 import jobData from './users/users_job';
 import carsData from './users/users_cars';
@@ -16,16 +10,16 @@ import addressData from './users/users_address';
 import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
-// components imports
-import ModalCar from './components/modalCar';
+// components 
+import ModalCar from './components/modal';
 import CustomMessage from './components/customMenssage/CustomMenssage';
-import TableRow from './components/tableRow/index';
 import Table from './components/table';
 
 export default class UsersTable extends Component {
     constructor(props) {
         super(props);
 
+        // map all my user datas and add the others dataBase with the corresponding id
         this.userList = data.map(user => {
 
             const userData = user;
@@ -35,13 +29,9 @@ export default class UsersTable extends Component {
             const productsId = userData.user_product_buyed_id;
             const addressId = userData.user_access_id;
 
+            //add the others dataBase with the corresponding id
             if (jobData[jobId]) {
                 userData.currentJob = jobData[jobId];
-                userData.title = "emprego";
-            };
-
-            if (carsData[carId]) {
-                userData.currentCar = carsData[carId];
             };
 
             if (addressData[addressId]) {
@@ -56,162 +46,105 @@ export default class UsersTable extends Component {
                 userData.currentProduct = productsData[productsId];
             };
 
+            if (carsData[carId]) {
+                userData.currentCar = carsData[carId];
+            };
+
             return userData;
         });
-
-        this.state = {
-            showModalCar: null,
-            allUsersData: this.userList,
-            message: false
-        };
 
         this.showCar = this.showCar.bind(this);
         this.close = this.close.bind(this);
         this.saveCarForm = this.saveCarForm.bind(this);
         this.closeMessage = this.closeMessage.bind(this);
+
+        this.state = {
+            allUsersData: this.userList,
+            message: false
+        };
     };
 
-    renderRows() {
+    getAllUsersData() {
+
         return (
-            // maping all users data
-            this.state.allUsersData.map((user, index) => {
+            this.state.allUsersData.map(user => {
 
-                // verify if exist each single data
-                const userId = user.user_id ? user.user_id : '';
-                const userFirstName = user.user_first_name ? user.user_first_name : '';
-                const userBirth = user.user_birth_date ? user.user_birth_date : '';
-                const userGender = user.user_gender ? user.user_gender : '';
+                const allUserDataObj = {
 
-                const userJobTitle = user.currentJob && user.currentJob.user_job_title ?
-                    user.currentJob.user_job_title : '';
-                const userJobAddress = user.currentJob && user.currentJob.user_job_address ?
-                    user.currentJob.user_job_address : '';
-                const userSalary = user.currentJob && user.currentJob.user_job_salary ?
-                    user.currentJob.user_job_salary : '';
-                const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ?
-                    user.currentJob.user_job_salary_currency_symbol : '';
+                    // User datas
+                    userId: user.user_id ? user.user_id : '',
+                    userFirstName: user.user_first_name ? user.user_first_name : '',
+                    userBirth: user.user_birth_date ? user.user_birth_date : '',
 
-                const userCarId = user.currentCar && user.currentCar.car_id ?
-                    user.currentCar.car_id : '';
-                const userCar = user.currentCar && user.currentCar.car_name ?
-                    user.currentCar.car_name : '';
-                const userModel = user.currentCar && user.currentCar.car_model ?
-                    user.currentCar.car_model : '';
-                const userType = user.currentCar && user.currentCar.car_type ?
-                    user.currentCar.car_type : '';
-                const userBrand = user.currentCar && user.currentCar.car_manufacturer ?
-                    user.currentCar.car_manufacturer : '';
-                const userFuel = user.currentCar && user.currentCar.car_fuel ?
-                    user.currentCar.car_fuel : '';
+                    // User car datas
+                    userCarId: user.currentCar && user.currentCar.car_id ? user.currentCar.car_id : '',
+                    userCar: user.currentCar && user.currentCar.car_name ? user.currentCar.car_name : '',
+                    userCarModel: user.currentCar && user.currentCar.car_model ? user.currentCar.car_model : '',
+                    userCarType: user.currentCar && user.currentCar.car_type ? user.currentCar.car_type : '',
+                    userCarManufacturer: user.currentCar && user.currentCar.car_manufacturer ? user.currentCar.car_manufacturer : '',
+                    userCarFuel: user.currentCar && user.currentCar.car_fuel ? user.currentCar.car_fuel : '',
 
-                const userProductAppliance =
-                    user.currentProduct && user.currentProduct.user_product_buyed_appliance ?
-                        user.currentProduct.user_product_buyed_appliance : '';
-                const userProductIndusty =
-                    user.currentProduct && user.currentProduct.user_product_buyed_business_industy ?
-                        user.currentProduct.user_product_buyed_business_industy : '';
-                const userProductTechnology =
-                    user.currentProduct && user.currentProduct.user_product_buyed_business_technology ?
-                        user.currentProduct.user_product_buyed_business_technology : '';
-                const userProductDepartmente =
-                    user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ?
-                        user.currentProduct.user_product_buyed_commerce_department : '';
-                const userProductCompanyName =
-                    user.currentProduct && user.currentProduct.user_product_buyed_company_name ?
-                        user.currentProduct.user_product_buyed_company_name : '';
-                const userProductName =
-                    user.currentProduct && user.currentProduct.user_product_buyed_product_name ?
-                        user.currentProduct.user_product_buyed_product_name : '';
-                const userProductDescription =
-                    user.currentProduct && user.currentProduct.user_product_buyed_product_description ?
-                        user.currentProduct.user_product_buyed_product_description : '';
-                const userProductMaterial =
-                    user.currentProduct && user.currentProduct.user_product_buyed_product_material ?
-                        user.currentProduct.user_product_buyed_product_material : '';
-                const userProductPrice =
-                    user.currentProduct && user.currentProduct.user_product_buyed_product_price ?
-                        user.currentProduct.user_product_buyed_product_price : '';
+                    // User job datas
+                    userJobTitle: user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '',
+                    userJobAddress: user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '',
+                    userJobSalary: user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '',
+                    userSalarySymbol: user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '',
 
-                const userAddressStreet =
-                    user.currentAddress && user.currentAddress.user_address_street_address ?
-                        user.currentAddress.user_address_street_address : '';
-                const userAddressName =
-                    user.currentAddress && user.currentAddress.user_address_street_name ?
-                        user.currentAddress.user_address_street_name : '';
-                const userAddressSufix =
-                    user.currentAddress && user.currentAddress.user_address_street_sufix ?
-                        user.currentAddress.user_address_street_sufix : '';
-                const userAddressCity =
-                    user.currentAddress && user.currentAddress.user_address_city ?
-                        user.currentAddress.user_address_city : '';
-                const userAddressCityPrefix =
-                    user.currentAddress && user.currentAddress.user_address_city_prefix ?
-                        user.currentAddress.user_address_city_prefix : '';
-                const userAddressSecondary =
-                    user.currentAddress && user.currentAddress.user_address_secondary_address ?
-                        user.currentAddress.user_address_secondary_address : '';
-                const userAddressDirection =
-                    user.currentAddress && user.currentAddress.user_address_address_direction ?
-                        user.currentAddress.user_address_address_direction : '';
-                const userState =
-                    user.currentAddress && user.currentAddress.user_address_state ?
-                        user.currentAddress.user_address_state : '';
-                const userCountry =
-                    user.currentAddress && user.currentAddress.user_address_country ?
-                        user.currentAddress.user_address_country : '';
+                    // User product datas
+                    userProductName: user.currentProduct && user.currentProduct.user_product_buyed_product_name ? user.currentProduct.user_product_buyed_product_name : '',
+                    userProductAppliance: user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '',
+                    userProductPrice: user.currentProduct && user.currentProduct.user_product_buyed_product_price ? user.currentProduct.user_product_buyed_product_price : '',
+                    userProductDescription: user.currentProduct && user.currentProduct.user_product_buyed_product_description ? user.currentProduct.user_product_buyed_product_description : '',
+                    userProductIndusty: user.currentProduct && user.currentProduct.user_product_buyed_business_industy ? user.currentProduct.user_product_buyed_business_industy : '',
+                    userProductTechnology: user.currentProduct && user.currentProduct.user_product_buyed_business_technology ? user.currentProduct.user_product_buyed_business_technology : '',
+                    userProductDepartmente: user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ? user.currentProduct.user_product_buyed_commerce_department : '',
+                    userProductCompanyName: user.currentProduct && user.currentProduct.user_product_buyed_company_name ? user.currentProduct.user_product_buyed_company_name : '',
+                    userProductMaterial: user.currentProduct && user.currentProduct.user_product_buyed_product_material ? user.currentProduct.user_product_buyed_product_material : '',
 
-                const userBusinessTechnoloy =
-                    user.currentAccess && user.currentAccess.user_access_business_technoloy ?
-                        user.currentAccess.user_access_business_technoloy : '';
-                const userIpAddress =
-                    user.currentAccess && user.currentAccess.user_access_ip_address ?
-                        user.currentAccess.user_access_ip_address : '';
-                const userMacAddress =
-                    user.currentAccess && user.currentAccess.user_access_mac_address ?
-                        user.currentAccess.user_access_mac_address : '';
-                const userAccessAgent =
-                    user.currentAccess && user.currentAccess.user_access_user_agent ?
-                        user.currentAccess.user_access_user_agent : '';
-                const userAccessLogin =
-                    user.currentAccess && user.currentAccess.user_access_login ?
-                        user.currentAccess.user_access_login : '';
+                    // User address datas
+                    userAddressStreet: user.currentAddress && user.currentAddress.user_address_street_address ? user.currentAddress.user_address_street_address : '',
+                    userAddressName: user.currentAddress && user.currentAddress.user_address_street_name ? user.currentAddress.user_address_street_name : '',
+                    userAddressSufix: user.currentAddress && user.currentAddress.user_address_street_sufix ? user.currentAddress.user_address_street_sufix : '',
+                    userAddressCity: user.currentAddress && user.currentAddress.user_address_city ? user.currentAddress.user_address_city : '',
+                    userAddressCityPrefix: user.currentAddress && user.currentAddress.user_address_city_prefix ? user.currentAddress.user_address_city_prefix : '',
+                    userAddressSecondary: user.currentAddress && user.currentAddress.user_address_secondary_address ? user.currentAddress.user_address_secondary_address : '',
+                    userAddressDirection: user.currentAddress && user.currentAddress.user_address_address_direction ? user.currentAddress.user_address_address_direction : '',
+                    userState: user.currentAddress && user.currentAddress.user_address_state ? user.currentAddress.user_address_state : '',
+                    userCountry: user.currentAddress && user.currentAddress.user_address_country ? user.currentAddress.user_address_country : '',
+
+                    // User access
+                    userBusinessTechnoloy: user.currentAccess && user.currentAccess.user_access_business_technoloy ? user.currentAccess.user_access_business_technoloy : '',
+                    userIpAddress: user.currentAccess && user.currentAccess.user_access_ip_address ? user.currentAccess.user_access_ip_address : '',
+                    userMacAddress: user.currentAccess && user.currentAccess.user_access_mac_address ? user.currentAccess.user_access_mac_address : '',
+                    userAccessAgent: user.currentAccess && user.currentAccess.user_access_user_agent ? user.currentAccess.user_access_user_agent : '',
+                    userAccessLogin: user.currentAccess && user.currentAccess.user_access_login ? user.currentAccess.user_access_login : '',
+                };
 
                 // handle with access agent, using the UAParser Object
                 let uaParser = new UAParser();
-                uaParser.setUA(userAccessAgent);
+                uaParser.setUA(allUserDataObj.userAccessAgent);
 
                 // get the OS name and current version
                 let uaParserResult = uaParser.getResult();
                 let osName = uaParserResult.os.name;
                 let osVersion = uaParserResult.os.version;
 
-                // refactor later
-                const carObj = {
-                    userId,
-                    userCarId,
-                    userCar,
-                    userModel,
-                    userType,
-                    userBrand,
-                    userFuel
-                };
-
                 // config to show all users content in each row body
-                const extendedContentConfig = [
+                const extendedContentConfigAllData = [
                     {
                         title: 'Emprego',
                         fieldsNames: [
                             {
                                 label: 'Emprego',
-                                values: userJobTitle
+                                values: allUserDataObj.userJobTitle
                             },
                             {
                                 label: 'Endereço',
-                                values: userJobAddress
+                                values: allUserDataObj.userJobAddress
                             },
                             {
                                 label: 'Salário',
-                                values: `${userSalarySymbol} ${userSalary.replace('.', ',')}`
+                                values: allUserDataObj.userSalary
                             }
                         ]
                     },
@@ -220,15 +153,11 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'Nome',
-                                values: userFirstName
+                                values: allUserDataObj.userFirstName
                             },
                             {
                                 label: 'Nascimento',
-                                values: userBirth
-                            },
-                            {
-                                label: 'Gênero',
-                                values: userGender
+                                values: allUserDataObj.userBirth
                             }
                         ]
                     },
@@ -237,19 +166,19 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'Tecnologia',
-                                values: userBusinessTechnoloy
+                                values: allUserDataObj.userBusinessTechnoloy
                             },
                             {
                                 label: 'Endereço de Ip',
-                                values: userIpAddress
+                                values: allUserDataObj.userIpAddress
                             },
                             {
                                 label: 'Endereço mac',
-                                values: userMacAddress
+                                values: allUserDataObj.userMacAddress
                             },
                             {
                                 label: 'login',
-                                values: userAccessLogin
+                                values: allUserDataObj.userAccessLogin
                             },
                             {
                                 label: 'OS',
@@ -262,39 +191,39 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'nome',
-                                values: userProductName
+                                values: allUserDataObj.userProductName
                             },
                             {
                                 label: 'Empresa',
-                                values: userProductCompanyName
+                                values: allUserDataObj.userProductCompanyName
                             },
                             {
                                 label: 'Departamento',
-                                values: userProductDepartmente
+                                values: allUserDataObj.userProductDepartmente
                             },
                             {
                                 label: 'Indústria',
-                                values: userProductIndusty
+                                values: allUserDataObj.userProductIndusty
                             },
                             {
                                 label: 'Preço',
-                                values: `${userSalarySymbol} ${userProductPrice}`
+                                values: `${allUserDataObj.userSalarySymbol} ${allUserDataObj.userProductPrice}`
                             },
                             {
                                 label: 'tecnologia utilizada',
-                                values: userProductTechnology
+                                values: allUserDataObj.userProductTechnology
                             },
                             {
                                 label: 'Material',
-                                values: userProductMaterial
+                                values: allUserDataObj.userProductMaterial
                             },
                             {
                                 label: 'Utensílio',
-                                values: userProductAppliance
+                                values: allUserDataObj.userProductAppliance
                             },
                             {
                                 label: 'Descrição',
-                                values: userProductDescription
+                                values: allUserDataObj.userProductDescription
                             },
                         ]
                     },
@@ -303,31 +232,27 @@ export default class UsersTable extends Component {
                         fieldsNames: [
                             {
                                 label: 'Rua',
-                                values: userAddressStreet
+                                values: allUserDataObj.userAddressStreet
                             },
                             {
                                 label: 'Nome',
-                                values: userAddressName
-                            },
-                            {
-                                label: 'Sufixo',
-                                values: userAddressSufix
+                                values: allUserDataObj.userAddressName
                             },
                             {
                                 label: 'Cidade',
-                                values: `${userAddressCityPrefix} ${userAddressCity}`
+                                values: `${allUserDataObj.userAddressCityPrefix} ${allUserDataObj.userAddressCity}`
                             },
                             {
                                 label: 'Endereço secundário',
-                                values: userAddressSecondary
+                                values: allUserDataObj.userAddressSecondary
                             },
                             {
                                 label: 'Direção',
-                                values: userAddressDirection
+                                values: allUserDataObj.userAddressDirection
                             },
                             {
                                 label: 'Estado',
-                                values: `${userState} - ${userCountry}`
+                                values: `${allUserDataObj.userState} - ${allUserDataObj.userCountry}`
                             }
                         ]
                     },
@@ -335,73 +260,64 @@ export default class UsersTable extends Component {
                         title: 'Carro',
                         fieldsNames: [
                             {
-                                label: 'Nome do carro',
-                                values: userCar
+                                label: 'Carro',
+                                values: allUserDataObj.userCar
                             },
                             {
                                 label: 'Modelo',
-                                values: userModel
+                                values: allUserDataObj.userModel
                             },
                             {
                                 label: 'Fabricante',
-                                values: userBrand
+                                values: allUserDataObj.userBrand
                             },
                             {
                                 label: 'Tipo',
-                                values: userType
+                                values: allUserDataObj.userType
                             },
                             {
                                 label: 'Gasolina',
-                                values: userFuel
+                                values: allUserDataObj.userFuel
                             }
                         ]
                     }
                 ];
 
-                // toggle between online, offline and anonymous
-                let iconName = userId % 2 === 0 ? faUser : faUserAltSlash;
-                let iconBg = iconName === faUser ? '#3ade3a' : '#ff4a4a'
+                // body extend for car
+                // const extendedContentConfigCurrentCarOwns = [
+                //     {
+                //         title: 'Dono',
+                //         fieldsNames: [
+                //             {
+                //                 label: 'Nome',
+                //                 values: allDataObj.userFirstname
+                //             },
+                //             {
+                //                 label: 'Nascimento',
+                //                 values: allDataObj.userBirth
+                //             },
+                //             {
+                //                 label: 'Salário',
+                //                 values: `${userSalarySymbol} ${userSalary.replace('.', ',')}`
+                //             }
+                //         ]
+                //     },
+                // ];
 
-                if (userId % 5 === 0) {
-                    iconName = faUserSecret;
-                    iconBg = '#272222d9'
-                };
+                // tables content
+                const tableData = [
+                    {
+                        // dataBaseName: 'users',
+                        allDataBaseValues: allUserDataObj,
+                        extendedContentConfig: extendedContentConfigAllData
+                    },
+                    // {
+                    //     allDataBaseValues: allDataObj,
+                    //     extendedContentConfig: extendedContentConfigCurrentCarOwns
+                    // }
+                ]
 
-                return (
-                    <>
-                        <TableRow
-                            index={index}
-                            key={`Row ${index}`}
-                            extendedContentConfig={extendedContentConfig}
-                        >
-                            <td>{userFirstName}</td>
-                            <td>{userBirth}</td>
-                            <td>{userGender}</td>
-                            <td>{userJobTitle}</td>
-                            <td>{`${userSalarySymbol}: ${userSalary.replace('.', ',')}`}</td>
-                            <td>{userJobAddress}</td>
-                            <td>
-                                <button onClick={(event) => {
-                                    event.stopPropagation();
-                                    this.showCar(carObj);
-                                }}>
-                                    Visualizar
-                                </button>
-                            </td>
-
-                            {/* Online Icons Logic */}
-                            <td>
-                                <FontAwesomeIcon
-                                    style={{
-                                        fontSize: '25px',
-                                        color: iconBg
-                                    }}
-                                    icon={iconName}
-                                />
-                            </td>
-                        </TableRow>
-                    </>
-                );
+                return (tableData);
             })
         );
     };
@@ -434,7 +350,6 @@ export default class UsersTable extends Component {
 
         let newList = this.state.allUsersData;
 
-
         const search = element => element.user_id === newCarValues.user_id;
 
         let index = newList.findIndex(search);
@@ -450,102 +365,84 @@ export default class UsersTable extends Component {
     };
 
     render() {
+
         return (
             <>
+                {/* <Header /> */}
+                {/* //////////////////////////////////////////       DEVELOPING FASE        /////////////////////////////////// */}
+
+                {/* Main Table */}
                 <Table
-                    columnsConfig={
+                    tableData={this.getAllUsersData()}
+                    // dataBaseName={'users'}
+                    dataColumnsConfig={
                         [
                             {
                                 header: 'Nome',
-                                dataKeyRow: 'name'
+                                dataKeyRow: 'userFirstName',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Nascimento',
-                                dataKeyRow: 'birth'
-                            },
-                            {
-                                header: 'Gênero',
-                                dataKeyRow: 'gender'
-                            },
-                            {
-                                header: 'Emprego',
-                                dataKeyRow: 'job'
+                                dataKeyRow: 'userBirth',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Salário',
-                                dataKeyRow: 'salary'
-                            },
-                            {
-                                header: 'Endereço',
-                                dataKeyRow: 'address'
+                                dataKeyRow: 'userSalary',
+                                dataRowType: 'span'
                             },
                             {
                                 header: 'Carro',
-                                dataKeyRow: 'car'
+                                dataKeyRow: 'none',
+                                dataRowType: 'button',
+                                value: 'Visualizar'
                             },
                             {
                                 header: 'Status',
-                                dataKeyRow: 'status'
-                            },
+                                dataKeyRow: 'none',
+                                dataRowType: 'icon'
+                            }
                         ]
                     }
                 />
+
+                {/* car Table */}
+                <Table
+                    tableData={this.getAllUsersData()}
+                    dataColumnsConfig={
+                        [
+                            {
+                                header: 'Carro',
+                                dataKeyRow: 'userCar'
+                            },
+                            {
+                                header: 'Model',
+                                dataKeyRow: 'userCarModel'
+                            },
+                            {
+                                header: 'Fabricante',
+                                dataKeyRow: 'userCarManufacturer'
+                            },
+                            {
+                                header: 'Gasolina',
+                                dataKeyRow: 'userCarFuel'
+                            },
+                            {
+                                header: 'Tipo',
+                                dataKeyRow: 'userCarType'
+                            }
+                        ]
+                    }
+                />
+
+                {/* //////////////////////////////////       ALREADY WORKING      /////////////////////////////////////// */}
                 <div style={{ width: '100%', height: '100%' }}>
                     <CustomMessage
                         name='Salvo com sucesso'
                         message={this.closeMessage}
                         toggleMessage={this.state.message}
                     />
-
-                    {this.state.showModalCar ? this.renderModal() : null}
-
-
-                    <table style={{ width: '100%', textAlign: 'center' }}>
-                        <thead>
-                            <tr style={{ background: '#2d485fc2', color: '#fff', fontSize: '10px' }}>
-
-                                <th>
-                                    <h1>Nome</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Nascimento</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Gênero</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Emprego</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Salário</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Endereço</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Carro</h1>
-                                </th>
-
-                                <th>
-                                    <h1>Status</h1>
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            {this.renderRows()}
-
-                        </tbody>
-                    </table>
                 </div>
             </>
         )
