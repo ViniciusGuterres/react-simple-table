@@ -144,7 +144,7 @@ export default class UsersTable extends Component {
                             },
                             {
                                 label: 'Salário',
-                                values: allUserDataObj.userSalary
+                                values: allUserDataObj.userJobSalary
                             }
                         ]
                     },
