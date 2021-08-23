@@ -49,11 +49,17 @@ export default function TableRow(props) {
                         onClick={
                             event => {
                                 event.stopPropagation();
-                                props.showModal(
-                                    {
-                                        
-                                    }
-                                );
+
+                                props.showModal({
+                                    userCar: allRowData.userCar,
+                                    userId: allRowData.userCarId,
+                                    userModel: allRowData.userCarModel,
+                                    userBrand: allRowData.userCarManufacturer,
+                                    userType: allRowData.userCarType,
+                                    userFuel: allRowData.userCarFuel,
+                                
+                                })
+
                             }
                         }
                     >

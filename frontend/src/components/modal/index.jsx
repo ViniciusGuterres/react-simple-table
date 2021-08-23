@@ -196,17 +196,18 @@ export default function Modal(props) {
 
 const styles = {
     parentDiv: {
-        position: 'fixed',
         width: '100%',
         height: '100%',
-        zIndex: '10',
-        backgroundColor: 'rgb(93 85 85 / 63%)',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        backgroundColor: '#5d555575',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
     },
     modalDiv: {
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
         borderRadius: '10px',
         position: 'relative'
     },

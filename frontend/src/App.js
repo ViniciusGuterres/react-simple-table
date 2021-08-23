@@ -11,10 +11,6 @@ import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
 // components 
-<<<<<<< HEAD
-=======
-import ModalCar from './components/modal';
->>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
 import CustomMessage from './components/customMenssage';
 import Table from './components/table';
 
@@ -148,11 +144,8 @@ export default class UsersTable extends Component {
                             },
                             {
                                 label: 'Salário',
-<<<<<<< HEAD
                                 values: allUserDataObj.userSalaryHandled
-=======
-                                values: allUserDataObj.userJobSalary
->>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
+
                             }
                         ]
                     },
@@ -291,12 +284,25 @@ export default class UsersTable extends Component {
                     }
                 ];
 
+                // testing obj modal
+                const modalConfig = {
+                    userCar: allUserDataObj.userCar,
+                    userId: allUserDataObj.userId,
+                    userModel: allUserDataObj.userCarModel,
+                    userBrand: allUserDataObj.userCarManufacturer,
+                    userType: allUserDataObj.userCarType,
+                    userFuel: allUserDataObj.userCarFuel
+
+                }
+                
+
                 // tables content
                 const tableData = [
                     {
                         // dataBaseName: 'users',
                         allDataBaseValues: allUserDataObj,
-                        extendedContentConfig: extendedContentConfigAllData
+                        extendedContentConfig: extendedContentConfigAllData,
+                        modalConfig: modalConfig
                     },
                     // {
                     //     allDataBaseValues: allDataObj,
@@ -313,12 +319,11 @@ export default class UsersTable extends Component {
         this.setState({ message: false })
     }
 
+    // save a new user list with some alterations
     saveCarForm(newCarValues) {
 
         let newList = this.state.allUsersData;
-
         const search = element => element.user_id === newCarValues.user_id;
-
         let index = newList.findIndex(search);
 
         newList[index].currentCar = newCarValues;
@@ -341,7 +346,6 @@ export default class UsersTable extends Component {
                 {/* Main Table */}
                 <Table
                     tableData={this.getAllUsersData()}
-                    // dataBaseName={'users'}
                     dataColumnsConfig={
                         [
                             {
@@ -356,11 +360,8 @@ export default class UsersTable extends Component {
                             },
                             {
                                 header: 'Salário',
-<<<<<<< HEAD
                                 dataKeyRow: 'userSalaryHandled',
-=======
-                                dataKeyRow: 'userJobSalary',
->>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
+
                                 dataRowType: 'span'
                             },
                             {

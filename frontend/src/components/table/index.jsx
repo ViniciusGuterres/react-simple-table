@@ -10,6 +10,9 @@ export default class Table extends Component {
         this.state = {
             showModal: null
         };
+
+        this.showModal = this.showModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     };
 
     renderHeaders() {
@@ -55,6 +58,7 @@ export default class Table extends Component {
                             columnKey={allColumnKey}
                             idRow={idRow}
                             extendedContentConfig={rowData[index].extendedContentConfig}
+                            modalConfig={this.props.modalConfig}
                             showModal={this.showModal}
                         />
                     );
@@ -65,22 +69,21 @@ export default class Table extends Component {
         );
     };
 
-    // modal funcs
+    // modal functions
     renderModal() {
         return (
             <Modal
                 carObject={
-                    this.state.showModalCar
+                    this.state.showModal
                 }
-                close={this.close}
+                close={this.closeModal}
                 saveCar={this.saveCarForm}
             />
         );
     };
 
     showModal(obj) {
-        console.log('test');
-        this.setState({ showModal: obj });
+        this.setState({ showModal: obj })
     };
 
     closeModal() {
@@ -103,7 +106,8 @@ export default class Table extends Component {
                 <tbody>
                     {this.renderRows()}
 
-                    {this.state.showModalCar ? this.renderModal() : null}
+                    {this.state.showModal ? this.renderModal() : null}
+
                 </tbody>
 
             </table>
