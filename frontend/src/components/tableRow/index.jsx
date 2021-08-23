@@ -69,6 +69,7 @@ export default function TableRow(props) {
                         {allRowData[rowType.dataKeyRow]}
                     </span>
                 )
+                
         };
     };
 
