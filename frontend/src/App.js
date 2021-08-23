@@ -389,7 +389,7 @@ export default class UsersTable extends Component {
                             },
                             {
                                 header: 'Salário',
-                                dataKeyRow: 'userSalary',
+                                dataKeyRow: 'userJobSalary',
                                 dataRowType: 'span'
                             },
                             {
