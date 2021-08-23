@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useToggle from "../../hooks/useToggle";
 
+
 // fontAwesome 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -11,11 +12,13 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import ExtendedRowBody from '../extendedRowBody';
 import TableData from "../tableData";
 
+
 export default function TableRow(props) {
 
     const [isExtended, setExtend] = useToggle(false);
 
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
+
 
     // verify props
     const allRowData = props && props.rowData ? props.rowData : '';
@@ -88,10 +91,13 @@ export default function TableRow(props) {
         );
     };
 
+
     return (
         <>
             <tr
+
                 // toggle background color between on mouse over and on mouse leave
+
                 onMouseOver={() => setBgRowOnMouseOver({
                     bg: '#2d485fc2',
                     color: '#fff'
@@ -100,6 +106,7 @@ export default function TableRow(props) {
                     bg: bgToggle,
                     color: 'black'
                 })}
+
                 onClick={setExtend}
                 style={{ 
                     background: bgRowOnMouseOver ? bgRowOnMouseOver.bg : bgToggle,
@@ -111,6 +118,7 @@ export default function TableRow(props) {
             </tr>
             
             {/* Extend Body Component */}
+
             {
                 isExtended ?
                     <tr>
@@ -128,4 +136,6 @@ export default function TableRow(props) {
             }
         </>
     );
+
 };
+

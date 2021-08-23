@@ -6,12 +6,16 @@ export default function ContentCard(props) {
         return (
             props.content.fieldsNames.map((itens, index) => {
                 return (
+
                     <div key={index}>
+
                         <label style={{ fontWeight: 'bold' }}>{itens.label}: </label>
                         <span style={styles.value}>
                             {itens.values}
                         </span><br></br>
+
                     </div>
+
                 );
             })
         );
