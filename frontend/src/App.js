@@ -12,7 +12,7 @@ import productsData from './users/users_products_buyed';
 
 // components 
 import ModalCar from './components/modal';
-import CustomMessage from './components/customMenssage/CustomMenssage';
+import CustomMessage from './components/customMenssage';
 import Table from './components/table';
 
 export default class UsersTable extends Component {
