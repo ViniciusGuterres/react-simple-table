@@ -11,6 +11,10 @@ import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
 // components 
+<<<<<<< HEAD
+=======
+import ModalCar from './components/modal';
+>>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
 import CustomMessage from './components/customMenssage';
 import Table from './components/table';
 
@@ -144,7 +148,11 @@ export default class UsersTable extends Component {
                             },
                             {
                                 label: 'Salário',
+<<<<<<< HEAD
                                 values: allUserDataObj.userSalaryHandled
+=======
+                                values: allUserDataObj.userJobSalary
+>>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
                             }
                         ]
                     },
@@ -348,7 +356,11 @@ export default class UsersTable extends Component {
                             },
                             {
                                 header: 'Salário',
+<<<<<<< HEAD
                                 dataKeyRow: 'userSalaryHandled',
+=======
+                                dataKeyRow: 'userJobSalary',
+>>>>>>> 6741f455478dfce9141ae97e7ba40e8da1bbed1a
                                 dataRowType: 'span'
                             },
                             {
