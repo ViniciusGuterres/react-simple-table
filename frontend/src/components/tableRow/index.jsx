@@ -37,7 +37,6 @@ export default function TableRow(props) {
         iconBg = '#272222d9'
     };
 
-    
     // verify the data coloumn type and return the relative html type
     function verifyDataRowType(rowType) {
 
@@ -46,7 +45,18 @@ export default function TableRow(props) {
         switch (currentDataRowType) {
             case 'button':
                 return (
-                    <button>
+                    <button
+                        onClick={
+                            event => {
+                                event.stopPropagation();
+                                props.showModal(
+                                    {
+                                        
+                                    }
+                                );
+                            }
+                        }
+                    >
                         {rowType.value}
                     </button>
                 );
@@ -85,6 +95,7 @@ export default function TableRow(props) {
                     <TableData
                         key={`dataKey ${index}`}
                         data={currentData}
+
                     />
                 );
             })
@@ -97,7 +108,6 @@ export default function TableRow(props) {
             <tr
 
                 // toggle background color between on mouse over and on mouse leave
-
                 onMouseOver={() => setBgRowOnMouseOver({
                     bg: '#2d485fc2',
                     color: '#fff'

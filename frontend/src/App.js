@@ -11,8 +11,7 @@ import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
 // components 
-import ModalCar from './components/modal';
-import CustomMessage from './components/customMenssage/CustomMenssage';
+import CustomMessage from './components/customMenssage';
 import Table from './components/table';
 
 export default class UsersTable extends Component {
@@ -53,9 +52,6 @@ export default class UsersTable extends Component {
             return userData;
         });
 
-        this.showCar = this.showCar.bind(this);
-        this.close = this.close.bind(this);
-        this.saveCarForm = this.saveCarForm.bind(this);
         this.closeMessage = this.closeMessage.bind(this);
 
         this.state = {
@@ -68,6 +64,11 @@ export default class UsersTable extends Component {
 
         return (
             this.state.allUsersData.map(user => {
+
+                // handle with user salary data
+                const userJobSalary=  user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
+                const userSalarySymbol =  user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
+                const userSalaryHandled = `${userSalarySymbol}: ${userJobSalary.replace('.', ',')}`
 
                 const allUserDataObj = {
 
@@ -87,9 +88,8 @@ export default class UsersTable extends Component {
                     // User job datas
                     userJobTitle: user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '',
                     userJobAddress: user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '',
-                    userJobSalary: user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '',
-                    userSalarySymbol: user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '',
-
+                    userSalaryHandled,
+                    
                     // User product datas
                     userProductName: user.currentProduct && user.currentProduct.user_product_buyed_product_name ? user.currentProduct.user_product_buyed_product_name : '',
                     userProductAppliance: user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '',
@@ -144,7 +144,7 @@ export default class UsersTable extends Component {
                             },
                             {
                                 label: 'Salário',
-                                values: allUserDataObj.userSalary
+                                values: allUserDataObj.userSalaryHandled
                             }
                         ]
                     },
@@ -283,27 +283,6 @@ export default class UsersTable extends Component {
                     }
                 ];
 
-                // body extend for car
-                // const extendedContentConfigCurrentCarOwns = [
-                //     {
-                //         title: 'Dono',
-                //         fieldsNames: [
-                //             {
-                //                 label: 'Nome',
-                //                 values: allDataObj.userFirstname
-                //             },
-                //             {
-                //                 label: 'Nascimento',
-                //                 values: allDataObj.userBirth
-                //             },
-                //             {
-                //                 label: 'Salário',
-                //                 values: `${userSalarySymbol} ${userSalary.replace('.', ',')}`
-                //             }
-                //         ]
-                //     },
-                // ];
-
                 // tables content
                 const tableData = [
                     {
@@ -320,26 +299,6 @@ export default class UsersTable extends Component {
                 return (tableData);
             })
         );
-    };
-
-    renderModal() {
-        return (
-            <ModalCar
-                carObject={
-                    this.state.showModalCar
-                }
-                close={this.close}
-                saveCar={this.saveCarForm}
-            />
-        );
-    };
-
-    showCar(carObj) {
-        this.setState({ showModalCar: carObj });
-    };
-
-    close() {
-        this.setState({ showModalCar: null })
     };
 
     closeMessage() {
@@ -389,14 +348,15 @@ export default class UsersTable extends Component {
                             },
                             {
                                 header: 'Salário',
-                                dataKeyRow: 'userSalary',
+                                dataKeyRow: 'userSalaryHandled',
                                 dataRowType: 'span'
                             },
                             {
                                 header: 'Carro',
                                 dataKeyRow: 'none',
                                 dataRowType: 'button',
-                                value: 'Visualizar'
+                                value: 'Visualizar',
+                                click: this.renderModal
                             },
                             {
                                 header: 'Status',

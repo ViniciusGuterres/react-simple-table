@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import TableRow from '../tableRow';
+import Modal from '../modal';
 
 export default class Table extends Component {
     constructor(props) {
@@ -54,6 +55,7 @@ export default class Table extends Component {
                             columnKey={allColumnKey}
                             idRow={idRow}
                             extendedContentConfig={rowData[index].extendedContentConfig}
+                            showModal={this.showModal}
                         />
                     );
 
@@ -63,10 +65,31 @@ export default class Table extends Component {
         );
     };
 
+    // modal funcs
+    renderModal() {
+        return (
+            <Modal
+                carObject={
+                    this.state.showModalCar
+                }
+                close={this.close}
+                saveCar={this.saveCarForm}
+            />
+        );
+    };
+
+    showModal(obj) {
+        console.log('test');
+        this.setState({ showModal: obj });
+    };
+
+    closeModal() {
+        this.setState({ showModal: null })
+    };
+
     render() {
 
         return (
-
             <table
                 style={styles.mainTable}
             >
@@ -82,6 +105,7 @@ export default class Table extends Component {
 
                     {this.state.showModalCar ? this.renderModal() : null}
                 </tbody>
+
             </table>
         );
     };

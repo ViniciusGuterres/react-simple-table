@@ -9,7 +9,7 @@ import CustomButton from '../customButton';
  * @returns 
  */
 
-export default function ModalCar(props) {
+export default function Modal(props) {
 
     const initialCarObj = {
         user_id: props.carObject.userId ? props.carObject.userId : '',
