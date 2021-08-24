@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 
 import TableRow from '../tableRow';
 import Modal from '../modal';
+import CustomMessage from '../customMessage';
 
 export default class Table extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showModal: null
+            showModal: null,
+            message: false
         };
 
         this.showModal = this.showModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.saveModal = this.saveModal.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
     };
 
     renderHeaders() {
@@ -80,8 +83,13 @@ export default class Table extends Component {
 
     saveModal(editedData) {
         // passing the editedData to the root state keeper
-        // this.props.saveModalNewAlterations();
         this.props.saveModalNewAlterations(editedData);
+
+        this.setState({ message: true })
+
+        setTimeout(() => {
+            this.closeMessage()
+        }, 3000)
     };
 
     renderModal() {
@@ -94,27 +102,39 @@ export default class Table extends Component {
         );
     };
 
+    closeMessage() {
+        this.setState({ message: false })
+    }
+
     render() {
 
         return (
-            <table
-                style={styles.mainTable}
-            >
-                <thead>
-                    <tr style={styles.tableHeader}
-                    >
-                        {this.renderHeaders()}
-                    </tr>
-                </thead>
+            <>
+                <table
+                    style={styles.mainTable}
+                >
+                    <thead>
+                        <tr style={styles.tableHeader}
+                        >
+                            {this.renderHeaders()}
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {this.renderRows()}
+                    <tbody>
+                        {this.renderRows()}
 
-                    {this.state.showModal ? this.renderModal() : null}
+                    </tbody>
 
-                </tbody>
+                </table>
 
-            </table>
+                {this.state.showModal ? this.renderModal() : null}
+
+                <CustomMessage
+                    name='Salvo com sucesso'
+                    message={this.closeMessage}
+                    toggleMessage={this.state.message}
+                />
+            </>
         );
     };
 };

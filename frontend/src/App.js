@@ -11,7 +11,6 @@ import accessData from './users/users_access';
 import productsData from './users/users_products_buyed';
 
 // components 
-import CustomMessage from './components/customMenssage';
 import Table from './components/table';
 
 export default class UsersTable extends Component {
@@ -52,12 +51,10 @@ export default class UsersTable extends Component {
             return userData;
         });
 
-        this.closeMessage = this.closeMessage.bind(this);
         this.saveModalNewAlterations = this.saveModalNewAlterations.bind(this);
 
         this.state = {
             allUsersData: this.userList,
-            message: false
         };
     };
 
@@ -92,33 +89,57 @@ export default class UsersTable extends Component {
                     userSalaryHandled,
 
                     // User product datas
-                    userProductName: user.currentProduct && user.currentProduct.user_product_buyed_product_name ? user.currentProduct.user_product_buyed_product_name : '',
-                    userProductAppliance: user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '',
-                    userProductPrice: user.currentProduct && user.currentProduct.user_product_buyed_product_price ? user.currentProduct.user_product_buyed_product_price : '',
-                    userProductDescription: user.currentProduct && user.currentProduct.user_product_buyed_product_description ? user.currentProduct.user_product_buyed_product_description : '',
-                    userProductIndusty: user.currentProduct && user.currentProduct.user_product_buyed_business_industy ? user.currentProduct.user_product_buyed_business_industy : '',
-                    userProductTechnology: user.currentProduct && user.currentProduct.user_product_buyed_business_technology ? user.currentProduct.user_product_buyed_business_technology : '',
-                    userProductDepartmente: user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ? user.currentProduct.user_product_buyed_commerce_department : '',
-                    userProductCompanyName: user.currentProduct && user.currentProduct.user_product_buyed_company_name ? user.currentProduct.user_product_buyed_company_name : '',
-                    userProductMaterial: user.currentProduct && user.currentProduct.user_product_buyed_product_material ? user.currentProduct.user_product_buyed_product_material : '',
+                    userProductName: user.currentProduct && user.currentProduct.user_product_buyed_product_name ?
+                        user.currentProduct.user_product_buyed_product_name : '',
+                    userProductAppliance: user.currentProduct && user.currentProduct.user_product_buyed_appliance ?
+                        user.currentProduct.user_product_buyed_appliance : '',
+                    userProductPrice: user.currentProduct && user.currentProduct.user_product_buyed_product_price ?
+                        user.currentProduct.user_product_buyed_product_price : '',
+                    userProductDescription: user.currentProduct && user.currentProduct.user_product_buyed_product_description ?
+                        user.currentProduct.user_product_buyed_product_description : '',
+                    userProductIndusty: user.currentProduct && user.currentProduct.user_product_buyed_business_industy ?
+                        user.currentProduct.user_product_buyed_business_industy : '',
+                    userProductTechnology: user.currentProduct && user.currentProduct.user_product_buyed_business_technology ?
+                        user.currentProduct.user_product_buyed_business_technology : '',
+                    userProductDepartmente: user.currentProduct && user.currentProduct.user_product_buyed_commerce_department ?
+                        user.currentProduct.user_product_buyed_commerce_department : '',
+                    userProductCompanyName: user.currentProduct && user.currentProduct.user_product_buyed_company_name ?
+                        user.currentProduct.user_product_buyed_company_name : '',
+                    userProductMaterial: user.currentProduct && user.currentProduct.user_product_buyed_product_material ?
+                        user.currentProduct.user_product_buyed_product_material : '',
+
 
                     // User address datas
-                    userAddressStreet: user.currentAddress && user.currentAddress.user_address_street_address ? user.currentAddress.user_address_street_address : '',
-                    userAddressName: user.currentAddress && user.currentAddress.user_address_street_name ? user.currentAddress.user_address_street_name : '',
-                    userAddressSufix: user.currentAddress && user.currentAddress.user_address_street_sufix ? user.currentAddress.user_address_street_sufix : '',
-                    userAddressCity: user.currentAddress && user.currentAddress.user_address_city ? user.currentAddress.user_address_city : '',
-                    userAddressCityPrefix: user.currentAddress && user.currentAddress.user_address_city_prefix ? user.currentAddress.user_address_city_prefix : '',
-                    userAddressSecondary: user.currentAddress && user.currentAddress.user_address_secondary_address ? user.currentAddress.user_address_secondary_address : '',
-                    userAddressDirection: user.currentAddress && user.currentAddress.user_address_address_direction ? user.currentAddress.user_address_address_direction : '',
-                    userState: user.currentAddress && user.currentAddress.user_address_state ? user.currentAddress.user_address_state : '',
-                    userCountry: user.currentAddress && user.currentAddress.user_address_country ? user.currentAddress.user_address_country : '',
+                    userAddressStreet: user.currentAddress && user.currentAddress.user_address_street_address ?
+                        user.currentAddress.user_address_street_address : '',
+                    userAddressName: user.currentAddress && user.currentAddress.user_address_street_name ?
+                        user.currentAddress.user_address_street_name : '',
+                    userAddressSufix: user.currentAddress && user.currentAddress.user_address_street_sufix ?
+                        user.currentAddress.user_address_street_sufix : '',
+                    userAddressCity: user.currentAddress && user.currentAddress.user_address_city ?
+                        user.currentAddress.user_address_city : '',
+                    userAddressCityPrefix: user.currentAddress && user.currentAddress.user_address_city_prefix ?
+                        user.currentAddress.user_address_city_prefix : '',
+                    userAddressSecondary: user.currentAddress && user.currentAddress.user_address_secondary_address ?
+                        user.currentAddress.user_address_secondary_address : '',
+                    userAddressDirection: user.currentAddress && user.currentAddress.user_address_address_direction ?
+                        user.currentAddress.user_address_address_direction : '',
+                    userState: user.currentAddress && user.currentAddress.user_address_state ?
+                        user.currentAddress.user_address_state : '',
+                    userCountry: user.currentAddress && user.currentAddress.user_address_country ?
+                        user.currentAddress.user_address_country : '',
 
                     // User access
-                    userBusinessTechnoloy: user.currentAccess && user.currentAccess.user_access_business_technoloy ? user.currentAccess.user_access_business_technoloy : '',
-                    userIpAddress: user.currentAccess && user.currentAccess.user_access_ip_address ? user.currentAccess.user_access_ip_address : '',
-                    userMacAddress: user.currentAccess && user.currentAccess.user_access_mac_address ? user.currentAccess.user_access_mac_address : '',
-                    userAccessAgent: user.currentAccess && user.currentAccess.user_access_user_agent ? user.currentAccess.user_access_user_agent : '',
-                    userAccessLogin: user.currentAccess && user.currentAccess.user_access_login ? user.currentAccess.user_access_login : '',
+                    userBusinessTechnoloy: user.currentAccess && user.currentAccess.user_access_business_technoloy ?
+                        user.currentAccess.user_access_business_technoloy : '',
+                    userIpAddress: user.currentAccess && user.currentAccess.user_access_ip_address ?
+                        user.currentAccess.user_access_ip_address : '',
+                    userMacAddress: user.currentAccess && user.currentAccess.user_access_mac_address ?
+                        user.currentAccess.user_access_mac_address : '',
+                    userAccessAgent: user.currentAccess && user.currentAccess.user_access_user_agent ?
+                        user.currentAccess.user_access_user_agent : '',
+                    userAccessLogin: user.currentAccess && user.currentAccess.user_access_login ?
+                        user.currentAccess.user_access_login : '',
                 };
 
                 // handle with access agent, using the UAParser Object
@@ -267,26 +288,26 @@ export default class UsersTable extends Component {
                             },
                             {
                                 label: 'Modelo',
-                                values: allUserDataObj.userModel
+                                values: allUserDataObj.userCarModel
                             },
                             {
                                 label: 'Fabricante',
-                                values: allUserDataObj.userBrand
+                                values: allUserDataObj.userCarManufacturer
                             },
                             {
                                 label: 'Tipo',
-                                values: allUserDataObj.userType
+                                values: allUserDataObj.userCarType
                             },
                             {
                                 label: 'Gasolina',
-                                values: allUserDataObj.userFuel
+                                values: allUserDataObj.userCarFuel
                             }
                         ]
                     }
                 ];
 
-                // testing obj modal
-                const modalConfig = {
+                // all modaConfig and data
+                const modalCarDatas = {
                     userCar: allUserDataObj.userCar,
                     userId: allUserDataObj.userId,
                     userModel: allUserDataObj.userCarModel,
@@ -302,7 +323,7 @@ export default class UsersTable extends Component {
                         // dataBaseName: 'users',
                         allDataBaseValues: allUserDataObj,
                         extendedContentConfig: extendedContentConfigAllData,
-                        modalConfig: modalConfig
+                        modalConfig: modalCarDatas
                     },
                     // {
                     //     allDataBaseValues: allDataObj,
@@ -315,10 +336,6 @@ export default class UsersTable extends Component {
         );
     };
 
-    closeMessage() {
-        this.setState({ message: false })
-    }
-
     // save a new user list with some alterations
     saveModalNewAlterations(newEditedValues) {
         // searching the alterated id user 
@@ -330,12 +347,7 @@ export default class UsersTable extends Component {
 
         this.setState({
             allUsersData: newList,
-            message: true
         });
-
-        setTimeout(() => {
-            this.closeMessage()
-        }, 3000)
     };
 
     render() {
@@ -384,7 +396,7 @@ export default class UsersTable extends Component {
                 />
 
                 {/* car Table */}
-                {/* <Table
+                <Table
                     tableData={this.getAllUsersData()}
                     dataColumnsConfig={
                         [
@@ -410,16 +422,7 @@ export default class UsersTable extends Component {
                             }
                         ]
                     }
-                /> */}
-
-                {/* //////////////////////////////////       ALREADY WORKING      /////////////////////////////////////// */}
-                <div style={{ width: '100%', height: '100%' }}>
-                    <CustomMessage
-                        name='Salvo com sucesso'
-                        message={this.closeMessage}
-                        toggleMessage={this.state.message}
-                    />
-                </div>
+                />
             </>
         )
     };
