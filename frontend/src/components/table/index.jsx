@@ -13,6 +13,7 @@ export default class Table extends Component {
 
         this.showModal = this.showModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.saveModal = this.saveModal.bind(this);
     };
 
     renderHeaders() {
@@ -47,7 +48,6 @@ export default class Table extends Component {
         return (
             allTableData.map((rowData, idRow) => {
                 // pass the data with the current key to the TableRow component
-
                 for (let index in rowData) {
 
                     return (
@@ -70,24 +70,28 @@ export default class Table extends Component {
     };
 
     // modal functions
-    renderModal() {
-        return (
-            <Modal
-                carObject={
-                    this.state.showModal
-                }
-                close={this.closeModal}
-                saveCar={this.saveCarForm}
-            />
-        );
-    };
-
     showModal(obj) {
         this.setState({ showModal: obj })
     };
 
     closeModal() {
         this.setState({ showModal: null })
+    };
+
+    saveModal(editedData) {
+        // passing the editedData to the root state keeper
+        // this.props.saveModalNewAlterations();
+        this.props.saveModalNewAlterations(editedData);
+    };
+
+    renderModal() {
+        return (
+            <Modal
+                carObject={this.state.showModal}
+                close={this.closeModal}
+                saveAlterations={this.saveModal}
+            />
+        );
     };
 
     render() {

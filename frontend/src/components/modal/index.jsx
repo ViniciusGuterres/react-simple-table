@@ -60,7 +60,7 @@ export default function Modal(props) {
         carObjEdited.car_fuel = carFuelEdited;
 
 
-        props.saveCar(carObjEdited);
+        props.saveAlterations(carObjEdited);
         props.close();
     };
 

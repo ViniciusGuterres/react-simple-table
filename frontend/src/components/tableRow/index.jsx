@@ -52,12 +52,11 @@ export default function TableRow(props) {
 
                                 props.showModal({
                                     userCar: allRowData.userCar,
-                                    userId: allRowData.userCarId,
+                                    userId: allRowData.userId,
                                     userModel: allRowData.userCarModel,
                                     userBrand: allRowData.userCarManufacturer,
                                     userType: allRowData.userCarType,
-                                    userFuel: allRowData.userCarFuel,
-                                
+                                    userFuel: allRowData.userCarFuel,                          
                                 })
 
                             }

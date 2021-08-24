@@ -53,6 +53,7 @@ export default class UsersTable extends Component {
         });
 
         this.closeMessage = this.closeMessage.bind(this);
+        this.saveModalNewAlterations = this.saveModalNewAlterations.bind(this);
 
         this.state = {
             allUsersData: this.userList,
@@ -66,8 +67,8 @@ export default class UsersTable extends Component {
             this.state.allUsersData.map(user => {
 
                 // handle with user salary data
-                const userJobSalary=  user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
-                const userSalarySymbol =  user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
+                const userJobSalary = user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
+                const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
                 const userSalaryHandled = `${userSalarySymbol}: ${userJobSalary.replace('.', ',')}`
 
                 const allUserDataObj = {
@@ -89,7 +90,7 @@ export default class UsersTable extends Component {
                     userJobTitle: user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '',
                     userJobAddress: user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '',
                     userSalaryHandled,
-                    
+
                     // User product datas
                     userProductName: user.currentProduct && user.currentProduct.user_product_buyed_product_name ? user.currentProduct.user_product_buyed_product_name : '',
                     userProductAppliance: user.currentProduct && user.currentProduct.user_product_buyed_appliance ? user.currentProduct.user_product_buyed_appliance : '',
@@ -294,7 +295,6 @@ export default class UsersTable extends Component {
                     userFuel: allUserDataObj.userCarFuel
 
                 }
-                
 
                 // tables content
                 const tableData = [
@@ -320,16 +320,18 @@ export default class UsersTable extends Component {
     }
 
     // save a new user list with some alterations
-    saveCarForm(newCarValues) {
-
+    saveModalNewAlterations(newEditedValues) {
+        // searching the alterated id user 
         let newList = this.state.allUsersData;
-        const search = element => element.user_id === newCarValues.user_id;
+        const search = element => element.user_id === newEditedValues.user_id;
         let index = newList.findIndex(search);
 
-        newList[index].currentCar = newCarValues;
+        newList[index].currentCar = newEditedValues;
 
-        this.setState({ allUsersData: newList, message: true });
-        this.close();
+        this.setState({
+            allUsersData: newList,
+            message: true
+        });
 
         setTimeout(() => {
             this.closeMessage()
@@ -346,6 +348,7 @@ export default class UsersTable extends Component {
                 {/* Main Table */}
                 <Table
                     tableData={this.getAllUsersData()}
+                    saveModalNewAlterations={this.saveModalNewAlterations}
                     dataColumnsConfig={
                         [
                             {
@@ -381,7 +384,7 @@ export default class UsersTable extends Component {
                 />
 
                 {/* car Table */}
-                <Table
+                {/* <Table
                     tableData={this.getAllUsersData()}
                     dataColumnsConfig={
                         [
@@ -407,7 +410,7 @@ export default class UsersTable extends Component {
                             }
                         ]
                     }
-                />
+                /> */}
 
                 {/* //////////////////////////////////       ALREADY WORKING      /////////////////////////////////////// */}
                 <div style={{ width: '100%', height: '100%' }}>
