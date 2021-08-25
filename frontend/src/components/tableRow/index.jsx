@@ -12,19 +12,18 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import ExtendedRowBody from '../extendedRowBody';
 import TableData from "../tableData";
 
-
 export default function TableRow(props) {
 
     const [isExtended, setExtend] = useToggle(false);
 
     const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
-
     // verify props
     const allRowData = props && props.rowData ? props.rowData : '';
     const columnKey = props && props.columnKey ? props.columnKey : '';
     const idRow = props && props.idRow ? props.idRow : 0;
-    
+    const isExtendable = props.extendRowConfig && props.extendRowConfig.isExtendable ? props.extendRowConfig.isExtendable : null;
+
     // row toggle background logic
     let bgToggle = (props.idRow % 2) ? '#fff' : '#ededed';
 
@@ -36,6 +35,7 @@ export default function TableRow(props) {
         iconName = faUserSecret;
         iconBg = '#272222d9'
     };
+
 
     // verify the data coloumn type and return the relative html type
     function verifyDataRowType(rowType) {
@@ -56,7 +56,7 @@ export default function TableRow(props) {
                                     userModel: allRowData.userCarModel,
                                     userBrand: allRowData.userCarManufacturer,
                                     userType: allRowData.userCarType,
-                                    userFuel: allRowData.userCarFuel,                          
+                                    userFuel: allRowData.userCarFuel,
                                 })
 
                             }
@@ -76,7 +76,7 @@ export default function TableRow(props) {
                         }}
                     />
                 );
-            
+
             // return data of the current column key
             default:
                 return (
@@ -84,7 +84,7 @@ export default function TableRow(props) {
                         {allRowData[rowType.dataKeyRow]}
                     </span>
                 )
-                
+
         };
     };
 
@@ -93,7 +93,7 @@ export default function TableRow(props) {
         return (
             columnKey.map((item, index) => {
                 let currentData = verifyDataRowType(item);
-                
+
                 return (
 
                     <TableData
@@ -105,12 +105,12 @@ export default function TableRow(props) {
             })
         );
     };
-
-
+    console.log(props);
     return (
         <>
             <tr
-
+                // when click in the row, set Extende if is extendable
+                onClick={isExtendable ? setExtend : null}
                 // toggle background color between on mouse over and on mouse leave
                 onMouseOver={() => setBgRowOnMouseOver({
                     bg: '#2d485fc2',
@@ -121,16 +121,15 @@ export default function TableRow(props) {
                     color: 'black'
                 })}
 
-                onClick={setExtend}
-                style={{ 
+                style={{
                     background: bgRowOnMouseOver ? bgRowOnMouseOver.bg : bgToggle,
                     color: bgRowOnMouseOver ? bgRowOnMouseOver.color : 'black',
-                    cursor: 'pointer' 
+                    cursor: 'pointer'
                 }}
             >
                 {renderDatas()}
             </tr>
-            
+
             {/* Extend Body Component */}
 
             {
@@ -141,6 +140,9 @@ export default function TableRow(props) {
                                 <ExtendedRowBody
                                     extendedContentConfig={props.extendedContentConfig}
                                     isExtended={isExtended}
+                                    // test
+                                    tableData={props.tableData}
+
                                 />
                             }
                         </td>

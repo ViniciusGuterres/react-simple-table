@@ -363,7 +363,6 @@ export default class UsersTable extends Component {
                     
                 };
 
-                console.log(car);
                 // const extendedContentConfigAllData = [
                 //     {
                 //         title: 'Donos',
@@ -418,6 +417,12 @@ export default class UsersTable extends Component {
                 <Table
                     tableData={this.getAllUsersData()}
                     saveModalNewAlterations={this.saveModalNewAlterations}
+                    extendRowConfig={
+                        {
+                            isExtendable: true,
+                            rowBodyType: 'card'
+                        }
+                    }
                     dataColumnsConfig={
                         [
                             {
@@ -455,6 +460,12 @@ export default class UsersTable extends Component {
                 {/* car Table */}
                 <Table
                     tableData={this.getAllCarsData()}
+                    extendRowConfig={
+                        {
+                            isExtendable: false,
+                            rowBodyType: 'table'
+                        }
+                    }
                     dataColumnsConfig={
                         [
                             {

@@ -58,7 +58,7 @@ export default class Table extends Component {
             allTableData.map((rowData, idRow) => {
                 // pass the data with the current key to the TableRow component
                 for (let index in rowData) {
-                    
+
                     return (
 
                         <TableRow
@@ -69,6 +69,9 @@ export default class Table extends Component {
                             extendedContentConfig={rowData[index].extendedContentConfig}
                             modalConfig={this.props.modalConfig}
                             showModal={this.showModal}
+                            // test
+                            extendRowConfig={this.props.extendRowConfig}
+                            tableData={this.props.tableData}
                         />
                     );
 

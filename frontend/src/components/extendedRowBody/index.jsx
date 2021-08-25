@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import NavMenu from '../navMenu';
 import ContentCard from '../contentCard';
+import Table from '../table';
 
 export default function ExtendedRowBody(props) {
 
@@ -18,25 +19,55 @@ export default function ExtendedRowBody(props) {
     };
 
     return (
-        <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+        // <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
-            {
-                <NavMenu
-                    titles={props.extendedContentConfig}
-                    selectMenu={selectMenuContent}
-                />
-            }
+        //     {
+        //         <NavMenu
+        //             titles={props.extendedContentConfig}
+        //             selectMenu={selectMenuContent}
+        //         />
+        //     }
 
-            {
-                selectedMenu ?
-                    <ContentCard
-                        content={selectedMenu}
-                    />
-                    :
-                    null
-            }
+        //     {
+        //         selectedMenu ?
+        //             <ContentCard
+        //                 content={selectedMenu}
+        //             />
+        //             :
+        //             null
+        //     }
 
-        </div>
+        // </div>
+
+        // Test
+        <Table
+        tableData={props.tableData}
+        isExtendable={false}
+        dataColumnsConfig={
+            [
+                {
+                    header: 'Carro',
+                    dataKeyRow: 'userCarName'
+                },
+                {
+                    header: 'Model',
+                    dataKeyRow: 'userCarModel'
+                },
+                {
+                    header: 'Fabricante',
+                    dataKeyRow: 'carManufacturer'
+                },
+                {
+                    header: 'Gasolina',
+                    dataKeyRow: 'carFuel'
+                },
+                {
+                    header: 'Tipo',
+                    dataKeyRow: 'carType'
+                }
+            ]
+        }
+    />
     )
 };
 
