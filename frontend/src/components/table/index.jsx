@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TableRow from '../tableRow';
 import Modal from '../modal';
 import CustomMessage from '../customMessage';
+import PageController from '../pageController';
 
 export default class Table extends Component {
     constructor(props) {
@@ -10,7 +11,12 @@ export default class Table extends Component {
 
         this.state = {
             showModal: null,
-            message: false
+            message: false,
+            currentPage: 50,
+            totalPage: this.props && this.props.tableData.length ?
+                (this.props.tableData.length) - 1 : 0,
+            initialPage: 0,
+            maxRowsPerPage: 20
         };
 
         this.showModal = this.showModal.bind(this);
@@ -52,7 +58,7 @@ export default class Table extends Component {
             allTableData.map((rowData, idRow) => {
                 // pass the data with the current key to the TableRow component
                 for (let index in rowData) {
-
+                    
                     return (
 
                         <TableRow
@@ -106,8 +112,44 @@ export default class Table extends Component {
         this.setState({ message: false })
     }
 
-    render() {
+    // Page Controllers
 
+    // set the current page + 1 and do not pass the total page
+    goForward() {
+        let page = this.state.currentPage;
+        page++;
+
+        if (page > this.state.totalPage) {
+            page--;
+        };
+
+        this.setState({ currentPage: page });
+    };
+
+    goBackward() {
+        let page = this.state.currentPage;
+        page--;
+
+        if (page < this.state.initialPage) {
+            page++;
+        }
+
+        this.setState({ currentPage: page })
+    };
+
+    goInitial() {
+        let page = this.state.initialPage;
+
+        this.setState({ currentPage: page })
+    };
+
+    goToEnd() {
+        let page = this.state.totalPage;
+
+        this.setState({ currentPage: page })
+    };
+
+    render() {
         return (
             <>
                 <table
@@ -134,6 +176,9 @@ export default class Table extends Component {
                     message={this.closeMessage}
                     toggleMessage={this.state.message}
                 />
+
+                {/* Controllers Buttons */}
+                <PageController />
             </>
         );
     };

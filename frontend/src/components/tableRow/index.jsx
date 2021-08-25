@@ -91,10 +91,9 @@ export default function TableRow(props) {
     function renderDatas() {
 
         return (
-
             columnKey.map((item, index) => {
                 let currentData = verifyDataRowType(item);
-
+                
                 return (
 
                     <TableData

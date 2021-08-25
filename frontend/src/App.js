@@ -30,41 +30,54 @@ export default class UsersTable extends Component {
             //add the others dataBase with the corresponding id
             if (jobData[jobId]) {
                 userData.currentJob = jobData[jobId];
-            };
+            }
 
             if (addressData[addressId]) {
                 userData.currentAddress = addressData[addressId];
-            };
+            }
 
             if (accessData[accessId]) {
                 userData.currentAccess = accessData[accessId];
-            };
+            }
 
             if (productsData[productsId]) {
                 userData.currentProduct = productsData[productsId];
-            };
+            }
 
             if (carsData[carId]) {
                 userData.currentCar = carsData[carId];
-            };
+            }
 
             return userData;
+        });
+
+        this.carList = Object.values(carsData).map((car) => {
+            // get all cars owners 
+            let carsList = car;
+            let filtered = data.filter((value) => {
+                return value.user_car_id === car.car_id
+            });
+            
+            carsList.owner = filtered;
+
+            return car;
         });
 
         this.saveModalNewAlterations = this.saveModalNewAlterations.bind(this);
 
         this.state = {
             allUsersData: this.userList,
+            allCarsData: this.carList
         };
     };
 
     getAllUsersData() {
 
         return (
-            this.state.allUsersData.map(user => {
+            this.state.allUsersData.map((user) => {
 
                 // handle with user salary data
-                const userJobSalary = user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : '';
+                const userJobSalary = user.currentJob && user.currentJob.user_job_salary ? user.currentJob.user_job_salary : 'Sem salário';
                 const userSalarySymbol = user.currentJob && user.currentJob.user_job_salary_currency_symbol ? user.currentJob.user_job_salary_currency_symbol : '';
                 const userSalaryHandled = `${userSalarySymbol}: ${userJobSalary.replace('.', ',')}`
 
@@ -84,8 +97,8 @@ export default class UsersTable extends Component {
                     userCarFuel: user.currentCar && user.currentCar.car_fuel ? user.currentCar.car_fuel : '',
 
                     // User job datas
-                    userJobTitle: user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : '',
-                    userJobAddress: user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : '',
+                    userJobTitle: user.currentJob && user.currentJob.user_job_title ? user.currentJob.user_job_title : 'Desempregado',
+                    userJobAddress: user.currentJob && user.currentJob.user_job_address ? user.currentJob.user_job_address : 'Desempregado',
                     userSalaryHandled,
 
                     // User product datas
@@ -315,7 +328,7 @@ export default class UsersTable extends Component {
                     userType: allUserDataObj.userCarType,
                     userFuel: allUserDataObj.userCarFuel
 
-                }
+                };
 
                 // tables content
                 const tableData = [
@@ -324,19 +337,67 @@ export default class UsersTable extends Component {
                         allDataBaseValues: allUserDataObj,
                         extendedContentConfig: extendedContentConfigAllData,
                         modalConfig: modalCarDatas
-                    },
-                    // {
-                    //     allDataBaseValues: allDataObj,
-                    //     extendedContentConfig: extendedContentConfigCurrentCarOwns
-                    // }
-                ]
+                    }
+                ];
 
                 return (tableData);
             })
         );
     };
 
-    // save a new user list with some alterations
+    getAllCarsData() {
+        return (
+
+            this.state.allCarsData.map(car => {
+
+                const allCarDataObj = {
+                    // car datas
+                    carId: car.car_id ? car.car_id : '',
+                    carName: car.car_name ? car.car_name : '',
+                    carManufacturer: car.car_manufacturer ? car.car_manufacturer : '',
+                    carModel: car.car_model ? car.car_model : '',
+                    carFuel: car.car_fuel ? car.car_fuel : '',
+                    carType: car.car_type ? car.car_type : '',
+
+                    // oweners datas
+                    
+                };
+
+                console.log(car);
+                // const extendedContentConfigAllData = [
+                //     {
+                //         title: 'Donos',
+                //         fieldsNames: [
+                //             {
+                //                 label: 'Emprego',
+                //                 values: allUserDataObj.userJobTitle
+                //             },
+                //             {
+                //                 label: 'Endereço',
+                //                 values: allUserDataObj.userJobAddress
+                //             },
+                //             {
+                //                 label: 'Salário',
+                //                 values: allUserDataObj.userSalaryHandled
+
+                //             }
+                //         ]
+                //     },
+                // ];
+                
+                // tables content
+                const tableData = [
+                    {                    
+                        allDataBaseValues: allCarDataObj,
+                    }
+                ];
+
+                return tableData
+            })
+        );
+    };
+
+    // save a new user list with some alterations from modal form component
     saveModalNewAlterations(newEditedValues) {
         // searching the alterated id user 
         let newList = this.state.allUsersData;
@@ -351,12 +412,8 @@ export default class UsersTable extends Component {
     };
 
     render() {
-
         return (
             <>
-                {/* <Header /> */}
-                {/* //////////////////////////////////////////       DEVELOPING FASE        /////////////////////////////////// */}
-
                 {/* Main Table */}
                 <Table
                     tableData={this.getAllUsersData()}
@@ -397,28 +454,28 @@ export default class UsersTable extends Component {
 
                 {/* car Table */}
                 <Table
-                    tableData={this.getAllUsersData()}
+                    tableData={this.getAllCarsData()}
                     dataColumnsConfig={
                         [
                             {
                                 header: 'Carro',
-                                dataKeyRow: 'userCar'
+                                dataKeyRow: 'carName'
                             },
                             {
                                 header: 'Model',
-                                dataKeyRow: 'userCarModel'
+                                dataKeyRow: 'carModel'
                             },
                             {
                                 header: 'Fabricante',
-                                dataKeyRow: 'userCarManufacturer'
+                                dataKeyRow: 'carManufacturer'
                             },
                             {
                                 header: 'Gasolina',
-                                dataKeyRow: 'userCarFuel'
+                                dataKeyRow: 'carFuel'
                             },
                             {
                                 header: 'Tipo',
-                                dataKeyRow: 'userCarType'
+                                dataKeyRow: 'carType'
                             }
                         ]
                     }
