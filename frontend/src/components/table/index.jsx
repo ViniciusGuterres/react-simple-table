@@ -13,8 +13,6 @@ export default class Table extends Component {
             showModal: null,
             message: false,
             currentPage: 50,
-            totalPage: this.props && this.props.tableData.length ?
-                (this.props.tableData.length) - 1 : 0,
             initialPage: 0,
             maxRowsPerPage: 20
         };
@@ -49,7 +47,6 @@ export default class Table extends Component {
         const allTableData =
             this.props && this.props.tableData ?
                 this.props.tableData : '';
-
         const allColumnKey =
             this.props && this.props.dataColumnsConfig ?
                 this.props.dataColumnsConfig : '';
@@ -58,12 +55,11 @@ export default class Table extends Component {
             allTableData.map((rowData, idRow) => {
                 // pass the data with the current key to the TableRow component
                 for (let index in rowData) {
-
                     return (
-
+                        
                         <TableRow
-                            key={`rowKey ${idRow}`}
-                            rowData={rowData[index].allDataBaseValues}
+                            key={`rowKey${idRow}`}
+                            rowData={rowData[index].allDataBaseValues || rowData[index]}
                             columnKey={allColumnKey}
                             idRow={idRow}
                             extendedContentConfig={rowData[index].extendedContentConfig}
@@ -72,9 +68,9 @@ export default class Table extends Component {
                             // test
                             extendRowConfig={this.props.extendRowConfig}
                             tableData={this.props.tableData}
+                            extendRowContent={this.props.extendRowContent}
                         />
                     );
-
                 };
                 return false;
             })

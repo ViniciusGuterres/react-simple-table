@@ -57,7 +57,7 @@ export default class UsersTable extends Component {
             let filtered = data.filter((value) => {
                 return value.user_car_id === car.car_id
             });
-            
+
             carsList.owner = filtered;
 
             return car;
@@ -67,7 +67,7 @@ export default class UsersTable extends Component {
 
         this.state = {
             allUsersData: this.userList,
-            allCarsData: this.carList
+            allCarsData: Object.values(carsData)
         };
     };
 
@@ -360,34 +360,35 @@ export default class UsersTable extends Component {
                     carType: car.car_type ? car.car_type : '',
 
                     // oweners datas
-                    
+
                 };
 
-                // const extendedContentConfigAllData = [
-                //     {
-                //         title: 'Donos',
-                //         fieldsNames: [
-                //             {
-                //                 label: 'Emprego',
-                //                 values: allUserDataObj.userJobTitle
-                //             },
-                //             {
-                //                 label: 'Endereço',
-                //                 values: allUserDataObj.userJobAddress
-                //             },
-                //             {
-                //                 label: 'Salário',
-                //                 values: allUserDataObj.userSalaryHandled
+                const extendedContentConfigAllData = [
+                    {
+                        title: 'Donos',
+                        fieldsNames: [
+                            {
+                                label: 'Emprego',
+                                values: allCarDataObj.carId
+                            },
+                            {
+                                label: 'Endereço',
+                                values: allCarDataObj.carName
+                            },
+                            {
+                                label: 'Salário',
+                                values: allCarDataObj.carManufacturer
 
-                //             }
-                //         ]
-                //     },
-                // ];
-                
+                            }
+                        ]
+                    },
+                ];
+
                 // tables content
                 const tableData = [
-                    {                    
+                    {
                         allDataBaseValues: allCarDataObj,
+                        extendedContentConfig: extendedContentConfigAllData
                     }
                 ];
 
@@ -410,11 +411,77 @@ export default class UsersTable extends Component {
         });
     };
 
+    renderExtendRowBodyTableCarOwners(ownersId) {
+
+        // test
+        // get all cars owners 
+        let filtered = data.filter((user) => {
+            return user.user_car_id === ownersId.carId
+        });
+        // const AllOwners = filtered.user_first_name && filtered.user_first_name[0] ? filtered.user_first_name : []
+        console.log(filtered[0].user_first_name);
+        ///////
+
+        return (
+            <Table
+                tableData={
+                    [
+                        {
+                            allDataBaseValues: {
+                                // owners data here
+                                // userFirstName:  filtered && filtered.user_first_name    
+                            }
+                        }
+                    ]
+                }
+                dataColumnsConfig={
+                    [
+                        {
+                            header: 'Nome',
+                            dataKeyRow: 'userFirstName',
+                            dataRowType: 'span'
+                        },
+                        {
+                            header: 'Nascimento',
+                            dataKeyRow: 'userBirth',
+                            dataRowType: 'span'
+                        }
+                    ]
+                }
+            />
+        )
+    };
+
+    renderExtendRowBodyCardMenuUsers() {
+
+        return (
+            <h1></h1>
+            // <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+
+            //     {
+            //         <NavMenu
+            //             titles={props.extendedContentConfig}
+            //             selectMenu={selectMenuContent}
+            //         />
+            //     }
+
+            //     {
+            //         selectedMenu ?
+            //             <ContentCard
+            //                 content={selectedMenu}
+            //             />
+            //             :
+            //             null
+            //     }
+            // </div>
+        )
+    };
+
     render() {
         return (
             <>
                 {/* Main Table */}
-                <Table
+                {/* <Table
                     tableData={this.getAllUsersData()}
                     saveModalNewAlterations={this.saveModalNewAlterations}
                     extendRowConfig={
@@ -455,15 +522,31 @@ export default class UsersTable extends Component {
                             }
                         ]
                     }
-                />
+                /> */}
 
                 {/* car Table */}
                 <Table
                     tableData={this.getAllCarsData()}
+                    extendRowContent={this.renderExtendRowBodyTableCarOwners}
                     extendRowConfig={
                         {
-                            isExtendable: false,
-                            rowBodyType: 'table'
+                            isExtendable: true,
+                            rowBodyType: 'table',
+                            dataColumnsConfig:
+                                [
+                                    {
+                                        header: 'Dono',
+                                        dataKeyRow: 'userCarName'
+                                    },
+                                    {
+                                        header: 'Salário',
+                                        dataKeyRow: 'userCarModel'
+                                    },
+                                    {
+                                        header: 'Nascimento',
+                                        dataKeyRow: 'carManufacturer'
+                                    }
+                                ]
                         }
                     }
                     dataColumnsConfig={

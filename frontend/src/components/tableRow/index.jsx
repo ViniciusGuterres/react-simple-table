@@ -22,7 +22,7 @@ export default function TableRow(props) {
     const allRowData = props && props.rowData ? props.rowData : '';
     const columnKey = props && props.columnKey ? props.columnKey : '';
     const idRow = props && props.idRow ? props.idRow : 0;
-    const isExtendable = props.extendRowConfig && props.extendRowConfig.isExtendable ? props.extendRowConfig.isExtendable : null;
+    const isExtendable = props.extendRowConfig && props.extendRowConfig.isExtendable;
 
     // row toggle background logic
     let bgToggle = (props.idRow % 2) ? '#fff' : '#ededed';
@@ -105,7 +105,7 @@ export default function TableRow(props) {
             })
         );
     };
-    console.log(props);
+    
     return (
         <>
             <tr
@@ -131,7 +131,6 @@ export default function TableRow(props) {
             </tr>
 
             {/* Extend Body Component */}
-
             {
                 isExtended ?
                     <tr>
@@ -142,7 +141,8 @@ export default function TableRow(props) {
                                     isExtended={isExtended}
                                     // test
                                     tableData={props.tableData}
-
+                                    extendRowConfig={props.extendRowConfig}
+                                    extendRowContent={props.extendRowContent(allRowData)}
                                 />
                             }
                         </td>

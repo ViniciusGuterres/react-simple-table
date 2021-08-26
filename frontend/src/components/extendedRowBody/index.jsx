@@ -8,6 +8,10 @@ export default function ExtendedRowBody(props) {
 
     const [selectedMenu, setSelectedMenu] = useState(props.extendedContentConfig[0]);
 
+    // verify if props exist
+    const rowBodyType = props.extendRowConfig && props.extendRowConfig.rowBodyType;
+    const dataColumn = props.extendRowConfig && props.extendRowConfig.dataColumnsConfig;
+
     // just set the menu clicked returned by NavMenu component
     function selectMenuContent(menuTitle) {
 
@@ -17,57 +21,46 @@ export default function ExtendedRowBody(props) {
             };
         });
     };
+    
+    function verifyRowBodyType() {
+        switch (rowBodyType) {
+            case 'card':
+                return (
+                    <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+
+                        {
+                            <NavMenu
+                                titles={props.extendedContentConfig}
+                                selectMenu={selectMenuContent}
+                            />
+                        }
+
+                        {
+                            selectedMenu ?
+                                <ContentCard
+                                    content={selectedMenu}
+                                />
+                                :
+                                null
+                        }
+
+                    </div>
+                )
+
+            case 'table':
+                return (
+                    <Table
+                        tableData={props.tableData}
+                        dataColumnsConfig={dataColumn}
+                    />
+                )
+        }
+    };
 
     return (
-        // <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
-
-        //     {
-        //         <NavMenu
-        //             titles={props.extendedContentConfig}
-        //             selectMenu={selectMenuContent}
-        //         />
-        //     }
-
-        //     {
-        //         selectedMenu ?
-        //             <ContentCard
-        //                 content={selectedMenu}
-        //             />
-        //             :
-        //             null
-        //     }
-
-        // </div>
-
-        // Test
-        <Table
-        tableData={props.tableData}
-        isExtendable={false}
-        dataColumnsConfig={
-            [
-                {
-                    header: 'Carro',
-                    dataKeyRow: 'userCarName'
-                },
-                {
-                    header: 'Model',
-                    dataKeyRow: 'userCarModel'
-                },
-                {
-                    header: 'Fabricante',
-                    dataKeyRow: 'carManufacturer'
-                },
-                {
-                    header: 'Gasolina',
-                    dataKeyRow: 'carFuel'
-                },
-                {
-                    header: 'Tipo',
-                    dataKeyRow: 'carType'
-                }
-            ]
-        }
-    />
+        <div>
+            {props.isExtended ? props.extendRowContent : null}
+        </div>
     )
 };
 
