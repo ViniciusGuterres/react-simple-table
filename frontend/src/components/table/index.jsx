@@ -5,6 +5,7 @@ import Modal from '../modal';
 import CustomMessage from '../customMessage';
 import PageController from '../pageController';
 
+
 export default class Table extends Component {
     constructor(props) {
         super(props);
@@ -116,24 +117,22 @@ export default class Table extends Component {
     // set the current page + 1 and do not pass the total page
     goForward() {
         let page = this.state.currentPage;
-        page++;
 
-        if (page > this.state.totalPage) {
-            page--;
+        if (page < this.state.totalPage) {
+            page++;
+            this.setState({ currentPage: page });
         };
 
-        this.setState({ currentPage: page });
     };
 
     goBackward() {
         let page = this.state.currentPage;
-        page--;
 
-        if (page < this.state.initialPage) {
-            page++;
+        if (page > 0) {
+            page--;
+            this.setState({ currentPage: page })
         }
 
-        this.setState({ currentPage: page })
     };
 
     goInitial() {
@@ -163,7 +162,6 @@ export default class Table extends Component {
 
                     <tbody>
                         {this.renderRows()}
-
                     </tbody>
 
                 </table>
@@ -177,7 +175,7 @@ export default class Table extends Component {
                 />
 
                 {/* Controllers Buttons */}
-                <PageController />
+                {/* <PageController /> */}
             </>
         );
     };

@@ -12,10 +12,54 @@ import productsData from './users/users_products_buyed';
 
 // components 
 import Table from './components/table';
+import ContentCard from './components/contentCard';
 
 export default class UsersTable extends Component {
     constructor(props) {
         super(props);
+
+        // configs of data colums per custom tables
+        this.extendRowBodyTableCarOwnersConfig = [
+            {
+                header: 'Nome',
+                dataKeyRow: 'userFirstName',
+                dataRowType: 'span'
+            },
+            {
+                header: 'Nascimento',
+                dataKeyRow: 'userBirth',
+                dataRowType: 'span'
+            },
+            {
+                header: 'Salário',
+                dataKeyRow: 'userSalaryHandled',
+
+                dataRowType: 'span'
+            }
+        ];
+
+        this.tableCarsConfig = [
+            {
+                header: 'Carro',
+                dataKeyRow: 'carName'
+            },
+            {
+                header: 'Model',
+                dataKeyRow: 'carModel'
+            },
+            {
+                header: 'Fabricante',
+                dataKeyRow: 'carManufacturer'
+            },
+            {
+                header: 'Gasolina',
+                dataKeyRow: 'carFuel'
+            },
+            {
+                header: 'Tipo',
+                dataKeyRow: 'carType'
+            }
+        ];
 
         // map all my user datas and add the others dataBase with the corresponding id
         this.userList = data.map(user => {
@@ -51,19 +95,8 @@ export default class UsersTable extends Component {
             return userData;
         });
 
-        this.carList = Object.values(carsData).map((car) => {
-            // get all cars owners 
-            let carsList = car;
-            let filtered = data.filter((value) => {
-                return value.user_car_id === car.car_id
-            });
-
-            carsList.owner = filtered;
-
-            return car;
-        });
-
         this.saveModalNewAlterations = this.saveModalNewAlterations.bind(this);
+        this.renderExtendRowBodyTableCarOwners = this.renderExtendRowBodyTableCarOwners.bind(this);
 
         this.state = {
             allUsersData: this.userList,
@@ -347,7 +380,6 @@ export default class UsersTable extends Component {
 
     getAllCarsData() {
         return (
-
             this.state.allCarsData.map(car => {
 
                 const allCarDataObj = {
@@ -358,9 +390,6 @@ export default class UsersTable extends Component {
                     carModel: car.car_model ? car.car_model : '',
                     carFuel: car.car_fuel ? car.car_fuel : '',
                     carType: car.car_type ? car.car_type : '',
-
-                    // oweners datas
-
                 };
 
                 const extendedContentConfigAllData = [
@@ -412,69 +441,64 @@ export default class UsersTable extends Component {
     };
 
     renderExtendRowBodyTableCarOwners(ownersId) {
-
-        // test
         // get all cars owners 
         let filtered = data.filter((user) => {
             return user.user_car_id === ownersId.carId
         });
-        // const AllOwners = filtered.user_first_name && filtered.user_first_name[0] ? filtered.user_first_name : []
-        console.log(filtered[0].user_first_name);
-        ///////
 
+        // get all owners data and retur a object to put in the tableData props
+        const owenersData = filtered.map(owner => {
+
+            const allOwnersCarDataObj = {
+                userFirstName: owner.user_first_name || '',
+                userBirth: owner.user_birth_date || '',
+                userSalaryHandled: owner.currentJob && owner.currentJob.user_job_salary || ''
+            };
+
+            const tableData = [{ allDataBaseValues: allOwnersCarDataObj }];
+
+            return tableData;
+        });
+        console.log(filtered.length > 0 ? true : false);
         return (
-            <Table
-                tableData={
-                    [
-                        {
-                            allDataBaseValues: {
-                                // owners data here
-                                // userFirstName:  filtered && filtered.user_first_name    
-                            }
-                        }
-                    ]
+            <ContentCard
+                content={{ title: 'Donos' }}
+            >
+                {
+                    filtered.length > 0 ?
+                        <Table
+                            tableData={owenersData}
+                            dataColumnsConfig={this.extendRowBodyTableCarOwnersConfig}
+                        />
+                        :
+                        <h1>Sem donos</h1>
                 }
-                dataColumnsConfig={
-                    [
-                        {
-                            header: 'Nome',
-                            dataKeyRow: 'userFirstName',
-                            dataRowType: 'span'
-                        },
-                        {
-                            header: 'Nascimento',
-                            dataKeyRow: 'userBirth',
-                            dataRowType: 'span'
-                        }
-                    ]
-                }
-            />
+            </ContentCard>
         )
     };
 
     renderExtendRowBodyCardMenuUsers() {
 
-        return (
-            <h1></h1>
-            // <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+        // return (
+        //     <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
 
-            //     {
-            //         <NavMenu
-            //             titles={props.extendedContentConfig}
-            //             selectMenu={selectMenuContent}
-            //         />
-            //     }
+        //         {
+        //             <NavMenu
+        //                 titles={props.extendedContentConfig}
+        //                 selectMenu={selectMenuContent}
+        //             />
+        //         }
 
-            //     {
-            //         selectedMenu ?
-            //             <ContentCard
-            //                 content={selectedMenu}
-            //             />
-            //             :
-            //             null
-            //     }
-            // </div>
-        )
+        //         {
+        //             selectedMenu ?
+        //                 <ContentCard
+        //                     content={selectedMenu}
+        //                 />
+        //                 :
+        //                 null
+        //         }
+        //     </div>
+        // )
     };
 
     render() {
@@ -505,7 +529,6 @@ export default class UsersTable extends Component {
                             {
                                 header: 'Salário',
                                 dataKeyRow: 'userSalaryHandled',
-
                                 dataRowType: 'span'
                             },
                             {
@@ -517,7 +540,6 @@ export default class UsersTable extends Component {
                             },
                             {
                                 header: 'Status',
-                                dataKeyRow: 'none',
                                 dataRowType: 'icon'
                             }
                         ]
@@ -532,47 +554,9 @@ export default class UsersTable extends Component {
                         {
                             isExtendable: true,
                             rowBodyType: 'table',
-                            dataColumnsConfig:
-                                [
-                                    {
-                                        header: 'Dono',
-                                        dataKeyRow: 'userCarName'
-                                    },
-                                    {
-                                        header: 'Salário',
-                                        dataKeyRow: 'userCarModel'
-                                    },
-                                    {
-                                        header: 'Nascimento',
-                                        dataKeyRow: 'carManufacturer'
-                                    }
-                                ]
                         }
                     }
-                    dataColumnsConfig={
-                        [
-                            {
-                                header: 'Carro',
-                                dataKeyRow: 'carName'
-                            },
-                            {
-                                header: 'Model',
-                                dataKeyRow: 'carModel'
-                            },
-                            {
-                                header: 'Fabricante',
-                                dataKeyRow: 'carManufacturer'
-                            },
-                            {
-                                header: 'Gasolina',
-                                dataKeyRow: 'carFuel'
-                            },
-                            {
-                                header: 'Tipo',
-                                dataKeyRow: 'carType'
-                            }
-                        ]
-                    }
+                    dataColumnsConfig={this.tableCarsConfig}
                 />
             </>
         )

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import useToggle from "../../hooks/useToggle";
-
 
 // fontAwesome 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,11 +11,12 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import ExtendedRowBody from '../extendedRowBody';
 import TableData from "../tableData";
 
+// styled components
+import { Row } from './styles';
+
 export default function TableRow(props) {
 
     const [isExtended, setExtend] = useToggle(false);
-
-    const [bgRowOnMouseOver, setBgRowOnMouseOver] = useState(false);
 
     // verify props
     const allRowData = props && props.rowData ? props.rowData : '';
@@ -24,8 +24,6 @@ export default function TableRow(props) {
     const idRow = props && props.idRow ? props.idRow : 0;
     const isExtendable = props.extendRowConfig && props.extendRowConfig.isExtendable;
 
-    // row toggle background logic
-    let bgToggle = (props.idRow % 2) ? '#fff' : '#ededed';
 
     // toggle between online, offline and anonymous
     let iconName = idRow % 2 === 0 ? faUser : faUserAltSlash;
@@ -36,10 +34,8 @@ export default function TableRow(props) {
         iconBg = '#272222d9'
     };
 
-
     // verify the data coloumn type and return the relative html type
     function verifyDataRowType(rowType) {
-
         const currentDataRowType = rowType && rowType.dataRowType ? rowType.dataRowType : '';
 
         switch (currentDataRowType) {
@@ -84,7 +80,6 @@ export default function TableRow(props) {
                         {allRowData[rowType.dataKeyRow]}
                     </span>
                 )
-
         };
     };
 
@@ -105,30 +100,16 @@ export default function TableRow(props) {
             })
         );
     };
-    
+
     return (
         <>
-            <tr
+            <Row
                 // when click in the row, set Extende if is extendable
                 onClick={isExtendable ? setExtend : null}
-                // toggle background color between on mouse over and on mouse leave
-                onMouseOver={() => setBgRowOnMouseOver({
-                    bg: '#2d485fc2',
-                    color: '#fff'
-                })}
-                onMouseLeave={() => setBgRowOnMouseOver({
-                    bg: bgToggle,
-                    color: 'black'
-                })}
-
-                style={{
-                    background: bgRowOnMouseOver ? bgRowOnMouseOver.bg : bgToggle,
-                    color: bgRowOnMouseOver ? bgRowOnMouseOver.color : 'black',
-                    cursor: 'pointer'
-                }}
+                bgToggle={props.idRow || 0}
             >
                 {renderDatas()}
-            </tr>
+            </Row>
 
             {/* Extend Body Component */}
             {
@@ -152,6 +133,5 @@ export default function TableRow(props) {
             }
         </>
     );
-
 };
 

@@ -15,7 +15,6 @@ export default function ContentCard(props) {
                         </span><br></br>
 
                     </div>
-
                 );
             })
         );
@@ -24,17 +23,12 @@ export default function ContentCard(props) {
     return (
         <div style={styles.container}>
             <h1 style={styles.h1Title}>
-                {
-                    props.content && props.content.title
-                        ?
-                        props.content.title
-                        :
-                        ''
-                }
+                {props.content && props.content.title || ''}
             </h1>
 
             <div style={styles.contentContainer}>
-                {renderFields()}
+                {/* {renderFields()} */}
+                {props.children}
             </div>
         </div>
     );
