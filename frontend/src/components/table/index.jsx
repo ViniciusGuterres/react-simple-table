@@ -5,7 +5,6 @@ import Modal from '../modal';
 import CustomMessage from '../customMessage';
 import PageController from '../pageController';
 
-
 export default class Table extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +66,7 @@ export default class Table extends Component {
                             modalConfig={this.props.modalConfig}
                             showModal={this.showModal}
                             // test
-                            extendRowConfig={this.props.extendRowConfig}
+                            isExtendable={this.props.isExtendable}
                             tableData={this.props.tableData}
                             extendRowContent={this.props.extendRowContent}
                         />
@@ -185,7 +184,7 @@ const styles = {
     tableHeader: {
         background: '#2d485fc2',
         color: '#fff',
-        fontSize: '10px'
+        fontSize: '10px',
     },
     mainTable: {
         width: '100%',

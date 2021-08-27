@@ -2,6 +2,7 @@ import React from 'react';
 
 export default function ContentCard(props) {
 
+    console.log(props);
     function renderFields() {
         return (
             props.content.fieldsNames.map((itens, index) => {
@@ -37,10 +38,12 @@ export default function ContentCard(props) {
 const styles = {
     container: {
         backgroundColor: '#ffffff',
-        width: '80%',
-        margin: '30px',
+        width: '90%',
         borderRadius: '10px',
         boxShadow: '16px 16px 19px -4px rgba(0,0,0,0.24)',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px'
     },
     h1Title: {
         width: '100%',

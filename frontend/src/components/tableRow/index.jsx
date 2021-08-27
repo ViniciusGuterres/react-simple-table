@@ -22,7 +22,7 @@ export default function TableRow(props) {
     const allRowData = props && props.rowData ? props.rowData : '';
     const columnKey = props && props.columnKey ? props.columnKey : '';
     const idRow = props && props.idRow ? props.idRow : 0;
-    const isExtendable = props.extendRowConfig && props.extendRowConfig.isExtendable;
+    const isExtendable = props.isExtendable || false;
 
 
     // toggle between online, offline and anonymous
@@ -114,14 +114,15 @@ export default function TableRow(props) {
             {/* Extend Body Component */}
             {
                 isExtended ?
-                    <tr>
+                    <tr
+                        style={{background: '#737e863d'}}
+                    >
                         <td colSpan='100%'>
                             {
                                 <ExtendedRowBody
                                     extendedContentConfig={props.extendedContentConfig}
                                     isExtended={isExtended}
                                     // test
-                                    tableData={props.tableData}
                                     extendRowConfig={props.extendRowConfig}
                                     extendRowContent={props.extendRowContent(allRowData)}
                                 />

@@ -13,6 +13,7 @@ import productsData from './users/users_products_buyed';
 // components 
 import Table from './components/table';
 import ContentCard from './components/contentCard';
+import NavMenu from './components/navMenu';
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -97,10 +98,13 @@ export default class UsersTable extends Component {
 
         this.saveModalNewAlterations = this.saveModalNewAlterations.bind(this);
         this.renderExtendRowBodyTableCarOwners = this.renderExtendRowBodyTableCarOwners.bind(this);
+        this.renderExtendRowBodyCardMenuUsers = this.renderExtendRowBodyCardMenuUsers.bind(this);
+        this.selectMenuContent = this.selectMenuContent.bind(this);
 
         this.state = {
             allUsersData: this.userList,
-            allCarsData: Object.values(carsData)
+            allCarsData: Object.values(carsData),
+            selectedMenu: null
         };
     };
 
@@ -429,7 +433,7 @@ export default class UsersTable extends Component {
     // save a new user list with some alterations from modal form component
     saveModalNewAlterations(newEditedValues) {
         // searching the alterated id user 
-        let newList = this.state.allUsersData;
+        let newList = [...this.state.allUsersData];
         const search = element => element.user_id === newEditedValues.user_id;
         let index = newList.findIndex(search);
 
@@ -438,6 +442,17 @@ export default class UsersTable extends Component {
         this.setState({
             allUsersData: newList,
         });
+    };
+
+    // just set the menu clicked returned by NavMenu component
+    selectMenuContent(menuTitle) {
+
+        // props.extendedContentConfig.forEach(item => {
+        //     if (menuTitle === item.title) {
+        //         setSelectedMenu(item);
+        //     };
+        // });
+        this.setState({selectedMenu: menuTitle})
     };
 
     renderExtendRowBodyTableCarOwners(ownersId) {
@@ -455,11 +470,11 @@ export default class UsersTable extends Component {
                 userSalaryHandled: owner.currentJob && owner.currentJob.user_job_salary || ''
             };
 
-            const tableData = [{ allDataBaseValues: allOwnersCarDataObj }];
+            const tableData = [{allDataBaseValues: allOwnersCarDataObj}];
 
             return tableData;
         });
-        console.log(filtered.length > 0 ? true : false);
+
         return (
             <ContentCard
                 content={{ title: 'Donos' }}
@@ -479,41 +494,44 @@ export default class UsersTable extends Component {
 
     renderExtendRowBodyCardMenuUsers() {
 
-        // return (
-        //     <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
+        return (
+            <div>
 
-        //         {
-        //             <NavMenu
-        //                 titles={props.extendedContentConfig}
-        //                 selectMenu={selectMenuContent}
-        //             />
-        //         }
+                {
+                    <NavMenu
+                        selectMenu={this.selectMenuContent}
+                        titles={[
+                            { title: 'Carro' },
+                            { title: 'Emprego' },
+                            { title: 'Produto' },
+                            { title: 'Acessos' },
+                            { title: 'Endereço' }
+                        ]}
+                    />
+                }
 
-        //         {
-        //             selectedMenu ?
-        //                 <ContentCard
-        //                     content={selectedMenu}
-        //                 />
-        //                 :
-        //                 null
-        //         }
-        //     </div>
-        // )
+                {/* when clicks in one of the menus above, render the current menu select data at the content card */}
+                {
+                    this.state.selectedMenu ?
+                        <ContentCard
+                            content={this.state.selectedMenu}
+                        />
+                        :
+                        null
+                }
+            </div>
+        )
     };
 
     render() {
         return (
             <>
                 {/* Main Table */}
-                {/* <Table
+                <Table
                     tableData={this.getAllUsersData()}
                     saveModalNewAlterations={this.saveModalNewAlterations}
-                    extendRowConfig={
-                        {
-                            isExtendable: true,
-                            rowBodyType: 'card'
-                        }
-                    }
+                    extendRowContent={this.renderExtendRowBodyCardMenuUsers}
+                    isExtendable={true}
                     dataColumnsConfig={
                         [
                             {
@@ -544,19 +562,14 @@ export default class UsersTable extends Component {
                             }
                         ]
                     }
-                /> */}
+                />
 
                 {/* car Table */}
                 <Table
                     tableData={this.getAllCarsData()}
-                    extendRowContent={this.renderExtendRowBodyTableCarOwners}
-                    extendRowConfig={
-                        {
-                            isExtendable: true,
-                            rowBodyType: 'table',
-                        }
-                    }
                     dataColumnsConfig={this.tableCarsConfig}
+                    extendRowContent={this.renderExtendRowBodyTableCarOwners}
+                    isExtendable={true}
                 />
             </>
         )

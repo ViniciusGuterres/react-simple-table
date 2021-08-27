@@ -6,56 +6,10 @@ import Table from '../table';
 
 export default function ExtendedRowBody(props) {
 
-    const [selectedMenu, setSelectedMenu] = useState(props.extendedContentConfig[0]);
-
     // verify if props exist
     const rowBodyType = props.extendRowConfig && props.extendRowConfig.rowBodyType;
     const dataColumn = props.extendRowConfig && props.extendRowConfig.dataColumnsConfig;
 
-    // just set the menu clicked returned by NavMenu component
-    function selectMenuContent(menuTitle) {
-
-        props.extendedContentConfig.forEach(item => {
-            if (menuTitle === item.title) {
-                setSelectedMenu(item);
-            };
-        });
-    };
-    
-    function verifyRowBodyType() {
-        switch (rowBodyType) {
-            case 'card':
-                return (
-                    <div style={props.isExtended ? styles.rowExtended : { height: '0', opacity: '0' }}>
-
-                        {
-                            <NavMenu
-                                titles={props.extendedContentConfig}
-                                selectMenu={selectMenuContent}
-                            />
-                        }
-
-                        {
-                            selectedMenu ?
-                                <ContentCard
-                                    content={selectedMenu}
-                                />
-                                :
-                                null
-                        }
-
-                    </div>
-                )
-
-            case 'table':
-                return (
-                    <Table
-                        tableData={props.tableData}
-                        dataColumnsConfig={dataColumn}
-                    />
-                )
-        }
-    };
 
     return (
         <div>

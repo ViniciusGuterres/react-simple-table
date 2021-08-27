@@ -4,9 +4,10 @@ export default function NavMenu(props) {
 
     function renderMenu() {
         return (
+            // return all the titles passed by props
             props.titles.map((menuTitle, index) => {
-                const allMenuTitle = menuTitle && menuTitle.title ? menuTitle.title : '';
-
+                const allMenuTitle =  menuTitle.title || '';
+                
                 return (
                     <h1
                         // return the clicked menu to the extended row body component
@@ -14,7 +15,7 @@ export default function NavMenu(props) {
                             event => props.selectMenu(event.target.innerText)
                         }
                         style={{...styles.singleTitle}}
-                        key={index}
+                        key={`menu-title${index}`}
                     >
                         {allMenuTitle}
                     </h1>
