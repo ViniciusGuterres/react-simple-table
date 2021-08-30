@@ -104,7 +104,7 @@ export default class UsersTable extends Component {
         this.state = {
             allUsersData: this.userList,
             allCarsData: Object.values(carsData),
-            selectedMenu: null
+            selectedMenu: 'Carro'
         };
     };
 
@@ -192,170 +192,6 @@ export default class UsersTable extends Component {
                         user.currentAccess.user_access_login : '',
                 };
 
-                // handle with access agent, using the UAParser Object
-                let uaParser = new UAParser();
-                uaParser.setUA(allUserDataObj.userAccessAgent);
-
-                // get the OS name and current version
-                let uaParserResult = uaParser.getResult();
-                let osName = uaParserResult.os.name;
-                let osVersion = uaParserResult.os.version;
-
-                // config to show all users content in each row body
-                const extendedContentConfigAllData = [
-                    {
-                        title: 'Emprego',
-                        fieldsNames: [
-                            {
-                                label: 'Emprego',
-                                values: allUserDataObj.userJobTitle
-                            },
-                            {
-                                label: 'Endereço',
-                                values: allUserDataObj.userJobAddress
-                            },
-                            {
-                                label: 'Salário',
-                                values: allUserDataObj.userSalaryHandled
-
-                            }
-                        ]
-                    },
-                    {
-                        title: 'Usuário',
-                        fieldsNames: [
-                            {
-                                label: 'Nome',
-                                values: allUserDataObj.userFirstName
-                            },
-                            {
-                                label: 'Nascimento',
-                                values: allUserDataObj.userBirth
-                            }
-                        ]
-                    },
-                    {
-                        title: 'Acessos',
-                        fieldsNames: [
-                            {
-                                label: 'Tecnologia',
-                                values: allUserDataObj.userBusinessTechnoloy
-                            },
-                            {
-                                label: 'Endereço de Ip',
-                                values: allUserDataObj.userIpAddress
-                            },
-                            {
-                                label: 'Endereço mac',
-                                values: allUserDataObj.userMacAddress
-                            },
-                            {
-                                label: 'login',
-                                values: allUserDataObj.userAccessLogin
-                            },
-                            {
-                                label: 'OS',
-                                values: `${osName} ${osVersion}`
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Produtos',
-                        fieldsNames: [
-                            {
-                                label: 'nome',
-                                values: allUserDataObj.userProductName
-                            },
-                            {
-                                label: 'Empresa',
-                                values: allUserDataObj.userProductCompanyName
-                            },
-                            {
-                                label: 'Departamento',
-                                values: allUserDataObj.userProductDepartmente
-                            },
-                            {
-                                label: 'Indústria',
-                                values: allUserDataObj.userProductIndusty
-                            },
-                            {
-                                label: 'Preço',
-                                values: `${allUserDataObj.userSalarySymbol} ${allUserDataObj.userProductPrice}`
-                            },
-                            {
-                                label: 'tecnologia utilizada',
-                                values: allUserDataObj.userProductTechnology
-                            },
-                            {
-                                label: 'Material',
-                                values: allUserDataObj.userProductMaterial
-                            },
-                            {
-                                label: 'Utensílio',
-                                values: allUserDataObj.userProductAppliance
-                            },
-                            {
-                                label: 'Descrição',
-                                values: allUserDataObj.userProductDescription
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Endereço',
-                        fieldsNames: [
-                            {
-                                label: 'Rua',
-                                values: allUserDataObj.userAddressStreet
-                            },
-                            {
-                                label: 'Nome',
-                                values: allUserDataObj.userAddressName
-                            },
-                            {
-                                label: 'Cidade',
-                                values: `${allUserDataObj.userAddressCityPrefix} ${allUserDataObj.userAddressCity}`
-                            },
-                            {
-                                label: 'Endereço secundário',
-                                values: allUserDataObj.userAddressSecondary
-                            },
-                            {
-                                label: 'Direção',
-                                values: allUserDataObj.userAddressDirection
-                            },
-                            {
-                                label: 'Estado',
-                                values: `${allUserDataObj.userState} - ${allUserDataObj.userCountry}`
-                            }
-                        ]
-                    },
-                    {
-                        title: 'Carro',
-                        fieldsNames: [
-                            {
-                                label: 'Carro',
-                                values: allUserDataObj.userCar
-                            },
-                            {
-                                label: 'Modelo',
-                                values: allUserDataObj.userCarModel
-                            },
-                            {
-                                label: 'Fabricante',
-                                values: allUserDataObj.userCarManufacturer
-                            },
-                            {
-                                label: 'Tipo',
-                                values: allUserDataObj.userCarType
-                            },
-                            {
-                                label: 'Gasolina',
-                                values: allUserDataObj.userCarFuel
-                            }
-                        ]
-                    }
-                ];
-
                 // all modaConfig and data
                 const modalCarDatas = {
                     userCar: allUserDataObj.userCar,
@@ -372,7 +208,7 @@ export default class UsersTable extends Component {
                     {
                         // dataBaseName: 'users',
                         allDataBaseValues: allUserDataObj,
-                        extendedContentConfig: extendedContentConfigAllData,
+                        // extendedContentConfig: extendedContentConfigAllData,
                         modalConfig: modalCarDatas
                     }
                 ];
@@ -446,13 +282,7 @@ export default class UsersTable extends Component {
 
     // just set the menu clicked returned by NavMenu component
     selectMenuContent(menuTitle) {
-
-        // props.extendedContentConfig.forEach(item => {
-        //     if (menuTitle === item.title) {
-        //         setSelectedMenu(item);
-        //     };
-        // });
-        this.setState({selectedMenu: menuTitle})
+        this.setState({ selectedMenu: menuTitle })
     };
 
     renderExtendRowBodyTableCarOwners(ownersId) {
@@ -470,14 +300,14 @@ export default class UsersTable extends Component {
                 userSalaryHandled: owner.currentJob && owner.currentJob.user_job_salary || ''
             };
 
-            const tableData = [{allDataBaseValues: allOwnersCarDataObj}];
+            const tableData = [{ allDataBaseValues: allOwnersCarDataObj }];
 
             return tableData;
         });
 
         return (
             <ContentCard
-                content={{ title: 'Donos' }}
+                content={[{ title: 'Donos' }]}
             >
                 {
                     filtered.length > 0 ?
@@ -492,10 +322,181 @@ export default class UsersTable extends Component {
         )
     };
 
-    renderExtendRowBodyCardMenuUsers() {
+    renderExtendRowBodyCardMenuUsers(userData) {
+        // handle with access agent, using the UAParser Object
+        let uaParser = new UAParser();
+        uaParser.setUA(userData.userAccessAgent);
+
+        // get the OS name and current version
+        let uaParserResult = uaParser.getResult();
+        let osName = uaParserResult.os.name;
+        let osVersion = uaParserResult.os.version;
+
+        // config to show all users content in each row body
+        const extendedContentConfigAllData = [
+            {
+                title: 'Emprego',
+                fieldsNames: [
+                    {
+                        label: 'Emprego',
+                        values: userData.userJobTitle
+                    },
+                    {
+                        label: 'Endereço',
+                        values: userData.userJobAddress
+                    },
+                    {
+                        label: 'Salário',
+                        values: userData.userSalaryHandled
+
+                    }
+                ]
+            },
+            {
+                title: 'Usuário',
+                fieldsNames: [
+                    {
+                        label: 'Nome',
+                        values: userData.userFirstName
+                    },
+                    {
+                        label: 'Nascimento',
+                        values: userData.userBirth
+                    }
+                ]
+            },
+            {
+                title: 'Acessos',
+                fieldsNames: [
+                    {
+                        label: 'Tecnologia',
+                        values: userData.userBusinessTechnoloy
+                    },
+                    {
+                        label: 'Endereço de Ip',
+                        values: userData.userIpAddress
+                    },
+                    {
+                        label: 'Endereço mac',
+                        values: userData.userMacAddress
+                    },
+                    {
+                        label: 'login',
+                        values: userData.userAccessLogin
+                    },
+                    {
+                        label: 'OS',
+                        values: `${osName} ${osVersion}`
+                    },
+                ]
+            },
+            {
+                title: 'Produto',
+                fieldsNames: [
+                    {
+                        label: 'nome',
+                        values: userData.userProductName
+                    },
+                    {
+                        label: 'Empresa',
+                        values: userData.userProductCompanyName
+                    },
+                    {
+                        label: 'Departamento',
+                        values: userData.userProductDepartmente
+                    },
+                    {
+                        label: 'Indústria',
+                        values: userData.userProductIndusty
+                    },
+                    {
+                        label: 'Preço',
+                        values: `${userData.userSalarySymbol} ${userData.userProductPrice}`
+                    },
+                    {
+                        label: 'tecnologia utilizada',
+                        values: userData.userProductTechnology
+                    },
+                    {
+                        label: 'Material',
+                        values: userData.userProductMaterial
+                    },
+                    {
+                        label: 'Utensílio',
+                        values: userData.userProductAppliance
+                    },
+                    {
+                        label: 'Descrição',
+                        values: userData.userProductDescription
+                    },
+                ]
+            },
+            {
+                title: 'Endereço',
+                fieldsNames: [
+                    {
+                        label: 'Rua',
+                        values: userData.userAddressStreet
+                    },
+                    {
+                        label: 'Nome',
+                        values: userData.userAddressName
+                    },
+                    {
+                        label: 'Cidade',
+                        values: `${userData.userAddressCityPrefix} ${userData.userAddressCity}`
+                    },
+                    {
+                        label: 'Endereço secundário',
+                        values: userData.userAddressSecondary
+                    },
+                    {
+                        label: 'Direção',
+                        values: userData.userAddressDirection
+                    },
+                    {
+                        label: 'Estado',
+                        values: `${userData.userState} - ${userData.userCountry}`
+                    }
+                ]
+            },
+            {
+                title: 'Carro',
+                fieldsNames: [
+                    {
+                        label: 'Carro',
+                        values: userData.userCar
+                    },
+                    {
+                        label: 'Modelo',
+                        values: userData.userCarModel
+                    },
+                    {
+                        label: 'Fabricante',
+                        values: userData.userCarManufacturer
+                    },
+                    {
+                        label: 'Tipo',
+                        values: userData.userCarType
+                    },
+                    {
+                        label: 'Gasolina',
+                        values: userData.userCarFuel
+                    }
+                ]
+            }
+        ];
+
+        // filter the selected menu and pass as props to the contentCard component
+        const currentSelectedMenu = extendedContentConfigAllData.filter((item, index, arr) => {
+            if (item.title === this.state.selectedMenu) {
+                return arr[index];
+            }
+        });
+
 
         return (
-            <div>
+            <div style={{display: 'flex'}}>
 
                 {
                     <NavMenu
@@ -510,11 +511,11 @@ export default class UsersTable extends Component {
                     />
                 }
 
-                {/* when clicks in one of the menus above, render the current menu select data at the content card */}
+                {/* when clicks at one of the menus above, render the current menu select data at the content card */}
                 {
                     this.state.selectedMenu ?
                         <ContentCard
-                            content={this.state.selectedMenu}
+                            content={currentSelectedMenu}
                         />
                         :
                         null
