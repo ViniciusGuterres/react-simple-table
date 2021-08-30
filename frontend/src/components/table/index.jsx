@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import TableRow from '../tableRow';
-import Modal from '../modal';
-import CustomMessage from '../customMessage';
 import PageController from '../pageController';
 
 export default class Table extends Component {
@@ -109,21 +107,23 @@ export default class Table extends Component {
 
     render() {
         return (
-            <table
-                style={styles.mainTable}
-            >
-                <thead>
-                    <tr style={styles.tableHeader}
-                    >
-                        {this.renderHeaders()}
-                    </tr>
-                </thead>
+            <>
+                <table
+                    style={styles.mainTable}
+                >
+                    <thead>
+                        <tr style={styles.tableHeader}
+                        >
+                            {this.renderHeaders()}
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {this.renderRows()}
-                </tbody>
-
-            </table>
+                    <tbody>
+                        {this.renderRows()}
+                    </tbody>
+                </table>
+                <PageController/>
+            </>
         );
     };
 };
