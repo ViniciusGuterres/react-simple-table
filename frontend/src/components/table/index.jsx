@@ -10,17 +10,12 @@ export default class Table extends Component {
         super(props);
 
         this.state = {
-            showModal: null,
             message: false,
             currentPage: 50,
             initialPage: 0,
             maxRowsPerPage: 20
         };
 
-        this.showModal = this.showModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.saveModal = this.saveModal.bind(this);
-        this.closeMessage = this.closeMessage.bind(this);
     };
 
     renderHeaders() {
@@ -56,7 +51,7 @@ export default class Table extends Component {
                 // pass the data with the current key to the TableRow component
                 for (let index in rowData) {
                     return (
-                        
+
                         <TableRow
                             key={`rowKey${idRow}`}
                             rowData={rowData[index].allDataBaseValues || rowData[index]}
@@ -64,7 +59,7 @@ export default class Table extends Component {
                             idRow={idRow}
                             extendedContentConfig={rowData[index].extendedContentConfig}
                             modalConfig={this.props.modalConfig}
-                            showModal={this.showModal}
+                            showModal={this.props.showModal}
                             // test
                             isExtendable={this.props.isExtendable}
                             tableData={this.props.tableData}
@@ -76,40 +71,6 @@ export default class Table extends Component {
             })
         );
     };
-
-    // modal functions
-    showModal(obj) {
-        this.setState({ showModal: obj })
-    };
-
-    closeModal() {
-        this.setState({ showModal: null })
-    };
-
-    saveModal(editedData) {
-        // passing the editedData to the root state keeper
-        this.props.saveModalNewAlterations(editedData);
-
-        this.setState({ message: true })
-
-        setTimeout(() => {
-            this.closeMessage()
-        }, 3000)
-    };
-
-    renderModal() {
-        return (
-            <Modal
-                carObject={this.state.showModal}
-                close={this.closeModal}
-                saveAlterations={this.saveModal}
-            />
-        );
-    };
-
-    closeMessage() {
-        this.setState({ message: false })
-    }
 
     // Page Controllers
 
@@ -148,34 +109,21 @@ export default class Table extends Component {
 
     render() {
         return (
-            <>
-                <table
-                    style={styles.mainTable}
-                >
-                    <thead>
-                        <tr style={styles.tableHeader}
-                        >
-                            {this.renderHeaders()}
-                        </tr>
-                    </thead>
+            <table
+                style={styles.mainTable}
+            >
+                <thead>
+                    <tr style={styles.tableHeader}
+                    >
+                        {this.renderHeaders()}
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
 
-                </table>
-
-                {this.state.showModal ? this.renderModal() : null}
-
-                <CustomMessage
-                    name='Salvo com sucesso'
-                    message={this.closeMessage}
-                    toggleMessage={this.state.message}
-                />
-
-                {/* Controllers Buttons */}
-                {/* <PageController /> */}
-            </>
+            </table>
         );
     };
 };
@@ -188,6 +136,6 @@ const styles = {
     },
     mainTable: {
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'center',
     }
 };

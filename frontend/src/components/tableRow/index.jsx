@@ -54,7 +54,6 @@ export default function TableRow(props) {
                                     userType: allRowData.userCarType,
                                     userFuel: allRowData.userCarFuel,
                                 })
-
                             }
                         }
                     >

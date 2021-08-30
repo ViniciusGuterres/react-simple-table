@@ -10,16 +10,20 @@ import CustomButton from '../customButton';
  */
 
 export default function Modal(props) {
+    //verifying if props exist
+    let initialCarObj = {};
 
-    const initialCarObj = {
-        user_id: props.carObject.userId ? props.carObject.userId : '',
-        carId: props.carObject.userCarId ? props.carObject.userCarId : '',
-        car_name: props.carObject.userCar ? props.carObject.userCar : '',
-        car_model: props.carObject.userModel ? props.carObject.userModel : '',
-        car_manufacturer: props.carObject.userBrand ? props.carObject.userBrand : '',
-        car_type: props.carObject.userType ? props.carObject.userType : '',
-        car_fuel: props.carObject.userFuel ? props.carObject.userFuel : ''
-    };
+    if (props.carObject) {
+        initialCarObj = {
+            user_id: props.carObject.userId || '',
+            carId: props.carObject.userCarId || '',
+            car_name: props.carObject.userCar || '',
+            car_model: props.carObject.userModel || '',
+            car_manufacturer: props.carObject.userBrand || '',
+            car_type: props.carObject.userType || '',
+            car_fuel: props.carObject.userFuel || ''
+        };
+    }
 
     const [carObj, setChanges] = useState({ ...initialCarObj });
 

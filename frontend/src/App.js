@@ -14,6 +14,8 @@ import productsData from './users/users_products_buyed';
 import Table from './components/table';
 import ContentCard from './components/contentCard';
 import NavMenu from './components/navMenu';
+import Modal from './components/modal';
+import CustomMessage from './components/customMessage';
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -100,11 +102,18 @@ export default class UsersTable extends Component {
         this.renderExtendRowBodyTableCarOwners = this.renderExtendRowBodyTableCarOwners.bind(this);
         this.renderExtendRowBodyCardMenuUsers = this.renderExtendRowBodyCardMenuUsers.bind(this);
         this.selectMenuContent = this.selectMenuContent.bind(this);
+        this.renderModal = this.renderModal.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.saveModal = this.saveModal.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
 
         this.state = {
             allUsersData: this.userList,
             allCarsData: Object.values(carsData),
-            selectedMenu: 'Carro'
+            selectedMenu: 'Carro',
+            showModal: null,
+            message: false
         };
     };
 
@@ -323,6 +332,7 @@ export default class UsersTable extends Component {
     };
 
     renderExtendRowBodyCardMenuUsers(userData) {
+        console.log(userData.userId);
         // handle with access agent, using the UAParser Object
         let uaParser = new UAParser();
         uaParser.setUA(userData.userAccessAgent);
@@ -488,15 +498,15 @@ export default class UsersTable extends Component {
         ];
 
         // filter the selected menu and pass as props to the contentCard component
-        const currentSelectedMenu = extendedContentConfigAllData.filter((item, index, arr) => {
+        const currentSelectedMenu = extendedContentConfigAllData.filter(item => {
             if (item.title === this.state.selectedMenu) {
-                return arr[index];
+                return item;
             }
         });
 
 
         return (
-            <div style={{display: 'flex'}}>
+            <div style={{ display: 'flex' }}>
 
                 {
                     <NavMenu
@@ -524,54 +534,108 @@ export default class UsersTable extends Component {
         )
     };
 
+    // modal functions
+    showModal(obj) {
+        this.setState({ showModal: obj })
+    };
+
+    closeModal() {
+        this.setState({ showModal: null })
+    };
+
+    saveModal(editedData) {
+        // passing the editedData to the root state keeper
+        this.saveModalNewAlterations(editedData);
+
+        this.setState({ message: true })
+
+        setTimeout(() => {
+            this.closeMessage()
+        }, 3000)
+    };
+
+    renderModal() {
+        return (
+            <Modal
+                carObject={this.state.showModal}
+                close={this.closeModal}
+                saveAlterations={this.saveModal}
+            />
+        );
+    };
+
+    closeMessage() {
+        this.setState({ message: false })
+    }
+
     render() {
         return (
             <>
-                {/* Main Table */}
-                <Table
-                    tableData={this.getAllUsersData()}
-                    saveModalNewAlterations={this.saveModalNewAlterations}
-                    extendRowContent={this.renderExtendRowBodyCardMenuUsers}
-                    isExtendable={true}
-                    dataColumnsConfig={
-                        [
-                            {
-                                header: 'Nome',
-                                dataKeyRow: 'userFirstName',
-                                dataRowType: 'span'
-                            },
-                            {
-                                header: 'Nascimento',
-                                dataKeyRow: 'userBirth',
-                                dataRowType: 'span'
-                            },
-                            {
-                                header: 'Salário',
-                                dataKeyRow: 'userSalaryHandled',
-                                dataRowType: 'span'
-                            },
-                            {
-                                header: 'Carro',
-                                dataKeyRow: 'none',
-                                dataRowType: 'button',
-                                value: 'Visualizar',
-                                click: this.renderModal
-                            },
-                            {
-                                header: 'Status',
-                                dataRowType: 'icon'
-                            }
-                        ]
-                    }
+                <CustomMessage
+                    name='Salvo com sucesso'
+                    message={this.closeMessage}
+                    toggleMessage={this.state.message}
                 />
+                {
+                    this.state.showModal ?
+                        this.renderModal() :
+                        null
 
-                {/* car Table */}
-                <Table
-                    tableData={this.getAllCarsData()}
-                    dataColumnsConfig={this.tableCarsConfig}
-                    extendRowContent={this.renderExtendRowBodyTableCarOwners}
-                    isExtendable={true}
-                />
+                }
+                {/* Main Table */}
+                <div style={{ height: '100vh'}}>
+
+                    <div style={{ height: '50vh', overflowY: 'scroll'}}>
+
+                        <Table
+                            tableData={this.getAllUsersData()}
+                            showModal={this.showModal}
+                            saveModalNewAlterations={this.saveModalNewAlterations}
+                            extendRowContent={this.renderExtendRowBodyCardMenuUsers}
+                            isExtendable={true}
+                            dataColumnsConfig={
+                                [
+                                    {
+                                        header: 'Nome',
+                                        dataKeyRow: 'userFirstName',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Nascimento',
+                                        dataKeyRow: 'userBirth',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Salário',
+                                        dataKeyRow: 'userSalaryHandled',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Carro',
+                                        dataKeyRow: 'none',
+                                        dataRowType: 'button',
+                                        value: 'Visualizar',
+                                        click: this.renderModal
+                                    },
+                                    {
+                                        header: 'Status',
+                                        dataRowType: 'icon'
+                                    }
+                                ]
+                            }
+                        />
+                    </div>
+
+                    {/* car Table */}
+                    <div style={{ height: '50vh',overflowY: 'scroll' }}>
+                        <Table
+                            tableData={this.getAllCarsData()}
+                            dataColumnsConfig={this.tableCarsConfig}
+                            extendRowContent={this.renderExtendRowBodyTableCarOwners}
+                            isExtendable={true}
+                        />
+                    </div>
+                </div>
             </>
         )
     };
