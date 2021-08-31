@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import CustomInput from '../customInput';
 import CustomButton from '../customButton';
@@ -28,6 +28,18 @@ export default function Modal(props) {
     const [carObj, setChanges] = useState({ ...initialCarObj });
 
     const [isReadable, setMode] = useState(true);
+
+    // close the modal when press "ESC"
+    useEffect(() => {
+        const isKeyEscape = (event) => {
+            if (event.key === 'Escape') {
+                props.close();
+                window.removeEventListener('keydown', isKeyEscape);
+            }
+        }
+
+        window.addEventListener('keydown', isKeyEscape);
+    }, [props]);
 
     function toggleMode() {
         setMode(!isReadable);

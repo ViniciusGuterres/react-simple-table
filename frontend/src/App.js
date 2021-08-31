@@ -306,7 +306,7 @@ export default class UsersTable extends Component {
             const allOwnersCarDataObj = {
                 userFirstName: owner.user_first_name || '',
                 userBirth: owner.user_birth_date || '',
-                userSalaryHandled: owner.currentJob && owner.currentJob.user_job_salary || ''
+                userSalaryHandled: owner.currentJob.user_job_salary || ''
             };
 
             const tableData = [{ allDataBaseValues: allOwnersCarDataObj }];
@@ -497,11 +497,14 @@ export default class UsersTable extends Component {
             }
         ];
 
+        // refactor
         // filter the selected menu and pass as props to the contentCard component
         const currentSelectedMenu = extendedContentConfigAllData.filter(item => {
+            let currentItem;
             if (item.title === this.state.selectedMenu) {
-                return item;
+                currentItem = item;
             }
+            return currentItem;
         });
 
 
