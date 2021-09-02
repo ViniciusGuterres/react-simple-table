@@ -74,7 +74,7 @@ for (let i = 0; i < 70; i++) {
 }
 
 for (let i = 0; i < 70; i++) {
-    userProductsInsertQuery += ` (${Math.ceil(Math.random(0, 100) * 100)}, ${Math.ceil(Math.random(0, 100) * 100)}),`
+    userProductsInsertQuery += ` (${Math.ceil(Math.random(0, 100) * 100)}, ${Math.floor(Math.random() * (300 - 201) + 201)}),`
 }
 
 for (let i = 0; i < 70; i++) {
@@ -101,9 +101,9 @@ userJobsInsertQuery = userJobsInsertQuery.substr(0, userJobsInsertQuery.length -
 userAddressInsertQuery = userAddressInsertQuery.substr(0, userAddressInsertQuery.length - 1);
 userAccessInserQuery = userAccessInserQuery.substr(0, userAccessInserQuery.length - 1);
 
-console.log(userAccessInserQuery);
 
 const allQuerys = [
+    // userJobsInsertQuery
     // userAccessInserQuery
     // userAddressInsertQuery
     // userJobsInsertQuery
@@ -128,7 +128,7 @@ const db = new Client({
 })
 
 db.connect().then(async () => {
-    console.log('--- db connected')
+    console.log('--- db connected');
     db.query("SET search_path TO 'users_data';")
 
     for (let i = 0; i < allQuerys.length; i++) {

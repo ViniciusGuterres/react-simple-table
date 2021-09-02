@@ -316,7 +316,7 @@ module.exports = [
         user_address_id: 19,
         user_job_id: 84,
         user_product_buyed_id: 75,
-        user_car_id: 0
+ 
     },
     {
         user_id: 30,
