@@ -113,9 +113,25 @@ export default class UsersTable extends Component {
             allCarsData: Object.values(carsData),
             selectedMenu: 'Carro',
             showModal: null,
-            message: false
+            message: false,
+            usersDbDatas: []
         };
     };
+    
+    componentDidMount() {
+        
+        // get all my users data from node server
+        fetch('http://localhost:3010/users/list')
+        .then((res) => {
+            res.json()
+                .then(data => {
+                    this.setState({usersDbDatas: data})
+                })
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
 
     getAllUsersData() {
 
@@ -332,7 +348,6 @@ export default class UsersTable extends Component {
     };
 
     renderExtendRowBodyCardMenuUsers(userData) {
-        console.log(userData.userId);
         // handle with access agent, using the UAParser Object
         let uaParser = new UAParser();
         uaParser.setUA(userData.userAccessAgent);
@@ -571,6 +586,34 @@ export default class UsersTable extends Component {
         this.setState({ message: false })
     }
 
+    /////////////////// developing fase ////////////////////////
+    getAllUsersDataFromDb() {
+
+        return (
+            this.state.usersDbDatas.map((user) => {
+
+                const allUserDataObj = {
+                    // User datas
+                    userId: user.user_id || '',
+                    userFirstName: user.first_name || '',
+                    userBirth: user.birth_date || '',
+                }
+
+                console.log(user);
+
+                // tables content
+                const tableData = [
+                    {
+                        // dataBaseName: 'users',
+                        allDataBaseValues: allUserDataObj,
+                    }
+                ];
+
+                return tableData;
+            })
+        );
+    };
+
     render() {
         return (
             <>
@@ -620,24 +663,52 @@ export default class UsersTable extends Component {
                                         value: 'Visualizar',
                                         click: this.renderModal
                                     },
+
+                                    // icon column
+                                    // {
+                                    //     header: 'Status',
+                                    //     dataRowType: 'icon'
+                                    // }
+                                ]
+                            }
+                        />
+                    </div>
+
+                    {/*///////////////////////////////////// Developing fase //////////////////////////////////
+                                                Table with node server datas */}
+                    <div style={{ height: '50vh', overflowY: 'scroll'}}>
+
+                        <Table
+                            tableData={this.getAllUsersDataFromDb()}
+                            dataColumnsConfig={
+                                [
                                     {
-                                        header: 'Status',
-                                        dataRowType: 'icon'
+                                        header: 'Nome',
+                                        dataKeyRow: 'userFirstName',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Nascimento',
+                                        dataKeyRow: 'userBirth',
+                                        dataRowType: 'span'
                                     }
                                 ]
                             }
                         />
                     </div>
 
+                            
+                    
+
                     {/* car Table */}
-                    <div style={{ height: '50vh',overflowY: 'scroll' }}>
+                    {/* <div style={{ height: '50vh',overflowY: 'scroll' }}>
                         <Table
                             tableData={this.getAllCarsData()}
                             dataColumnsConfig={this.tableCarsConfig}
                             extendRowContent={this.renderExtendRowBodyTableCarOwners}
                             isExtendable={true}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </>
         )

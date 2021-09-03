@@ -1,14 +1,14 @@
 const { Client } = require('pg');
 
-const db = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'react_table_project',
-    password: 'admin',
-    port: 5432
-});
-
 exports.data = function getAllUsersData() {
+
+    const db = new Client({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'react_table_project',
+        password: 'admin',
+        port: 5432
+    });
 
     const result = {
         err: null,
