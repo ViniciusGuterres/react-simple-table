@@ -597,7 +597,8 @@ export default class UsersTable extends Component {
                     userId: user.user_id || '',
                     userFirstName: user.first_name || '',
                     userBirth: user.birth_date || '',
-                    userJobSalary: user.salary.replace('.', ',') || 'Sem salário'
+                    userJobSalary: user.salary ? user.salary.replace('.', ',') : 'Sem salário',
+                    userJobTitle: user.jobTitle || "Sem Profissão"
                 }
 
                 // tables content
@@ -691,6 +692,11 @@ export default class UsersTable extends Component {
                                     {
                                         header: 'Nascimento',
                                         dataKeyRow: 'userBirth',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Profissão',
+                                        dataKeyRow: 'userJobTitle',
                                         dataRowType: 'span'
                                     },
                                     {
