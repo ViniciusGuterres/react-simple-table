@@ -597,9 +597,8 @@ export default class UsersTable extends Component {
                     userId: user.user_id || '',
                     userFirstName: user.first_name || '',
                     userBirth: user.birth_date || '',
+                    userJobSalary: user.salary.replace('.', ',') || 'Sem salário'
                 }
-
-                console.log(user);
 
                 // tables content
                 const tableData = [
@@ -608,6 +607,8 @@ export default class UsersTable extends Component {
                         allDataBaseValues: allUserDataObj,
                     }
                 ];
+                
+                console.log(user);
 
                 return tableData;
             })
@@ -690,6 +691,11 @@ export default class UsersTable extends Component {
                                     {
                                         header: 'Nascimento',
                                         dataKeyRow: 'userBirth',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Salário',
+                                        dataKeyRow: 'userJobSalary',
                                         dataRowType: 'span'
                                     }
                                 ]
