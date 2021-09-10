@@ -37,12 +37,8 @@ export default class Table extends Component {
 
     renderRows() {
         // verify if the props exits
-        const allTableData =
-            this.props && this.props.tableData ?
-                this.props.tableData : '';
-        const allColumnKey =
-            this.props && this.props.dataColumnsConfig ?
-                this.props.dataColumnsConfig : '';
+        const allTableData = this.props.tableData || [];
+        const allColumnKey = this.props.dataColumnsConfig || [];
 
         return (
             allTableData.map((rowData, idRow) => {
@@ -68,6 +64,29 @@ export default class Table extends Component {
                 return false;
             })
         );
+
+        // for (let index = 0; index <= this.state.maxRowsPerPage; index++) {
+
+        //     const rowData = allTableData[index];
+        //     const idRow = index;
+
+        //     for (let index in rowData) {
+
+        //         <TableRow
+        //             key={`rowKey${idRow}`}
+        //             rowData={rowData[index].allDataBaseValues || rowData[index]}
+        //             columnKey={allColumnKey}
+        //             idRow={idRow}
+        //             extendedContentConfig={rowData[index].extendedContentConfig}
+        //             modalConfig={this.props.modalConfig}
+        //             showModal={this.props.showModal}
+        //             // test
+        //             isExtendable={this.props.isExtendable}
+        //             tableData={this.props.tableData}
+        //             extendRowContent={this.props.extendRowContent}
+        //         />
+        //     };
+        // }
     };
 
     // Page Controllers
@@ -122,7 +141,7 @@ export default class Table extends Component {
                         {this.renderRows()}
                     </tbody>
                 </table>
-                <PageController/>
+                <PageController />
             </>
         );
     };
