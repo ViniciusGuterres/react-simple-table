@@ -117,20 +117,20 @@ export default class UsersTable extends Component {
             usersDbDatas: []
         };
     };
-    
+
     componentDidMount() {
-        
+
         // get all my users data from node server
         fetch('http://localhost:3010/users/list')
-        .then((res) => {
-            res.json()
-                .then(data => {
-                    this.setState({usersDbDatas: data})
-                })
-        })
-        .catch(e => {
-            console.log(e);
-        })
+            .then((res) => {
+                res.json()
+                    .then(data => {
+                        this.setState({ usersDbDatas: data })
+                    })
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
 
     getAllUsersData() {
@@ -597,8 +597,8 @@ export default class UsersTable extends Component {
                     userId: user.user_id || '',
                     userFirstName: user.first_name || '',
                     userBirth: user.birth_date || '',
-                    userJobSalary: user.salary ? user.salary.replace('.', ',') : 'Sem salário',
-                    userJobTitle: user.jobTitle || "Sem Profissão"
+                    userJobSalary: user.jobs[0].salary.replace('.', ',') || 'Sem salário',
+                    userJobTitle: user.jobs[0] && user.jobs[0].title || "Sem Profissão"
                 }
 
                 // tables content
@@ -608,8 +608,6 @@ export default class UsersTable extends Component {
                         allDataBaseValues: allUserDataObj,
                     }
                 ];
-                
-                console.log(user);
 
                 return tableData;
             })
@@ -617,6 +615,7 @@ export default class UsersTable extends Component {
     };
 
     render() {
+        console.log(this.state.usersDbDatas);
         return (
             <>
                 <CustomMessage
@@ -631,9 +630,9 @@ export default class UsersTable extends Component {
 
                 }
                 {/* Main Table */}
-                <div style={{ height: '100vh'}}>
+                <div style={{ height: '100vh' }}>
 
-                    <div style={{ height: '50vh', overflowY: 'scroll'}}>
+                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
 
                         <Table
                             tableData={this.getAllUsersData()}
@@ -678,8 +677,7 @@ export default class UsersTable extends Component {
 
                     {/*///////////////////////////////////// Developing fase //////////////////////////////////
                                                 Table with node server datas */}
-                    <div style={{ height: '50vh', overflowY: 'scroll'}}>
-
+                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
                         <Table
                             tableData={this.getAllUsersDataFromDb()}
                             dataColumnsConfig={
@@ -707,10 +705,18 @@ export default class UsersTable extends Component {
                                 ]
                             }
                         />
-                    </div>
 
-                            
-                    
+                        {/* will show a loading gif while fetch datas from server */}
+                        {
+                            this.state.usersDbDatas.length <= 0 ?
+                                <img 
+                                    src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" 
+                                    style={{width: '90%'}}
+                                    />
+                                :
+                                null
+                        }
+                    </div>
 
                     {/* car Table */}
                     {/* <div style={{ height: '50vh',overflowY: 'scroll' }}>
