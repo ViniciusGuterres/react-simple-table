@@ -31,10 +31,20 @@ exports.list_all_users = async function (req, res) {
                 birth_date: handledDate,
                 jobs: [
                     {
+                        job_id: user.job_id || '',
                         salary: handledSalary,
                         title: user.title ? user.title.trim() : ''
                     }
-                ]
+                ],
+                cars: {
+                    car_id: user.car_id || '',
+                    name: user.name ? user.name.trim() : '',
+                    manufacturer: user.manufacturer ? user.manufacturer.trim() : '',
+                    type: user.type ? user.type.trim() : '',
+                    fuel: user.fuel ? user.fuel.trim() : '',
+                    model: user.model ? user.model.trim() : ''
+
+                }
             };
 
             allUsersDatas.push(userDatasHandled);

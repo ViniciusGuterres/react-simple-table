@@ -14,22 +14,24 @@ exports.data = function getAllUsersData() {
         err: null,
         data: null
     };
-    
+
     const error = (err) => {
         db.end();
 
         result.err = err;
-        
+
         return result;
     };
 
     const executeQuery = () => {
 
-        const selectUsersQuery = 
-            `SELECT users.user_id, users.first_name, users.birth_date, job.title, job.salary, job.salary_current_symbol
+        const selectUsersQuery =
+            `SELECT users.user_id, users.first_name, users.birth_date, job.title, job.salary, job.salary_current_symbol, cars.car_id, cars.name, cars.manufacturer, cars.fuel, cars.model, cars.type 
             FROM users_data.users
             LEFT JOIN users_data.users_jobs ON users_jobs.user_id = users.user_id
             LEFT JOIN users_data.job ON job.job_id = users_jobs.job_id
+            left join users_data.users_cars on users_cars.user_id = users.user_id
+            left join users_data.cars on cars.car_id  = users_cars.car_id
             ORDER BY users.user_id;`;
 
         const successful = (data) => {
