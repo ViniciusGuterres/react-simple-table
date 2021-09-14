@@ -67,7 +67,6 @@ exports.list_all_users = async function (req, res) {
             allUsersDatas[userIndex].jobs.push(newJob);
 
         }
-
     }
 
     res.json(allUsersDatas);

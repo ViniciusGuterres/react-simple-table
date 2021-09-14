@@ -114,7 +114,8 @@ export default class UsersTable extends Component {
             selectedMenu: 'Carro',
             showModal: null,
             message: false,
-            usersDbDatas: []
+            usersDbDatas: [],
+            allUsersLogs: []
         };
     };
 
@@ -126,6 +127,18 @@ export default class UsersTable extends Component {
                 res.json()
                     .then(data => {
                         this.setState({ usersDbDatas: data })
+                    })
+            })
+            .catch(e => {
+                console.log(e);
+            })
+
+        // get users logs
+        fetch('http://localhost:3010/logs')
+            .then((res) => {
+                res.json()
+                    .then(data => {
+                        this.setState({ allUsersLogs: data })
                     })
             })
             .catch(e => {
@@ -608,8 +621,6 @@ export default class UsersTable extends Component {
                     userCarFuel: user.currentCar && user.currentCar.car_fuel ? user.currentCar.car_fuel : '',
                 };
 
-                console.log(allUserDataObj);
-
                 // all modaConfig and data
                 const modalCarDatas = {
                     userCar: allUserDataObj.userCar,
@@ -634,8 +645,33 @@ export default class UsersTable extends Component {
         );
     };
 
+    getAllUsersLogs() {
+
+        return (
+            this.state.allUsersLogs.map(log => {
+
+                const allUsersLogs = {
+                    ipAddress: log.ip_address || '',
+                    browser: log.browser || '',
+                    os: log.operation_system || '',
+                    date: log.time || '',
+                    path: log.path || ''
+                };
+
+                // tables content
+                const tableDatas = [
+                    {
+                        // dataBaseName: 'users',
+                        allDataBaseValues: allUsersLogs,
+                    }
+                ];
+
+                return tableDatas;
+            })
+        );
+    };
+
     render() {
-        console.log(this.state.usersDbDatas);
         return (
             <>
                 <CustomMessage
@@ -743,6 +779,41 @@ export default class UsersTable extends Component {
                                 :
                                 null
                         }
+                    </div>
+                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
+                        <Table
+                            tableData={this.getAllUsersLogs()}
+                            dataColumnsConfig={
+                                [
+                                    {
+                                        header: 'Endereço de ip',
+                                        dataKeyRow: 'ipAddress',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Browser',
+                                        dataKeyRow: 'browser',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Sistema operacional',
+                                        dataKeyRow: 'os',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Data',
+                                        dataKeyRow: 'date',
+                                        dataRowType: 'span'
+                                    },
+                                    {
+                                        header: 'Caminho',
+                                        dataKeyRow: 'path',
+                                        dataRowType: 'span',
+                                    },
+                                ]
+                            }
+                        />
+
                     </div>
 
                     {/* car Table */}
