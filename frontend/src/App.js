@@ -665,7 +665,7 @@ export default class UsersTable extends Component {
                     date: log.time || '',
                     path: log.path || ''
                 };
-
+                
                 // tables content
                 const tableDatas = [
                     {

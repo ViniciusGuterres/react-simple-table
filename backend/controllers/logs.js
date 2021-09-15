@@ -1,4 +1,4 @@
-const model = require('../model/selectLogs');
+const model = require('../model/logs');
 const UAParser = require('ua-parser-js');
 
 exports.list_users_logs = async function (req, res) {

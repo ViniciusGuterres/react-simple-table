@@ -32,7 +32,7 @@ export default class Table extends Component {
         return (
             dataConfig.map((headers, index) => {
                 return (
-                    <th key={`headerKey ${index}`} style={styles.tableHeaderContent}>
+                    <th key={`headerKey ${index}`}>
                         <h1>{headers.header}</h1>
                     </th>
                 );
@@ -176,9 +176,6 @@ const styles = {
         background: '#2d485fc2',
         color: '#fff',
         fontSize: '10px',
-        width: '500px'
-    },
-    tableHeaderContent: {
         width: '500px'
     },
     mainTable: {
