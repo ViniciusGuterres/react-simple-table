@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 import { UAParser } from 'ua-parser-js';
 
+// react router
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom'
+
 // database 
 import data from './users/users';
 import jobData from './users/users_job';
@@ -685,148 +693,170 @@ export default class UsersTable extends Component {
                         null
 
                 }
-                {/* Main Table */}
-                <div style={{ height: '100vh' }}>
 
-                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
+                <Router>
+                    <div>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <Link to='/'>Usuários</Link>
+                                </li>
 
-                        <Table
-                            tableData={this.getAllUsersData()}
-                            showModal={this.showModal}
-                            saveModalNewAlterations={this.saveModalNewAlterations}
-                            extendRowContent={this.renderExtendRowBodyCardMenuUsers}
-                            isExtendable={true}
-                            dataColumnsConfig={
-                                [
-                                    {
-                                        header: 'Nome',
-                                        dataKeyRow: 'userFirstName',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Nascimento',
-                                        dataKeyRow: 'userBirth',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Salário',
-                                        dataKeyRow: 'userSalaryHandled',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Carro',
-                                        dataKeyRow: 'none',
-                                        dataRowType: 'button',
-                                        value: 'Visualizar',
-                                        click: this.renderModal
-                                    },
+                                <li>
+                                    <Link to='/db-table'>usúarios da base dados</Link>
+                                </li>
 
-                                    // icon column
-                                    // {
-                                    //     header: 'Status',
-                                    //     dataRowType: 'icon'
-                                    // }
-                                ]
-                            }
-                        />
+                                <li>
+                                    <Link to='/cars'>Carros</Link>
+                                </li>
+
+                                <li>
+                                    <Link to='/history'>Histórico de logs</Link>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
 
-                    {/*///////////////////////////////////// Developing fase //////////////////////////////////
-                                                Table with node server datas */}
-                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
-                        <Table
-                            tableData={this.getAllUsersDataFromDb()}
-                            dataColumnsConfig={
-                                [
-                                    {
-                                        header: 'Nome',
-                                        dataKeyRow: 'userFirstName',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Nascimento',
-                                        dataKeyRow: 'userBirth',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Profissão',
-                                        dataKeyRow: 'userJobTitle',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Salário',
-                                        dataKeyRow: 'userJobSalary',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Carro',
-                                        dataKeyRow: 'none',
-                                        dataRowType: 'button',
-                                        value: 'Visualizar',
-                                        click: this.renderModal
-                                    },
-                                ]
+                    <Switch>
+
+                        <Route path='/db-table'>
+                            <Table
+                                tableData={this.getAllUsersDataFromDb()}
+                                dataColumnsConfig={
+                                    [
+                                        {
+                                            header: 'Nome',
+                                            dataKeyRow: 'userFirstName',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Nascimento',
+                                            dataKeyRow: 'userBirth',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Profissão',
+                                            dataKeyRow: 'userJobTitle',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Salário',
+                                            dataKeyRow: 'userJobSalary',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Carro',
+                                            dataKeyRow: 'none',
+                                            dataRowType: 'button',
+                                            value: 'Visualizar',
+                                            click: this.renderModal
+                                        },
+                                    ]
+                                }
+                            />
+
+                            {/* will show a loading gif while fetch datas from server */}
+                            {
+                                this.state.usersDbDatas.length <= 0 ?
+                                    <img
+                                        src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+                                        style={{ width: '90%' }}
+                                    />
+                                    :
+                                    null
                             }
-                        />
+                        </Route>
 
-                        {/* will show a loading gif while fetch datas from server */}
-                        {
-                            this.state.usersDbDatas.length <= 0 ?
-                                <img
-                                    src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
-                                    style={{ width: '90%' }}
-                                />
-                                :
-                                null
-                        }
-                    </div>
-                    <div style={{ height: '50vh', overflowY: 'scroll' }}>
-                        <Table
-                            tableData={this.getAllUsersLogs()}
-                            dataColumnsConfig={
-                                [
-                                    {
-                                        header: 'Endereço de ip',
-                                        dataKeyRow: 'ipAddress',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Browser',
-                                        dataKeyRow: 'browser',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Sistema operacional',
-                                        dataKeyRow: 'os',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Data',
-                                        dataKeyRow: 'date',
-                                        dataRowType: 'span'
-                                    },
-                                    {
-                                        header: 'Caminho',
-                                        dataKeyRow: 'path',
-                                        dataRowType: 'span',
-                                    },
-                                ]
-                            }
-                        />
+                        <Route path='/history'>
+                            <Table
+                                tableData={this.getAllUsersLogs()}
+                                dataColumnsConfig={
+                                    [
+                                        {
+                                            header: 'Endereço de ip',
+                                            dataKeyRow: 'ipAddress',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Browser',
+                                            dataKeyRow: 'browser',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Sistema operacional',
+                                            dataKeyRow: 'os',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Data',
+                                            dataKeyRow: 'date',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Caminho',
+                                            dataKeyRow: 'path',
+                                            dataRowType: 'span',
+                                        },
+                                    ]
+                                }
+                            />
+                        </Route>
 
-                    </div>
+                        <Route path='/cars'>
+                            <Table
+                                tableData={this.getAllCarsData()}
+                                dataColumnsConfig={this.tableCarsConfig}
+                                extendRowContent={this.renderExtendRowBodyTableCarOwners}
+                                isExtendable={true}
+                            />
+                        </Route>
 
-                    {/* car Table */}
-                    {/* <div style={{ height: '50vh',overflowY: 'scroll' }}>
-                        <Table
-                            tableData={this.getAllCarsData()}
-                            dataColumnsConfig={this.tableCarsConfig}
-                            extendRowContent={this.renderExtendRowBodyTableCarOwners}
-                            isExtendable={true}
-                        />
-                    </div> */}
-                </div>
+                        <Route exact path='/'>
+
+                            <Table
+                                tableData={this.getAllUsersData()}
+                                showModal={this.showModal}
+                                saveModalNewAlterations={this.saveModalNewAlterations}
+                                extendRowContent={this.renderExtendRowBodyCardMenuUsers}
+                                isExtendable={true}
+                                dataColumnsConfig={
+                                    [
+                                        {
+                                            header: 'Nome',
+                                            dataKeyRow: 'userFirstName',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Nascimento',
+                                            dataKeyRow: 'userBirth',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Salário',
+                                            dataKeyRow: 'userSalaryHandled',
+                                            dataRowType: 'span'
+                                        },
+                                        {
+                                            header: 'Carro',
+                                            dataKeyRow: 'none',
+                                            dataRowType: 'button',
+                                            value: 'Visualizar',
+                                            click: this.renderModal
+                                        },
+
+                                        // icon column
+                                        // {
+                                        //     header: 'Status',
+                                        //     dataRowType: 'icon'
+                                        // }
+                                    ]
+                                }
+                            />
+                        </Route>
+                    </Switch>
+                </Router>
             </>
         )
     };
 };
+
