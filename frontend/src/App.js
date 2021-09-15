@@ -7,7 +7,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link    
 } from 'react-router-dom'
 
 // database 
@@ -618,7 +618,7 @@ export default class UsersTable extends Component {
                     userFirstName: user.first_name || '',
                     userBirth: user.birth_date || '',
                     userJobSalary: user.jobs[0].salary.replace('.', ',') || 'Sem salário',
-                    userJobTitle: user.jobs[0] && user.jobs[0].title || "Sem Profissão",
+                    userJobTitle: user.jobs[0].title || "Sem Profissão",
 
                     // User car datas
                     userCarId: user.currentCar && user.currentCar.car_id ? user.currentCar.car_id : '',
@@ -755,16 +755,6 @@ export default class UsersTable extends Component {
                                 }
                             />
 
-                            {/* will show a loading gif while fetch datas from server */}
-                            {
-                                this.state.usersDbDatas.length <= 0 ?
-                                    <img
-                                        src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
-                                        style={{ width: '90%' }}
-                                    />
-                                    :
-                                    null
-                            }
                         </Route>
 
                         <Route path='/history'>
@@ -811,7 +801,7 @@ export default class UsersTable extends Component {
                             />
                         </Route>
 
-                        <Route exact path='/'>
+                        <Route path='/'>
 
                             <Table
                                 tableData={this.getAllUsersData()}
@@ -821,6 +811,11 @@ export default class UsersTable extends Component {
                                 isExtendable={true}
                                 dataColumnsConfig={
                                     [
+                                        {
+                                            header: 'Id',
+                                            dataKeyRow: 'userId',
+                                            dataRowType: 'span'
+                                        },
                                         {
                                             header: 'Nome',
                                             dataKeyRow: 'userFirstName',
@@ -843,12 +838,11 @@ export default class UsersTable extends Component {
                                             value: 'Visualizar',
                                             click: this.renderModal
                                         },
-
                                         // icon column
-                                        // {
-                                        //     header: 'Status',
-                                        //     dataRowType: 'icon'
-                                        // }
+                                        {
+                                            header: 'Status',
+                                            dataRowType: 'icon'
+                                        }
                                     ]
                                 }
                             />
@@ -859,4 +853,3 @@ export default class UsersTable extends Component {
         )
     };
 };
-

@@ -26,7 +26,7 @@ export default function ContentCard(props) {
     return (
         <div style={styles.container}>
             <h1 style={styles.h1Title}>
-                {selectedMenuObj && selectedMenuObj.title || ''}
+                {selectedMenuObj.title || ''}
             </h1>
 
             <div style={styles.contentContainer}>

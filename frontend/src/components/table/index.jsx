@@ -7,25 +7,24 @@ export default class Table extends Component {
     constructor(props) {
         super(props);
 
+        this.maxRowsPerPage = 20;
+        this.allTableData = this.props.tableData || [];
+
         this.state = {
             message: false,
-            currentPage: 50,
-            initialPage: 0,
-            maxRowsPerPage: 20
+            currentPage: 1,
+            initialPage: 1,
+            totalPagess: this.allTableData.length / this.maxRowsPerPage
         };
 
     };
 
     renderHeaders() {
         // verify if the props exits
-        const dataConfig =
-            this.props && this.props.dataColumnsConfig ?
-                this.props.dataColumnsConfig : '';
+        const dataConfig = this.props.dataColumnsConfig || '';
 
         return (
-
             dataConfig.map((headers, index) => {
-
                 return (
                     <th key={`headerKey ${index}`}>
                         <h1>{headers.header}</h1>
@@ -37,31 +36,35 @@ export default class Table extends Component {
 
     renderRows() {
         // verify if the props exits
-        const allTableData = this.props.tableData || [];
         const allColumnKey = this.props.dataColumnsConfig || [];
+        console.log(this.state.currentPage);
+        this.goForward();
+        console.log(this.state.currentPage);
+
+        // just tests
 
         return (
-            allTableData.map((rowData, idRow) => {
+            this.allTableData.map((rowData, idRow) => {
                 // pass the data with the current key to the TableRow component
-                for (let index in rowData) {
-                    return (
 
-                        <TableRow
-                            key={`rowKey${idRow}`}
-                            rowData={rowData[index].allDataBaseValues || rowData[index]}
-                            columnKey={allColumnKey}
-                            idRow={idRow}
-                            extendedContentConfig={rowData[index].extendedContentConfig}
-                            modalConfig={this.props.modalConfig}
-                            showModal={this.props.showModal}
-                            // test
-                            isExtendable={this.props.isExtendable}
-                            tableData={this.props.tableData}
-                            extendRowContent={this.props.extendRowContent}
-                        />
-                    );
-                };
-                return false;
+                    for (let index in rowData) {
+                        return (
+    
+                            <TableRow
+                                key={`rowKey${idRow}`}
+                                rowData={rowData[index].allDataBaseValues || rowData[index]}
+                                columnKey={allColumnKey}
+                                idRow={idRow}
+                                extendedContentConfig={rowData[index].extendedContentConfig}
+                                modalConfig={this.props.modalConfig}
+                                showModal={this.props.showModal}
+                                // test
+                                isExtendable={this.props.isExtendable}
+                                tableData={this.props.tableData}
+                                extendRowContent={this.props.extendRowContent}
+                            />
+                        );
+                    };
             })
         );
 
@@ -93,9 +96,9 @@ export default class Table extends Component {
 
     // set the current page + 1 and do not pass the total page
     goForward() {
-        let page = this.state.currentPage;
+        const page = {...this.state.currentPage};
 
-        if (page < this.state.totalPage) {
+        if (page < this.state.totalPages) {
             page++;
             this.setState({ currentPage: page });
         };
@@ -119,7 +122,7 @@ export default class Table extends Component {
     };
 
     goToEnd() {
-        let page = this.state.totalPage;
+        let page = this.state.totalPages;
 
         this.setState({ currentPage: page })
     };
