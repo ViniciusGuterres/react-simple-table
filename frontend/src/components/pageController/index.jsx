@@ -14,18 +14,22 @@ export default function PageController(props) {
             <FontAwesomeIcon
                 icon={faBackward}
                 style={styles.icons}
+                onClick={() => props.goInitial()}
             />
             <FontAwesomeIcon
-                icon={faAngleLeft}
+                icon={faAngleLeft} 
                 style={styles.icons}
+                onClick={() => props.goBackward()}
             />
             <FontAwesomeIcon
                 icon={faAngleRight}
                 style={styles.icons}
+                onClick={() => props.goForward()}
             />
             <FontAwesomeIcon
                 icon={faForward}
                 style={styles.icons}
+                onClick={() => props.goToEnd()}
             />
 
         </div>

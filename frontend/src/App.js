@@ -812,11 +812,6 @@ export default class UsersTable extends Component {
                                 dataColumnsConfig={
                                     [
                                         {
-                                            header: 'Id',
-                                            dataKeyRow: 'userId',
-                                            dataRowType: 'span'
-                                        },
-                                        {
                                             header: 'Nome',
                                             dataKeyRow: 'userFirstName',
                                             dataRowType: 'span'
