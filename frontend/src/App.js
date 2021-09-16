@@ -24,6 +24,7 @@ import ContentCard from './components/contentCard';
 import NavMenu from './components/navMenu';
 import Modal from './components/modal';
 import CustomMessage from './components/customMessage';
+import Header from './templates/header';
 
 export default class UsersTable extends Component {
     constructor(props) {
@@ -128,7 +129,6 @@ export default class UsersTable extends Component {
     };
 
     componentDidMount() {
-
         // get all my users data from node server
         fetch('http://localhost:3010/users/list')
             .then((res) => {
@@ -141,17 +141,17 @@ export default class UsersTable extends Component {
                 console.log(e);
             })
 
-        // get users logs
-        fetch('http://localhost:3010/logs')
-            .then((res) => {
-                res.json()
-                    .then(data => {
-                        this.setState({ allUsersLogs: data })
-                    })
-            })
-            .catch(e => {
-                console.log(e);
-            })
+        // // get users logs
+        // fetch('http://localhost:3010/logs')
+        //     .then((res) => {
+        //         res.json()
+        //             .then(data => {
+        //                 this.setState({ allUsersLogs: data })
+        //             })
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     })
     }
 
     getAllUsersData() {
@@ -608,7 +608,6 @@ export default class UsersTable extends Component {
 
     /////////////////// developing fase ////////////////////////
     getAllUsersDataFromDb() {
-
         return (
             this.state.usersDbDatas.map((user) => {
 
@@ -682,6 +681,29 @@ export default class UsersTable extends Component {
     render() {
         return (
             <>
+                <Header 
+                    links={
+                        [
+                            {
+                                title: 'Home',
+                                path: '/'
+                            },
+                            {
+                                title: 'Carros',
+                                path: '/cars'
+                            },
+                            {
+                                title: 'Historico de logs',
+                                path: '/history'
+                            },
+                            {
+                                title: 'Usuários da base de dados',
+                                path: '/db-table'
+                            }
+                        ]
+                    }
+                />
+
                 <CustomMessage
                     name='Salvo com sucesso'
                     message={this.closeMessage}

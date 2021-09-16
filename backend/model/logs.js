@@ -11,7 +11,7 @@ exports.logs = function insertUsersLogs(ip, agent, date, path) {
     });
 
     const result = {
-        err: null,
+        err: null,  
         data: null
     };
 
